@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StatDefinition" format=3 uid="uid://dcl6a6pipq14w"]
+
+[ext_resource type="Script" uid="uid://cq2nroty87vnh" path="res://scripts/stats/stat_definition.gd" id="1_b5fwa"]
+
+[resource]
+script = ExtResource("1_b5fwa")
+display_name = "Dinero"
+initial_value = 20000.0
+allow_negative = true
+metadata/_custom_type_script = "uid://cq2nroty87vnh"

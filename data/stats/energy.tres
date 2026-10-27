@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StatDefinition" format=3 uid="uid://ch8yrdolmrini"]
+
+[ext_resource type="Script" uid="uid://cq2nroty87vnh" path="res://scripts/stats/stat_definition.gd" id="1_strpg"]
+
+[resource]
+script = ExtResource("1_strpg")
+type = 1
+display_name = "Energía"
+initial_value = 100.0
+has_max_value = true
+metadata/_custom_type_script = "uid://cq2nroty87vnh"

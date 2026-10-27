@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c46panhrpye8g"]
+
+[ext_resource type="Script" uid="uid://ywo6lilepxky" path="res://scripts/main.gd" id="1_o5qli"]
+
+[node name="Main" type="Node2D" unique_id=1866105034]
+script = ExtResource("1_o5qli")
+
+[node name="Label" type="Label" parent="." unique_id=2093973905]
+offset_left = 237.0
+offset_top = 147.0
+offset_right = 388.0
+offset_bottom = 189.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "ONE MORE DAY"
+horizontal_alignment = 1
+vertical_alignment = 1
