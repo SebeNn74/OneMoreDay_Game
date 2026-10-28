@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cboxg6iymy0vu"]
+
+[ext_resource type="Script" uid="uid://hxr7qt4nfvpl" path="res://scripts/player/player.gd" id="1_dovo2"]
+[ext_resource type="Resource" uid="uid://cvelku21ijrf8" path="res://data/player/movement_config.tres" id="2_lvxji"]
+[ext_resource type="SpriteFrames" uid="uid://d3nlkt2l3o0xl" path="res://assets/sprites/player/player_sprite_frames.tres" id="3_gmlin"]
+[ext_resource type="Script" uid="uid://bjmt6ct2f6ibc" path="res://scripts/player/player_animator.gd" id="4_p47bc"]
+[ext_resource type="Script" uid="uid://46bfw8t6lhgi" path="res://scripts/player/player_state_machine.gd" id="5_75vfm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
+size = Vector2(10, 6)
+
+[node name="Player" type="CharacterBody2D" unique_id=773780192]
+motion_mode = 1
+script = ExtResource("1_dovo2")
+movement_config = ExtResource("2_lvxji")
+
+[node name="Animator" type="AnimatedSprite2D" parent="." unique_id=755340765]
+position = Vector2(0, -12)
+sprite_frames = ExtResource("3_gmlin")
+animation = &"idle_down"
+script = ExtResource("4_p47bc")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=518466264]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_r5iys")
+
+[node name="StateMachine" type="Node" parent="." unique_id=878764065]
+script = ExtResource("5_75vfm")

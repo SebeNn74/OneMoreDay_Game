@@ -13,9 +13,12 @@ Interna 640x360, ventana 1280x720, filtro de textura Nearest.
 	assets/ui                    -> iconos, marcos y fuentes (P5)
 	assets/audio/sfx             -> efectos de sonido (P5)
 	assets/audio/bgm             -> música y ambientes (P5)
-	core/                        -> Autoloads globales (P1)
+	core/
+	data/                        -> recursos configurables .tres (stats, movimiento...)                        -> Autoloads globales (P1)
 	scenes/<etapa>/              -> escenas por etapa del día
+	scripts/utils/               -> utilidades compartidas
 	scripts/simulation_bridges   -> conectores de los modelos de simulación (P1/P2)
+	tools/                       -> scripts de editor (ej. generador de SpriteFrames)
 
 ## Convenciones
 - Código, comentarios y nombres de archivo en inglés. Solo el texto visible al jugador va en español.

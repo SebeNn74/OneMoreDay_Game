@@ -1,17 +1,18 @@
 [gd_scene format=3 uid="uid://c46panhrpye8g"]
 
 [ext_resource type="Script" uid="uid://ywo6lilepxky" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://cboxg6iymy0vu" path="res://scenes/player/player.tscn" id="2_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://dae126gdgd8x4" path="res://assets/ui/pantalla_inicio.png" id="2_sugp2"]
 
 [node name="Main" type="Node2D" unique_id=1866105034]
 script = ExtResource("1_o5qli")
 
-[node name="Label" type="Label" parent="." unique_id=2093973905]
-offset_left = 237.0
-offset_top = 147.0
-offset_right = 388.0
-offset_bottom = 189.0
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
-text = "ONE MORE DAY"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1375889601]
+modulate = Color(1, 1, 1, 0.25490198)
+texture_filter = 1
+position = Vector2(320, 180)
+texture = ExtResource("2_sugp2")
+
+[node name="Player" parent="." unique_id=773780192 instance=ExtResource("2_0wfyh")]
+position = Vector2(320, 180)
+scale = Vector2(2, 2)
