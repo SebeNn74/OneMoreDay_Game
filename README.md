@@ -30,7 +30,16 @@ Interna 640x360, ventana 1280x720, filtro de textura Nearest.
 dinero=money, energía=energy, tiempo=time, victoria=victory, derrota=game_over,
 ida=commute, trabajo=work, vuelta=return
 
+## Escala visual
+- Resolución interna 640x360, un escenario por pantalla.
+- Los personajes (protagonista, NPC, hostiles) se dibujan a 16x24 y se muestran con
+  scale 2 en su nodo de sprite.
+
 ## Autoloads (core/)
 - EventBus: señales globales.
 - StatsManager: money, energy y time (configurados en data/stats/*.tres).
 - GameManager: estado general del juego.
+
+## Capas de física 2D
+1 world, 2 player, 3 interactables, 4 hostiles.
+Los nombres están en Project Settings > Layer Names > 2D Physics.

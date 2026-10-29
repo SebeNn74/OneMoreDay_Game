@@ -15,4 +15,4 @@ texture = ExtResource("2_sugp2")
 
 [node name="Player" parent="." unique_id=773780192 instance=ExtResource("2_0wfyh")]
 position = Vector2(320, 180)
-scale = Vector2(2, 2)
+collision_layer = 2
