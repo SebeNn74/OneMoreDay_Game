@@ -5,9 +5,14 @@
 [ext_resource type="SpriteFrames" uid="uid://d3nlkt2l3o0xl" path="res://assets/sprites/player/player_sprite_frames.tres" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://bjmt6ct2f6ibc" path="res://scripts/player/player_animator.gd" id="4_p47bc"]
 [ext_resource type="Script" uid="uid://46bfw8t6lhgi" path="res://scripts/player/player_state_machine.gd" id="5_75vfm"]
+[ext_resource type="Script" uid="uid://b3uvto2sb7474" path="res://scripts/interactables/interaction_detector.gd" id="6_0owmy"]
+[ext_resource type="Script" uid="uid://c58qsb07ka087" path="res://scripts/interactables/interaction_promt.gd" id="7_qek5x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(20, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ojbw0"]
+size = Vector2(24, 24)
 
 [node name="Player" type="CharacterBody2D" unique_id=773780192]
 motion_mode = 1
@@ -27,3 +32,21 @@ shape = SubResource("RectangleShape2D_r5iys")
 
 [node name="StateMachine" type="Node" parent="." unique_id=878764065]
 script = ExtResource("5_75vfm")
+
+[node name="InteractionDetector" type="Area2D" parent="." unique_id=2073024540]
+script = ExtResource("6_0owmy")
+metadata/_custom_type_script = "uid://b3uvto2sb7474"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector" unique_id=739248011]
+shape = SubResource("RectangleShape2D_ojbw0")
+
+[node name="InteractionPrompt" type="Node2D" parent="." unique_id=450143401]
+script = ExtResource("7_qek5x")
+metadata/_custom_type_script = "uid://c58qsb07ka087"
+
+[node name="Label" type="Label" parent="InteractionPrompt" unique_id=1414374700]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+text = "[E]"

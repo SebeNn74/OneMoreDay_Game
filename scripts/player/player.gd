@@ -11,13 +11,18 @@ var facing_direction: Vector2 = Vector2.DOWN
 
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var animator: PlayerAnimator = $Animator
+@onready var interaction_detector: InteractionDetector = $InteractionDetector
+@onready var interaction_prompt: InteractionPrompt = $InteractionPrompt
 
 
 func _ready() -> void:
 	assert(movement_config != null, "Player: movement_config is not assigned.")
 	state_machine.state_changed.connect(animator.on_state_changed)
-	facing_changed.connect(animator.on_facing_changed)
 	animator.one_shot_finished.connect(state_machine.finish_one_shot)
+	facing_changed.connect(animator.on_facing_changed)
+	facing_changed.connect(interaction_detector.face)
+	interaction_detector.focus_changed.connect(interaction_prompt.on_focus_changed)
+	interaction_detector.face(facing_direction)
 
 
 func _physics_process(_delta: float) -> void:
@@ -30,9 +35,15 @@ func _physics_process(_delta: float) -> void:
 	_move(input_direction)
 
 
-# TEMPORARY: P1-06 will replace this with the interaction detector.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(InputActions.INTERACT):
+		_try_interact()
+
+
+func _try_interact() -> void:
+	if state_machine.is_locked():
+		return
+	if interaction_detector.interact(self):
 		state_machine.request_one_shot(PlayerState.Type.INTERACT)
 
 

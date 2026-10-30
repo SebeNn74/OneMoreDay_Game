@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://dbixaemiv65ma"]
+
+[ext_resource type="FontFile" uid="uid://818gqshrfvv" path="res://assets/ui/fonts/PixelOperator.ttf" id="1_cstew"]
+
+[resource]
+default_font = ExtResource("1_cstew")
+default_font_size = 16
