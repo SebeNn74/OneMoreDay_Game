@@ -20,6 +20,7 @@ config/icon="res://assets/sprites/icon.svg"
 EventBus="*uid://drbafjv4ueo34"
 StatsManager="*uid://c1funmyswudh"
 GameManager="*uid://dg4fooh6rd2r7"
+Simulation="*res://core/simulation.gd"
 
 [display]
 

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DynamicsConfig" format=3]
+
+[ext_resource type="Script" path="res://scripts/simulation/dynamics_config.gd" id="1_dynamics"]
+
+[resource]
+script = ExtResource("1_dynamics")
+scenario_length = 640.0
+base_energy_cost = 5.0
+base_time_cost = 6.0
+run_drain_factor = 1.8
+fatigue_threshold = 30.0
+min_speed_factor = 0.4
+rest_rate = 0.15
