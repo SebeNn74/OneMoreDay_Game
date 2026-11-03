@@ -1,3 +1,4 @@
+@tool
 class_name PhysicsLayers
 extends RefCounted
 ## Bit masks of the 2D physics layers.

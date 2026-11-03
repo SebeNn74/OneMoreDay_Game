@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bdslmng3fjq81"]
+
+[ext_resource type="Script" uid="uid://wk657sqduih" path="res://scripts/levels/base_level.gd" id="1_oox4p"]
+[ext_resource type="TileSet" uid="uid://diav1fa6wkeu5" path="res://assets/sprites/environment/placeholder_tileset.tres" id="2_k2uud"]
+[ext_resource type="PackedScene" uid="uid://cboxg6iymy0vu" path="res://scenes/player/player.tscn" id="3_3aqo6"]
+[ext_resource type="Script" uid="uid://cvccfejmbf5jt" path="res://scripts/levels/exit_zone.gd" id="4_rlct4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
+size = Vector2(40, 80)
+
+[node name="BaseLevel" type="Node2D" unique_id=1642240116]
+script = ExtResource("1_oox4p")
+
+[node name="Ground" type="TileMapLayer" parent="." unique_id=679420288]
+tile_set = ExtResource("2_k2uud")
+
+[node name="Walls" type="TileMapLayer" parent="." unique_id=774723601]
+tile_set = ExtResource("2_k2uud")
+
+[node name="Decoration" type="TileMapLayer" parent="." unique_id=1930040358]
+tile_set = ExtResource("2_k2uud")
+
+[node name="Entities" type="Node2D" parent="." unique_id=729001874]
+y_sort_enabled = true
+
+[node name="Player" parent="Entities" unique_id=773780192 instance=ExtResource("3_3aqo6")]
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=415891508]
+position = Vector2(320, 180)
+
+[node name="ExitZone" type="Area2D" parent="." unique_id=1254900974]
+position = Vector2(600, 180)
+script = ExtResource("4_rlct4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=1434922719]
+shape = SubResource("RectangleShape2D_r5iys")
