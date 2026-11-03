@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dfod5mpesxiwq"]
+
+[ext_resource type="Script" uid="uid://cuv3wf5hbl1qk" path="res://scripts/ui/end_screen.gd" id="1_q4f6v"]
+
+[node name="DefeatScreen" type="Control" unique_id=116849281]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q4f6v")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=567230538]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.020182842, 0.1993232, 0.21401146, 1)
+
+[node name="Label" type="Label" parent="." unique_id=1045385375]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "No lograste completar el día.
+
+Pulsa E para intentarlo de nuevo"
+horizontal_alignment = 1
+vertical_alignment = 1

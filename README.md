@@ -43,3 +43,10 @@ ida=commute, trabajo=work, vuelta=return
 ## Capas de física 2D
 1 world, 2 player, 3 interactables, 4 hostiles.
 Los nombres están en Project Settings > Layer Names > 2D Physics.
+
+## Flujo del día
+- El orden de escenas se define en data/levels/day_sequence.tres (DaySequence).
+- SceneManager (Autoload): start_day(), finish_day(victory), get_current_step().
+- Cada nivel emite EventBus.level_completed desde su ExitZone.
+- Las escenas de nivel son heredadas de base_level.tscn. Se generan con
+  tools/generate_level_scenes.gd (no sobrescribe las existentes).

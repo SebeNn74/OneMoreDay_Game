@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DaySequence" format=3 uid="uid://cisi8tsavngty"]
+
+[ext_resource type="Script" uid="uid://c8dgngmg0bvcj" path="res://scripts/levels/day_sequence.gd" id="1_1y1rd"]
+
+[resource]
+script = ExtResource("1_1y1rd")
+home_scene = "uid://bmql7q6py8cvu"
+commute_scenes = Array[String](["uid://bkad0lb20nuyc", "uid://oe54rjtrgsti", "uid://y2eqnvnm2iue"])
+work_scenes = Array[String](["uid://dijhsvu5y87gm", "uid://dlskdepx5dyiw", "uid://jjxs1sgsgg4i"])
+return_scenes = Array[String](["uid://cpu3lh42gyyrx", "uid://c3e1k6dpol88t", "uid://b61mm23vjo7mm"])
+victory_scene = "uid://boc6on3r1ss0m"
+defeat_scene = "uid://dfod5mpesxiwq"
+metadata/_custom_type_script = "uid://c8dgngmg0bvcj"

@@ -20,3 +20,9 @@ signal stat_changed(type: StatDefinition.Type, new_value: float, change: float)
 ## Emitted once when a stat becomes depleted (e.g. energy reaches 0).
 @warning_ignore("unused_signal")
 signal stat_depleted(type: StatDefinition.Type)
+
+# --- Day flow ---
+
+## Emitted after a day step's scene is loaded and visible.
+@warning_ignore("unused_signal")
+signal day_step_started(step: DayStep)

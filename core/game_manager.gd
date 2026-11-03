@@ -1,7 +1,7 @@
 extends Node
 ## Autoload. Holds the global game state (menu, playing, paused...)..).
 
-enum State { MENU, PLAYING, PAUSED, GAMEOVER, VICTORY }
+enum State { MENU, PLAYING, PAUSED, GAME_OVER, VICTORY }
 
 signal state_changed(new_state: State, previous_state: State)
 
