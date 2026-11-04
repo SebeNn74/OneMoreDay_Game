@@ -12,6 +12,12 @@ extends Node2D
 func _ready() -> void:
 	_player.global_position = _spawn_point.global_position
 	_exit_zone.player_entered.connect(_on_exit_reached)
+	_ensure_playing_state()
+
+
+func _ensure_playing_state() -> void:
+	if GameManager.current_state == GameState.Type.MENU:
+		GameManager.change_state(GameState.Type.PLAYING)
 
 
 func _on_exit_reached() -> void:

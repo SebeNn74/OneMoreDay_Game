@@ -1,44 +1,19 @@
 [gd_scene format=3 uid="uid://bkad0lb20nuyc"]
 
-[ext_resource type="Script" uid="uid://wk657sqduih" path="res://scripts/levels/base_level.gd" id="1_tfu5p"]
-[ext_resource type="TileSet" uid="uid://diav1fa6wkeu5" path="res://assets/sprites/environment/placeholder_tileset.tres" id="2_mcgbo"]
-[ext_resource type="PackedScene" uid="uid://cboxg6iymy0vu" path="res://scenes/player/player.tscn" id="3_b1jxt"]
-[ext_resource type="Script" uid="uid://cvccfejmbf5jt" path="res://scripts/levels/exit_zone.gd" id="4_k8igx"]
+[ext_resource type="PackedScene" uid="uid://bdslmng3fjq81" path="res://scenes/base_level.tscn" id="1_imccu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
-size = Vector2(40, 80)
+[node name="Commute01" unique_id=1642240116 instance=ExtResource("1_imccu")]
 
-[node name="Commute01" type="Node2D" unique_id=1642240116]
-script = ExtResource("1_tfu5p")
+[node name="Background" type="CanvasLayer" parent="." index="0" unique_id=1964427042]
+layer = -1
 
-[node name="Background" type="ColorRect" parent="." unique_id=2039283771]
+[node name="ColorRect" type="ColorRect" parent="Background" index="0" unique_id=1643520692]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.9618383, 0.8848426, 0.4880013, 1)
+color = Color(0.9892766, 0.8486413, 0.5476459, 1)
 
-[node name="Ground" type="TileMapLayer" parent="." unique_id=679420288]
-tile_set = ExtResource("2_mcgbo")
-
-[node name="Walls" type="TileMapLayer" parent="." unique_id=774723601]
-tile_set = ExtResource("2_mcgbo")
-
-[node name="Decoration" type="TileMapLayer" parent="." unique_id=1930040358]
-tile_set = ExtResource("2_mcgbo")
-
-[node name="Entities" type="Node2D" parent="." unique_id=729001874]
-y_sort_enabled = true
-
-[node name="Player" parent="Entities" unique_id=773780192 instance=ExtResource("3_b1jxt")]
-
-[node name="SpawnPoint" type="Marker2D" parent="." unique_id=415891508]
-position = Vector2(320, 180)
-
-[node name="ExitZone" type="Area2D" parent="." unique_id=1254900974]
-position = Vector2(600, 180)
-script = ExtResource("4_k8igx")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=1434922719]
-shape = SubResource("RectangleShape2D_r5iys")
+[node name="PauseMenu" parent="." index="7" unique_id=175858098]
+visible = false

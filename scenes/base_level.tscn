@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://diav1fa6wkeu5" path="res://assets/sprites/environment/placeholder_tileset.tres" id="2_k2uud"]
 [ext_resource type="PackedScene" uid="uid://cboxg6iymy0vu" path="res://scenes/player/player.tscn" id="3_3aqo6"]
 [ext_resource type="Script" uid="uid://cvccfejmbf5jt" path="res://scripts/levels/exit_zone.gd" id="4_rlct4"]
+[ext_resource type="PackedScene" uid="uid://be1kitwb87yy1" path="res://scenes/global/pause_menu.tscn" id="5_k2uud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(40, 80)
@@ -34,3 +35,5 @@ script = ExtResource("4_rlct4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=1434922719]
 shape = SubResource("RectangleShape2D_r5iys")
+
+[node name="PauseMenu" parent="." unique_id=175858098 instance=ExtResource("5_k2uud")]

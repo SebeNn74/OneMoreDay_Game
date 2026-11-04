@@ -1,9 +1,10 @@
 extends Node
 ## Autoload. Runs the day: loads each step of the DaySequence in order,
-## advances when a level is completed, and handles victory/defeat screens.
+## advances when a level is completed, and handles end screens and the main menu.
 
 const DAY_SEQUENCE: DaySequence = preload("res://data/levels/day_sequence.tres")
 const TRANSITION_SCENE: PackedScene = preload("res://scenes/global/scene_transition.tscn")
+const MAIN_MENU_SCENE: String = "res://scenes/global/main_menu.tscn"
 
 var _steps: Array[DayStep] = []
 var _current_index: int = -1  # -1 means no day is running.
@@ -23,7 +24,7 @@ func start_day() -> void:
 		return
 	StatsManager.reset_all()
 	_steps = DAY_SEQUENCE.build_steps()
-	GameManager.change_state(GameManager.State.PLAYING)
+	GameManager.change_state(GameState.Type.PLAYING)
 	_go_to_step(0)
 
 
@@ -32,8 +33,17 @@ func finish_day(victory: bool) -> void:
 	if _is_changing_scene:
 		return
 	_current_index = -1
-	GameManager.change_state(GameManager.State.VICTORY if victory else GameManager.State.GAME_OVER)
+	GameManager.change_state(GameState.Type.VICTORY if victory else GameState.Type.GAME_OVER)
 	_change_scene(DAY_SEQUENCE.victory_scene if victory else DAY_SEQUENCE.defeat_scene)
+
+
+## Abandons the current day and goes back to the main menu.
+func return_to_menu() -> void:
+	if _is_changing_scene:
+		return
+	_current_index = -1
+	GameManager.change_state(GameState.Type.MENU)
+	_change_scene(MAIN_MENU_SCENE)
 
 
 func is_day_active() -> bool:
