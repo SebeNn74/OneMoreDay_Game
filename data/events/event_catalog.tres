@@ -1,0 +1,238 @@
+[gd_resource type="Resource" script_class="EventCatalog" format=3]
+
+[ext_resource type="Script" path="res://scripts/simulation/event_catalog.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scripts/simulation/game_event.gd" id="2_event"]
+
+[sub_resource type="Resource" id="EV_01"]
+script = ExtResource("2_event")
+id = "EV-01"
+stage = 0
+text = "Mamá te escribe: «Hoy hay almuerzo en casa, mijo». Sonríes."
+money = 0.0
+energy = 5.0
+time = 0.0
+weight = 3
+
+[sub_resource type="Resource" id="EV_02"]
+script = ExtResource("2_event")
+id = "EV-02"
+stage = 0
+text = "El banco te cobra la cuota de manejo de la tarjeta."
+money = -3.0
+energy = 0.0
+time = 0.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_03"]
+script = ExtResource("2_event")
+id = "EV-03"
+stage = 0
+text = "Tu hermana escribe: «Hoy yo pago el almuerzo». Respiras aliviado."
+money = 5.0
+energy = 0.0
+time = 0.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_04"]
+script = ExtResource("2_event")
+id = "EV-04"
+stage = 0
+text = "Te quedaste dormido un rato, pero alcanzas a tomarte un tinto caliente."
+money = 0.0
+energy = 5.0
+time = -5.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_05"]
+script = ExtResource("2_event")
+id = "EV-05"
+stage = 0
+text = "Cortan el agua en el barrio y te alistas a la carrera."
+money = 0.0
+energy = -5.0
+time = -5.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_06"]
+script = ExtResource("2_event")
+id = "EV-06"
+stage = 1
+text = "Trancón en la avenida: el bus avanza más lento que a pie."
+money = 0.0
+energy = 0.0
+time = -10.0
+weight = 3
+
+[sub_resource type="Resource" id="EV_07"]
+script = ExtResource("2_event")
+id = "EV-07"
+stage = 1
+text = "El bus va repleto. Todo el trayecto de pie y apretado."
+money = 0.0
+energy = -10.0
+time = 0.0
+weight = 3
+
+[sub_resource type="Resource" id="EV_08"]
+script = ExtResource("2_event")
+id = "EV-08"
+stage = 1
+text = "Ves a alguien sospechoso en la parada y das la vuelta para evitarlo."
+money = 0.0
+energy = -5.0
+time = -5.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_09"]
+script = ExtResource("2_event")
+id = "EV-09"
+stage = 1
+text = "Encuentras un billete de $5.000 doblado en el bolsillo del pantalón."
+money = 5.0
+energy = 0.0
+time = 0.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_10"]
+script = ExtResource("2_event")
+id = "EV-10"
+stage = 1
+text = "Un vecino te adelanta en moto: llegas rápido, pero le das para gasolina."
+money = -2.0
+energy = 0.0
+time = 10.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_11"]
+script = ExtResource("2_event")
+id = "EV-11"
+stage = 1
+text = "Un señor te cede el puesto en la buseta. Llegas descansado."
+money = 0.0
+energy = 10.0
+time = 0.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_12"]
+script = ExtResource("2_event")
+id = "EV-12"
+stage = 2
+text = "El jefe pide «un favorcito»: quedarte un rato más después de la hora."
+money = 0.0
+energy = -10.0
+time = -10.0
+weight = 3
+
+[sub_resource type="Resource" id="EV_13"]
+script = ExtResource("2_event")
+id = "EV-13"
+stage = 2
+text = "Se cayó el sistema y toca repetir el informe desde cero."
+money = 0.0
+energy = -5.0
+time = -10.0
+weight = 3
+
+[sub_resource type="Resource" id="EV_14"]
+script = ExtResource("2_event")
+id = "EV-14"
+stage = 2
+text = "Tu jefe reconoce tu trabajo delante del equipo. Te sube el ánimo."
+money = 0.0
+energy = 10.0
+time = 0.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_15"]
+script = ExtResource("2_event")
+id = "EV-15"
+stage = 2
+text = "Pausa para un tinto con un compañero: te recargas, pero pierdes un rato."
+money = 0.0
+energy = 10.0
+time = -5.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_16"]
+script = ExtResource("2_event")
+id = "EV-16"
+stage = 2
+text = "Te ofrecen cubrir un turno extra: pagan bien, pero terminas agotado."
+money = 10.0
+energy = -15.0
+time = -5.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_17"]
+script = ExtResource("2_event")
+id = "EV-17"
+stage = 2
+text = "Llega el recibo del agua: toca pagar $5.000 hoy mismo."
+money = -5.0
+energy = 0.0
+time = 0.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_18"]
+script = ExtResource("2_event")
+id = "EV-18"
+stage = 2
+text = "Almuerzo corriente con los compañeros: comes bien, pero se va el tiempo."
+money = -3.0
+energy = 15.0
+time = -5.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_19"]
+script = ExtResource("2_event")
+id = "EV-19"
+stage = 3
+text = "Paro de transporte: toca buscar otra ruta para volver."
+money = 0.0
+energy = -5.0
+time = -15.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_20"]
+script = ExtResource("2_event")
+id = "EV-20"
+stage = 3
+text = "En el bus alguien te hurta parte del dinero del bolsillo."
+money = -5.0
+energy = 0.0
+time = 0.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_21"]
+script = ExtResource("2_event")
+id = "EV-21"
+stage = 3
+text = "Una amiga te llama y te hace reír. El cansancio pesa menos."
+money = 0.0
+energy = 10.0
+time = 0.0
+weight = 3
+
+[sub_resource type="Resource" id="EV_22"]
+script = ExtResource("2_event")
+id = "EV-22"
+stage = 3
+text = "Aguacero fuerte: pagas un taxi compartido para no empaparte."
+money = -5.0
+energy = 5.0
+time = 10.0
+weight = 2
+
+[sub_resource type="Resource" id="EV_23"]
+script = ExtResource("2_event")
+id = "EV-23"
+stage = 3
+text = "Un amigo te devuelve los $10.000 que te debía desde hace meses."
+money = 10.0
+energy = 0.0
+time = 0.0
+weight = 2
+
+[resource]
+script = ExtResource("1_catalog")
+events = Array[ExtResource("2_event")]([SubResource("EV_01"), SubResource("EV_02"), SubResource("EV_03"), SubResource("EV_04"), SubResource("EV_05"), SubResource("EV_06"), SubResource("EV_07"), SubResource("EV_08"), SubResource("EV_09"), SubResource("EV_10"), SubResource("EV_11"), SubResource("EV_12"), SubResource("EV_13"), SubResource("EV_14"), SubResource("EV_15"), SubResource("EV_16"), SubResource("EV_17"), SubResource("EV_18"), SubResource("EV_19"), SubResource("EV_20"), SubResource("EV_21"), SubResource("EV_22"), SubResource("EV_23")])

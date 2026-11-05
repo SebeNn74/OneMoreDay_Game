@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="QueueConfig" format=3]
+
+[ext_resource type="Script" path="res://scripts/simulation/queue_config.gd" id="1_queue"]
+
+[resource]
+script = ExtResource("1_queue")
+display_name = "Paradero"
+arrival_rate = 0.8
+service_rate = 1.0

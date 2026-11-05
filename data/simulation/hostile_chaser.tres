@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="HostileConfig" format=3]
+
+[ext_resource type="Script" path="res://scripts/simulation/hostile_config.gd" id="1_hostile"]
+[ext_resource type="Resource" path="res://data/simulation/walk_symmetric.tres" id="2_walk"]
+
+[resource]
+script = ExtResource("1_hostile")
+chases = true
+vision_radius = 1
+chase_probability = 0.6
+lose_margin = 2
+patrol = ExtResource("2_walk")
