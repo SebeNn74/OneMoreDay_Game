@@ -26,3 +26,7 @@ signal stat_depleted(type: StatDefinition.Type)
 ## Emitted after a day step's scene is loaded and visible.
 @warning_ignore("unused_signal")
 signal day_step_started(step: DayStep)
+
+## Emitted once when the day ends, before the end screen loads.
+@warning_ignore("unused_signal")
+signal day_finished(result: DayResult)

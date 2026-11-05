@@ -7,4 +7,5 @@ script = ExtResource("1_b5fwa")
 display_name = "Dinero"
 initial_value = 20000.0
 allow_negative = true
+depletion_message = "Hoy la plata no alcanzó. Entre pasajes, gastos e imprevistos, el bolsillo quedó vacío antes de terminar el camino. Tocó pedir fiado y volver a intentarlo mañana."
 metadata/_custom_type_script = "uid://cq2nroty87vnh"

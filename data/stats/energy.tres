@@ -8,4 +8,5 @@ type = 1
 display_name = "Energía"
 initial_value = 100.0
 has_max_value = true
+depletion_message = "El cuerpo dijo basta. Después de tantas filas, escaleras y esperas, las piernas ya no respondieron. Te sentaste un momento y el día siguió sin ti."
 metadata/_custom_type_script = "uid://cq2nroty87vnh"

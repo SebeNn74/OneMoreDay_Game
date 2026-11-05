@@ -18,6 +18,10 @@ enum Type { MONEY, ENERGY, TIME }
 @export var has_max_value: bool = false
 @export var max_value: float = 100.0
 
+@export_group("Defeat")
+## Message shown on the defeat screen when this stat runs out.
+@export_multiline var depletion_message: String = ""
+
 
 ## Applies this stat's limits to a raw value.
 func clamp_value(raw_value: float) -> float:

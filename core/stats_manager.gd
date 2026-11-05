@@ -46,6 +46,14 @@ func reset_all() -> void:
 		EventBus.stat_changed.emit(type, stat.value, 0.0)
 
 
+## Returns the definition of the first depleted stat, or null if all are healthy.
+func get_depleted_stat() -> StatDefinition:
+	for stat: Stat in _stats.values():
+		if stat.is_depleted():
+			return stat.definition
+	return null
+
+
 func _get_stat(type: StatDefinition.Type) -> Stat:
 	assert(_stats.has(type), "Unknown stat type: %s" % type)
 	return _stats[type]

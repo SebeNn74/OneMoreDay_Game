@@ -7,4 +7,5 @@ script = ExtResource("1_yasvr")
 type = 2
 display_name = "Tiempo"
 initial_value = 100.0
+depletion_message = "El reloj ganó. Entre el trancón y los retrasos, el día se acabó antes de que llegaras. Mañana habrá que salir más temprano."
 metadata/_custom_type_script = "uid://cq2nroty87vnh"
