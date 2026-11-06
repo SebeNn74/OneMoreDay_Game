@@ -50,3 +50,13 @@ Los nombres están en Project Settings > Layer Names > 2D Physics.
 - Cada nivel emite EventBus.level_completed desde su ExitZone.
 - Las escenas de nivel son heredadas de base_level.tscn. Se generan con
   tools/generate_level_scenes.gd (no sobrescribe las existentes).
+
+## Unidades
+- Dinero: 1 unidad = $1.000 COP (inicio: 30 = $30.000). La interfaz muestra el valor x 1000.
+- Energía y tiempo: 0-100.
+- Derrota: cualquier recurso llega a 0.
+
+## Simulación (P2)
+- Autoload Simulation (core/simulation.gd): única entrada a los 5 modelos.
+- Modelos en scripts/simulation/, parámetros en data/simulation/ y data/events/.
+- Prueba: godot --headless --path . -s res://tools/simulation_self_test.gd

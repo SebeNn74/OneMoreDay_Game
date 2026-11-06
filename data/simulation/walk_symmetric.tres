@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RandomWalkConfig" format=3]
+
+[ext_resource type="Script" path="res://scripts/simulation/random_walk_config.gd" id="1_walk"]
+
+[resource]
+script = ExtResource("1_walk")
+up = 0.25
+down = 0.25
+left = 0.25
+right = 0.25

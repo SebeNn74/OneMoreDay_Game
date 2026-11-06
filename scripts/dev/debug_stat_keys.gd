@@ -3,7 +3,7 @@ extends Node
 ## 1 / 2 / 3 = drain money / energy / time.  Shift + 1 / 2 / 3 = restore.
 
 const BINDINGS: Dictionary = {
-	KEY_1: { type = StatDefinition.Type.MONEY, step = 5000.0 },
+	KEY_1: { type = StatDefinition.Type.MONEY, step = 5.0 },
 	KEY_2: { type = StatDefinition.Type.ENERGY, step = 25.0 },
 	KEY_3: { type = StatDefinition.Type.TIME, step = 25.0 },
 }
