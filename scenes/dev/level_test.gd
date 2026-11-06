@@ -1,6 +1,8 @@
 extends BaseLevel
 ## TEMPORARY test level.
 
+const BUS_STOP_QUEUE: QueueConfig = preload("res://data/simulation/queue_bus_stop.tres")
+
 
 func _ready() -> void:
 	super()
@@ -17,3 +19,16 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			SceneManager.finish_day(true)
 		KEY_K:
 			SceneManager.finish_day(false)
+		KEY_Q:
+			Simulation.queue_wait(BUS_STOP_QUEUE)
+		KEY_M:
+			_draw_and_apply_event(GameEvent.Stage.COMMUTE)
+			
+
+func _draw_and_apply_event(stage: GameEvent.Stage) -> void:
+	var event: GameEvent = Simulation.draw_event(stage)
+	if event == null:
+		print("No events left for this stage")
+		return
+	print(event.text)
+	Simulation.apply_event(event)

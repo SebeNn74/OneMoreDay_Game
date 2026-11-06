@@ -94,7 +94,7 @@ func speed_factor() -> float:
 
 ## Model 5. Euler integration of the continuous flows, one step per physics frame.
 func _physics_process(delta: float) -> void:
-	if not _player_reporting or GameManager.current_state != GameManager.State.PLAYING:
+	if not _player_reporting or GameManager.current_state != GameState.Type.PLAYING:
 		return
 	var energy: float = StatsManager.get_value(StatDefinition.Type.ENERGY)
 	var max_energy: float = StatsManager.get_definition(StatDefinition.Type.ENERGY).max_value

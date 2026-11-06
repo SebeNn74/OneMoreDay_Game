@@ -30,6 +30,7 @@ func start_day() -> void:
 	last_result = null
 	_pending_defeat_stat = null
 	StatsManager.reset_all()
+	Simulation.start_day()
 	_steps = DAY_SEQUENCE.build_steps()
 	GameManager.change_state(GameState.Type.PLAYING)
 	_go_to_step(0)
