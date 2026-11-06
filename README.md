@@ -60,3 +60,9 @@ Los nombres están en Project Settings > Layer Names > 2D Physics.
 - Autoload Simulation (core/simulation.gd): única entrada a los 5 modelos.
 - Modelos en scripts/simulation/, parámetros en data/simulation/ y data/events/.
 - Prueba: godot --headless --path . -s res://tools/simulation_self_test.gd
+
+## Dinámica de recursos (modelo 5)
+- PlayerSimulationBridge (hijo de Player) reporta la actividad a Simulation cada frame y aplica el factor de fatiga a Player.speed_multiplier.
+- Simulation solo aplica flujos en frames donde el jugador reportó, con flows_enabled y con el estado PLAYING. No hay flujos en fundidos, pausa ni menús.
+- BaseLevel.consumes_resources = false para niveles sin consumo (la casa).
+- Player.is_controllable() es el único punto donde se bloquea al jugador.

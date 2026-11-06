@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://46bfw8t6lhgi" path="res://scripts/player/player_state_machine.gd" id="5_75vfm"]
 [ext_resource type="Script" uid="uid://b3uvto2sb7474" path="res://scripts/interactables/interaction_detector.gd" id="6_0owmy"]
 [ext_resource type="Script" uid="uid://c58qsb07ka087" path="res://scripts/interactables/interaction_promt.gd" id="7_qek5x"]
+[ext_resource type="Script" uid="uid://cuispyc4vhwxd" path="res://scripts/simulation_bridges/player_simulation_bridge.gd" id="8_qek5x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(20, 12)
@@ -51,3 +52,6 @@ offset_bottom = 23.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 2
 text = "[E]"
+
+[node name="SimulationBridge" type="Node" parent="." unique_id=1190451921]
+script = ExtResource("8_qek5x")

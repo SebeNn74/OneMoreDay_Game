@@ -6,8 +6,10 @@ signal facing_changed(new_direction: Vector2)
 
 @export var movement_config: MovementConfig
 
-## Cardinal direction the player is facing. Read by the interaction detector.
+## Cardinal direction the player is facing.
 var facing_direction: Vector2 = Vector2.DOWN
+## Scales the movement speed. Written by PlayerSimulationBridge.
+var speed_multiplier: float = 1.0
 
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var animator: PlayerAnimator = $Animator
@@ -30,9 +32,13 @@ func _physics_process(_delta: float) -> void:
 	_update_facing_direction(input_direction)
 	state_machine.update_locomotion(
 		not input_direction.is_zero_approx(),
-		Input.is_action_pressed(InputActions.RUN)
+		_is_run_requested()
 	)
 	_move(input_direction)
+
+
+func is_controllable() -> bool:
+	return not SceneManager.is_transitioning()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -41,19 +47,25 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _try_interact() -> void:
-	if state_machine.is_locked():
+	if not is_controllable() or state_machine.is_locked():
 		return
 	if interaction_detector.interact(self):
 		state_machine.request_one_shot(PlayerState.Type.INTERACT)
 
 
 func _read_input_direction() -> Vector2:
+	if not is_controllable():
+		return Vector2.ZERO
 	return Input.get_vector(
 		InputActions.MOVE_LEFT,
 		InputActions.MOVE_RIGHT,
 		InputActions.MOVE_UP,
 		InputActions.MOVE_DOWN
 	)
+
+
+func _is_run_requested() -> bool:
+	return is_controllable() and Input.is_action_pressed(InputActions.RUN)
 
 
 func _move(direction: Vector2) -> void:
@@ -65,9 +77,9 @@ func _move(direction: Vector2) -> void:
 func _get_current_speed() -> float:
 	match state_machine.current_state:
 		PlayerState.Type.WALK:
-			return movement_config.walk_speed
+			return movement_config.walk_speed * speed_multiplier
 		PlayerState.Type.RUN:
-			return movement_config.run_speed
+			return movement_config.run_speed * speed_multiplier
 	return 0.0
 
 

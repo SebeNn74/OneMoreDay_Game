@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dae126gdgd8x4" path="res://assets/ui/pantalla_inicio.png" id="2_mqg2p"]
 
 [node name="Home01" unique_id=1642240116 instance=ExtResource("1_dgfwj")]
+consumes_resources = false
 
 [node name="Background" type="Sprite2D" parent="." index="0" unique_id=707725208]
 modulate = Color(1, 1, 1, 0.25490198)

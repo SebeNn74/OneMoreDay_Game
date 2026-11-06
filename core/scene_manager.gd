@@ -128,3 +128,6 @@ func _change_scene(path: String) -> void:
 
 	await _transition.fade_in()
 	_is_changing_scene = false
+
+func is_transitioning() -> bool:
+	return _is_changing_scene

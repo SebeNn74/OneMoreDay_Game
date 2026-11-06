@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cvccfejmbf5jt" path="res://scripts/levels/exit_zone.gd" id="4_rlct4"]
 [ext_resource type="PackedScene" uid="uid://be1kitwb87yy1" path="res://scenes/global/pause_menu.tscn" id="5_k2uud"]
 [ext_resource type="Script" uid="uid://t2gmkc4xebop" path="res://scripts/dev/debug_stat_keys.gd" id="6_3aqo6"]
+[ext_resource type="Script" uid="uid://di3kybjyefcxg" path="res://scripts/dev/debug_stats_overlay.gd" id="7_rlct4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(40, 80)
@@ -28,7 +29,7 @@ y_sort_enabled = true
 [node name="Player" parent="Entities" unique_id=773780192 instance=ExtResource("3_3aqo6")]
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=415891508]
-position = Vector2(320, 180)
+position = Vector2(50, 180)
 
 [node name="ExitZone" type="Area2D" parent="." unique_id=1254900974]
 position = Vector2(600, 180)
@@ -37,7 +38,10 @@ script = ExtResource("4_rlct4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=1434922719]
 shape = SubResource("RectangleShape2D_r5iys")
 
-[node name="PauseMenu" parent="." unique_id=175858098 instance=ExtResource("5_k2uud")]
-
 [node name="DebugStatKeys" type="Node" parent="." unique_id=1363448651]
 script = ExtResource("6_3aqo6")
+
+[node name="DebugStatsOverlay" type="CanvasLayer" parent="." unique_id=872636671]
+script = ExtResource("7_rlct4")
+
+[node name="PauseMenu" parent="." unique_id=175858098 instance=ExtResource("5_k2uud")]

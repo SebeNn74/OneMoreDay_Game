@@ -1,7 +1,6 @@
 class_name Lcg
 extends RefCounted
-## Linear congruential generator of Taller 1 (punto 3). Port of simulation_standalone/prng.py:
-## the same seed gives exactly the same sequence as the Python models.
+## Linear congruential generator. 
 ## X(n+1) = (A * X(n) + C) mod M, R = X / (M - 1) truncated to five decimals.
 ## A * X < 2^53, so the product fits in a GDScript int (64 bits).
 
@@ -20,7 +19,6 @@ func _init(seed_value: int) -> void:
 ## Next R ~ U[0, 1].
 func next() -> float:
 	state = (A * state + C) % M
-	# Same normalisation as generadores.py: even modulus -> divide by M - 1, truncate.
 	@warning_ignore("integer_division")
 	return float(state * _DECIMALS_SCALE / (M - 1)) / _DECIMALS_SCALE
 

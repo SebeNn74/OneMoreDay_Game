@@ -14,6 +14,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.98937523, 0.7917869, 0.54781777, 1)
-
-[node name="PauseMenu" parent="." index="7" unique_id=175858098]
-visible = false

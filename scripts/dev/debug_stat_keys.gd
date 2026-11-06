@@ -2,6 +2,8 @@ extends Node
 ## Debug-only hotkeys to change stats while playing. Removed in non-debug builds.
 ## 1 / 2 / 3 = drain money / energy / time.  Shift + 1 / 2 / 3 = restore.
 
+const MIN_PRINTED_CHANGE: float = 0.5
+
 const BINDINGS: Dictionary = {
 	KEY_1: { type = StatDefinition.Type.MONEY, step = 5.0 },
 	KEY_2: { type = StatDefinition.Type.ENERGY, step = 25.0 },
@@ -29,6 +31,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func _on_stat_changed(type: StatDefinition.Type, new_value: float, change: float) -> void:
-	if is_zero_approx(change):
+	if absf(change) < MIN_PRINTED_CHANGE:
 		return
 	print("[Debug] %s = %s (%+.0f)" % [StatDefinition.Type.keys()[type], new_value, change])

@@ -32,9 +32,10 @@ var dynamics: ResourceDynamics
 var player_activity: ResourceDynamics.Activity = ResourceDynamics.Activity.IDLE
 
 var _event_picker: EventPicker
-# The flows only run once the player reports its activity, so scenes without an integrated
-# player keep their current behaviour.
+# True when the player reported its activity during the last frame.
 var _player_reporting: bool = false
+## Level switch for the continuous flows.
+var flows_enabled: bool = true
 
 
 func _ready() -> void:
@@ -93,8 +94,11 @@ func speed_factor() -> float:
 
 
 ## Model 5. Euler integration of the continuous flows, one step per physics frame.
+## Runs only in frames where the player reported its activity.
 func _physics_process(delta: float) -> void:
-	if not _player_reporting or GameManager.current_state != GameState.Type.PLAYING:
+	var player_reported: bool = _player_reporting
+	_player_reporting = false  # The player must report again every frame.
+	if not player_reported or not flows_enabled or GameManager.current_state != GameState.Type.PLAYING:
 		return
 	var energy: float = StatsManager.get_value(StatDefinition.Type.ENERGY)
 	var max_energy: float = StatsManager.get_definition(StatDefinition.Type.ENERGY).max_value
