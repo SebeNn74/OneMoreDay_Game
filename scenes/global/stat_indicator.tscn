@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dwvluhjotdubg"]
+
+[ext_resource type="Script" uid="uid://bqogperfa7mkk" path="res://scripts/ui/stat_indicator.gd" id="1_goetx"]
+
+[node name="StatIndicator" type="HBoxContainer" unique_id=1492492356]
+theme_override_constants/separation = 4
+script = ExtResource("1_goetx")
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1440838611]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1962223649]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ValueLabel" type="Label" parent="VBoxContainer" unique_id=1154656153]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 16
+
+[node name="Bar" type="ProgressBar" parent="VBoxContainer" unique_id=1537719943]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 6)
+layout_mode = 2
+
+[node name="DeltaLabel" type="Label" parent="." unique_id=1449602012]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 16

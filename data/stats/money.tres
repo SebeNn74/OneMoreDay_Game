@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="StatDefinition" format=3 uid="uid://dcl6a6pipq14w"]
 
+[ext_resource type="Texture2D" uid="uid://bnikkkd7xtgiw" path="res://assets/sprites/stats/pa_money-removebg.png" id="1_7qlyc"]
 [ext_resource type="Script" uid="uid://cq2nroty87vnh" path="res://scripts/stats/stat_definition.gd" id="1_b5fwa"]
 
 [resource]
 script = ExtResource("1_b5fwa")
 display_name = "Dinero"
+icon = ExtResource("1_7qlyc")
 initial_value = 30.0
 depletion_message = "Hoy la plata no alcanzó. Entre pasajes, gastos e imprevistos, el bolsillo quedó vacío antes de terminar el camino. Tocó pedir fiado y volver a intentarlo mañana."
 metadata/_custom_type_script = "uid://cq2nroty87vnh"

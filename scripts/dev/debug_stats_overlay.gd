@@ -2,7 +2,7 @@ extends CanvasLayer
 ## Debug-only readout of the stats and the fatigue factor.
 
 const DRAW_LAYER: int = 80
-const MARGIN: Vector2 = Vector2(4.0, 4.0)
+const MARGIN: Vector2 = Vector2(4.0, 336.0)
 const OUTLINE_SIZE: int = 2
 
 var _label: Label

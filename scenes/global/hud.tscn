@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://c5glikk8kgvjp"]
+
+[ext_resource type="Resource" uid="uid://dcl6a6pipq14w" path="res://data/stats/money.tres" id="2_ft426"]
+[ext_resource type="Resource" uid="uid://ch8yrdolmrini" path="res://data/stats/energy.tres" id="3_i87by"]
+[ext_resource type="Resource" uid="uid://b0qd7b2wky8mc" path="res://data/stats/time.tres" id="4_qf84d"]
+[ext_resource type="PackedScene" uid="uid://dwvluhjotdubg" path="res://scenes/global/stat_indicator.tscn" id="5_0ojt2"]
+
+[node name="Hud" type="CanvasLayer" unique_id=664944951]
+layer = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=72916017]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+
+[node name="Indicators" type="HBoxContainer" parent="MarginContainer" unique_id=408563208]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MoneyIndicator" parent="MarginContainer/Indicators" unique_id=585074446 instance=ExtResource("5_0ojt2")]
+layout_mode = 2
+definition = ExtResource("2_ft426")
+
+[node name="EnergyIndicator" parent="MarginContainer/Indicators" unique_id=1433945322 instance=ExtResource("5_0ojt2")]
+layout_mode = 2
+definition = ExtResource("3_i87by")
+
+[node name="TimeIndicator" parent="MarginContainer/Indicators" unique_id=1101765426 instance=ExtResource("5_0ojt2")]
+layout_mode = 2
+definition = ExtResource("4_qf84d")
