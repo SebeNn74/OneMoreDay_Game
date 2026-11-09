@@ -38,7 +38,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func is_controllable() -> bool:
-	return not SceneManager.is_transitioning()
+	return GameManager.current_state == GameState.Type.PLAYING and not SceneManager.is_transitioning()
 
 
 func _unhandled_input(event: InputEvent) -> void:

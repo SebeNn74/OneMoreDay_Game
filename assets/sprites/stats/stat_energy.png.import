@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3nluwbu61s5y"
-path="res://.godot/imported/pa_time-removebg.png-137ae9d0bdb000ee26fd8f890e8c68b0.ctex"
+uid="uid://qek6o17hri3s"
+path="res://.godot/imported/stat_energy.png-3f970f850bf997909c7050c877ca984c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/stats/pa_time-removebg.png"
-dest_files=["res://.godot/imported/pa_time-removebg.png-137ae9d0bdb000ee26fd8f890e8c68b0.ctex"]
+source_file="res://assets/sprites/stats/stat_energy.png"
+dest_files=["res://.godot/imported/stat_energy.png-3f970f850bf997909c7050c877ca984c.ctex"]
 
 [params]
 

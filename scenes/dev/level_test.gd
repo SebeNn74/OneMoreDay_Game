@@ -22,13 +22,4 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		KEY_Q:
 			Simulation.queue_wait(BUS_STOP_QUEUE)
 		KEY_M:
-			_draw_and_apply_event(GameEvent.Stage.COMMUTE)
-			
-
-func _draw_and_apply_event(stage: GameEvent.Stage) -> void:
-	var event: GameEvent = Simulation.draw_event(stage)
-	if event == null:
-		print("No events left for this stage")
-		return
-	print(event.text)
-	Simulation.apply_event(event)
+			EventRunner.trigger(GameEvent.Stage.COMMUTE)

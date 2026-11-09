@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dixtu7yxbk27i"
-path="res://.godot/imported/pa_energy-removebg.png-4554df5f18e48c48e93d7715cf5c5750.ctex"
+uid="uid://dvb1rkyfs0cy2"
+path="res://.godot/imported/bg_pisocasa.png-a31901d5c42ffc2bf970430ea58279b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/stats/pa_energy-removebg.png"
-dest_files=["res://.godot/imported/pa_energy-removebg.png-4554df5f18e48c48e93d7715cf5c5750.ctex"]
+source_file="res://assets/sprites/environment/bg_pisocasa.png"
+dest_files=["res://.godot/imported/bg_pisocasa.png-a31901d5c42ffc2bf970430ea58279b3.ctex"]
 
 [params]
 

@@ -66,3 +66,11 @@ Los nombres están en Project Settings > Layer Names > 2D Physics.
 - Simulation solo aplica flujos en frames donde el jugador reportó, con flows_enabled y con el estado PLAYING. No hay flujos en fundidos, pausa ni menús.
 - BaseLevel.consumes_resources = false para niveles sin consumo (la casa).
 - Player.is_controllable() es el único punto donde se bloquea al jugador.
+
+## Eventos y celular
+- 1 EventZone (scenes/global/event_zone.tscn) = 1 evento. Eventos por nivel: ver Excel, pestaña 5.
+- EventRunner.trigger(stage): sortea (Simulation), muestra el texto y aplica los efectos.
+- EventBus: notification_requested(text) abre el cuadro; game_event_triggered(event) es para logs y finales.
+- Estado DIALOG: jugador bloqueado y sin flujos, sin pausar el árbol. Todo diálogo debe entrar y salir de ese estado.
+- Si un evento agota un recurso, la derrota espera a que se cierre la notificación.
+- La salida de la casa se desbloquea al interactuar con el celular (HomeLevel).

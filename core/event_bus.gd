@@ -30,3 +30,17 @@ signal day_step_started(step: DayStep)
 ## Emitted once when the day ends, before the end screen loads.
 @warning_ignore("unused_signal")
 signal day_finished(result: DayResult)
+
+# --- Events and notifications ---
+
+## A random event was drawn and applied. For logs and endings (which events happened).
+@warning_ignore("unused_signal")
+signal game_event_triggered(event: GameEvent)
+
+## Asks the UI to show a message to the player and wait until it is closed.
+@warning_ignore("unused_signal")
+signal notification_requested(text: String)
+
+## The player closed the notification.
+@warning_ignore("unused_signal")
+signal notification_closed

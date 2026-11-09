@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StatDefinition" format=3 uid="uid://ch8yrdolmrini"]
 
-[ext_resource type="Texture2D" uid="uid://dixtu7yxbk27i" path="res://assets/sprites/stats/pa_energy-removebg.png" id="1_mlkx5"]
+[ext_resource type="Texture2D" uid="uid://qek6o17hri3s" path="res://assets/sprites/stats/stat_energy.png" id="1_mlkx5"]
 [ext_resource type="Script" uid="uid://cq2nroty87vnh" path="res://scripts/stats/stat_definition.gd" id="1_strpg"]
 
 [resource]

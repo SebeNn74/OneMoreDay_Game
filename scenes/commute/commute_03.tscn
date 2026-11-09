@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://y2eqnvnm2iue"]
 
 [ext_resource type="PackedScene" uid="uid://bdslmng3fjq81" path="res://scenes/base_level.tscn" id="1_1m617"]
+[ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_ukkwm"]
 
 [node name="Commute03" unique_id=1642240116 instance=ExtResource("1_1m617")]
 
@@ -14,3 +15,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.98937523, 0.7273974, 0.54781777, 1)
+
+[node name="EventZone" parent="Background" index="1" unique_id=512565548 instance=ExtResource("2_ukkwm")]
+position = Vector2(320, 180)

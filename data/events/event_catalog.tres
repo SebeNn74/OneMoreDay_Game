@@ -188,6 +188,15 @@ energy = 5.0
 time = 10.0
 weight = 2
 
+[sub_resource type="Resource" id="Resource_tqsx4"]
+script = ExtResource("2_event")
+id = "EV-23"
+stage = 3
+text = "Un amigo te devuelve los $10.000 que te debía desde hace meses."
+money = 10.0
+weight = 2
+metadata/_custom_type_script = "uid://yxo6ckt3ebii"
+
 [resource]
 script = ExtResource("1_catalog")
-events = Array[ExtResource("2_event")]([SubResource("EV_01"), SubResource("EV_02"), SubResource("EV_03"), SubResource("EV_04"), SubResource("EV_05"), SubResource("EV_06"), SubResource("EV_07"), SubResource("EV_08"), SubResource("EV_09"), SubResource("EV_10"), SubResource("EV_11"), SubResource("EV_12"), SubResource("EV_13"), SubResource("EV_14"), SubResource("EV_15"), SubResource("EV_16"), SubResource("EV_17"), SubResource("EV_18"), SubResource("EV_19"), SubResource("EV_20"), SubResource("EV_21"), SubResource("EV_22")])
+events = Array[ExtResource("2_event")]([SubResource("EV_01"), SubResource("EV_02"), SubResource("EV_03"), SubResource("EV_04"), SubResource("EV_05"), SubResource("EV_06"), SubResource("EV_07"), SubResource("EV_08"), SubResource("EV_09"), SubResource("EV_10"), SubResource("EV_11"), SubResource("EV_12"), SubResource("EV_13"), SubResource("EV_14"), SubResource("EV_15"), SubResource("EV_16"), SubResource("EV_17"), SubResource("EV_18"), SubResource("EV_19"), SubResource("EV_20"), SubResource("EV_21"), SubResource("EV_22"), SubResource("Resource_tqsx4")])

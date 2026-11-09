@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dq66ubm3220y2"]
+
+[ext_resource type="Script" uid="uid://bpjyt5kdwxpk5" path="res://scripts/ui/phone_notification.gd" id="1_xe1oy"]
+
+[node name="PhoneNotification" type="CanvasLayer" unique_id=1297445684]
+script = ExtResource("1_xe1oy")
+
+[node name="Content" type="Control" parent="." unique_id=1065177924]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="Content" unique_id=1858788943]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="PanelContainer" parent="Content/Margin" unique_id=675321819]
+layout_mode = 2
+
+[node name="Padding" type="MarginContainer" parent="Content/Margin/Panel" unique_id=1138161642]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="Content/Margin/Panel/Padding" unique_id=90171251]
+layout_mode = 2
+
+[node name="MessageLabel" type="Label" parent="Content/Margin/Panel/Padding/VBox" unique_id=205901994]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="HintLabel" type="Label" parent="Content/Margin/Panel/Padding/VBox" unique_id=1883238496]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "[E] Cerrar"
+horizontal_alignment = 2

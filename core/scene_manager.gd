@@ -21,6 +21,7 @@ func _ready() -> void:
 	add_child(_transition)
 	EventBus.level_completed.connect(_on_level_completed)
 	EventBus.stat_depleted.connect(_on_stat_depleted)
+	GameManager.state_changed.connect(_on_game_state_changed)
 
 
 ## Starts a new day from the home scene with fresh stats.
@@ -90,8 +91,7 @@ func _on_stat_depleted(type: StatDefinition.Type) -> void:
 		return
 
 	var definition: StatDefinition = StatsManager.get_definition(type)
-	if _is_changing_scene:
-		# finish_day() would be ignored mid-transition: remember it and apply it afterwards.
+	if _is_changing_scene or GameManager.current_state == GameState.Type.DIALOG:
 		if _pending_defeat_stat == null:
 			_pending_defeat_stat = definition
 		return
@@ -101,6 +101,11 @@ func _on_stat_depleted(type: StatDefinition.Type) -> void:
 func _apply_pending_defeat() -> void:
 	if _pending_defeat_stat != null and is_day_active():
 		finish_day(false, _pending_defeat_stat)
+		
+
+func _on_game_state_changed(new_state: GameState.Type, previous_state: GameState.Type) -> void:
+	if previous_state == GameState.Type.DIALOG and new_state == GameState.Type.PLAYING:
+		_apply_pending_defeat()
 
 
 func _go_to_step(index: int) -> void:

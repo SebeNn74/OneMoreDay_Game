@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cpu3lh42gyyrx"]
 
 [ext_resource type="PackedScene" uid="uid://bdslmng3fjq81" path="res://scenes/base_level.tscn" id="1_ymvnk"]
+[ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_l6od5"]
 
 [node name="Return01" unique_id=1642240116 instance=ExtResource("1_ymvnk")]
 
@@ -14,3 +15,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.35683084, 0.4686129, 0.8668253, 1)
+
+[node name="EventZone" parent="." index="12" unique_id=512565548 instance=ExtResource("2_l6od5")]
+position = Vector2(320, 180)

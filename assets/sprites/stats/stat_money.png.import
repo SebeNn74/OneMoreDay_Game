@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnikkkd7xtgiw"
-path="res://.godot/imported/pa_money-removebg.png-f1f30853976da851b90fb21d6c91f387.ctex"
+uid="uid://dd7q2emdgk28c"
+path="res://.godot/imported/stat_money.png-dd1826883dd23641cf22dcad81c9c8c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/stats/pa_money-removebg.png"
-dest_files=["res://.godot/imported/pa_money-removebg.png-f1f30853976da851b90fb21d6c91f387.ctex"]
+source_file="res://assets/sprites/stats/stat_money.png"
+dest_files=["res://.godot/imported/stat_money.png-dd1826883dd23641cf22dcad81c9c8c2.ctex"]
 
 [params]
 
