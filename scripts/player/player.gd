@@ -19,6 +19,8 @@ var speed_multiplier: float = 1.0
 
 func _ready() -> void:
 	assert(movement_config != null, "Player: movement_config is not assigned.")
+	collision_layer = PhysicsLayers.PLAYER
+	collision_mask = PhysicsLayers.PLAYER_BLOCKERS
 	state_machine.state_changed.connect(animator.on_state_changed)
 	animator.one_shot_finished.connect(state_machine.finish_one_shot)
 	facing_changed.connect(animator.on_facing_changed)

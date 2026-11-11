@@ -16,7 +16,7 @@ var current_target: Interactable
 
 func _ready() -> void:
 	collision_layer = 0
-	collision_mask = PhysicsLayers.INTERACTABLES
+	collision_mask = PhysicsLayers.INTERACTABLE
 
 
 func _physics_process(_delta: float) -> void:

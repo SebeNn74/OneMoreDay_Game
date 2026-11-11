@@ -10,13 +10,14 @@
 [ext_resource type="Script" uid="uid://cuispyc4vhwxd" path="res://scripts/simulation_bridges/player_simulation_bridge.gd" id="8_qek5x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
-size = Vector2(20, 12)
+size = Vector2(16, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ojbw0"]
 size = Vector2(24, 24)
 
 [node name="Player" type="CharacterBody2D" unique_id=773780192]
 collision_layer = 2
+collision_mask = 37
 motion_mode = 1
 script = ExtResource("1_dovo2")
 movement_config = ExtResource("2_lvxji")
@@ -29,7 +30,7 @@ animation = &"idle_down"
 script = ExtResource("4_p47bc")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=518466264]
-position = Vector2(0, -6)
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_r5iys")
 
 [node name="StateMachine" type="Node" parent="." unique_id=878764065]
@@ -37,6 +38,8 @@ script = ExtResource("5_75vfm")
 
 [node name="InteractionDetector" type="Area2D" parent="." unique_id=2073024540]
 script = ExtResource("6_0owmy")
+reach = null
+body_center_offset = null
 metadata/_custom_type_script = "uid://b3uvto2sb7474"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector" unique_id=739248011]

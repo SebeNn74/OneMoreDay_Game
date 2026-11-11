@@ -16,17 +16,26 @@ size = Vector2(16, 360)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7u32"]
 size = Vector2(16, 360)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sm6u0"]
-size = Vector2(48, 32)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_63e20"]
 size = Vector2(32, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sm6u0"]
+size = Vector2(48, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkcmg"]
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itg82"]
 size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0lwg0"]
+size = Vector2(20, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oflbl"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_33ow6"]
+size = Vector2(40, 24)
 
 [node name="CollisionTest" type="Node2D" unique_id=437128575]
 script = ExtResource("1_0lwg0")
@@ -37,6 +46,7 @@ offset_bottom = 360.0
 color = Color(0.83171713, 0.9999996, 0.99649626, 1)
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=152776245]
+collision_mask = 0
 
 [node name="Top" type="CollisionShape2D" parent="Walls" unique_id=256449536]
 position = Vector2(320, 0)
@@ -56,13 +66,15 @@ shape = SubResource("RectangleShape2D_p7u32")
 
 [node name="Obstacles" type="StaticBody2D" parent="." unique_id=133311122]
 
-[node name="BlockA" type="CollisionShape2D" parent="Obstacles" unique_id=1375355855]
-position = Vector2(200, 120)
-shape = SubResource("RectangleShape2D_sm6u0")
-
 [node name="BlockB" type="CollisionShape2D" parent="Obstacles" unique_id=2055163751]
 position = Vector2(440, 240)
 shape = SubResource("RectangleShape2D_63e20")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Obstacles" unique_id=1385665078]
+
+[node name="BlockA" type="CollisionShape2D" parent="Obstacles/StaticBody2D" unique_id=1375355855]
+position = Vector2(200, 120)
+shape = SubResource("RectangleShape2D_sm6u0")
 
 [node name="Phone" type="Area2D" parent="." unique_id=1268861775]
 position = Vector2(520, 110)
@@ -98,3 +110,27 @@ color = Color(0.82831794, 0.12082759, 0.29067323, 1)
 
 [node name="Player" parent="." unique_id=773780192 instance=ExtResource("1_gc30b")]
 position = Vector2(320, 180)
+
+[node name="NPC" type="StaticBody2D" parent="." unique_id=1190395337]
+position = Vector2(320, 100)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC" unique_id=364674762]
+shape = SubResource("RectangleShape2D_0lwg0")
+
+[node name="Enemy" type="StaticBody2D" parent="." unique_id=1363886097]
+position = Vector2(560, 180)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy" unique_id=353095153]
+shape = SubResource("RectangleShape2D_oflbl")
+
+[node name="Props" type="StaticBody2D" parent="." unique_id=300915220]
+position = Vector2(320, 300)
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props" unique_id=1260645957]
+shape = SubResource("RectangleShape2D_33ow6")

@@ -15,7 +15,7 @@ signal interacted(interactor: Node)
 
 func _ready() -> void:
 	# Set in code so a wrong Inspector value cannot break detection.
-	collision_layer = PhysicsLayers.INTERACTABLES
+	collision_layer = PhysicsLayers.INTERACTABLE
 	collision_mask = 0
 	monitoring = false
 

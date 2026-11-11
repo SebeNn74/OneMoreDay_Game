@@ -84,8 +84,14 @@ pause={
 
 2d_physics/layer_1="world"
 2d_physics/layer_2="player"
-2d_physics/layer_3="interactables"
-2d_physics/layer_4="hostiles"
+2d_physics/layer_3="npc"
+2d_physics/layer_4="enemy"
+2d_physics/layer_5="interactable"
+2d_physics/layer_6="decoration"
+2d_physics/layer_7="hitbox"
+2d_physics/layer_8="hurtbox"
+2d_physics/layer_9="detection"
+2d_physics/layer_10="projectile"
 
 [physics]
 
