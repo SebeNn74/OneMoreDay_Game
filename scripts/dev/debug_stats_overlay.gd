@@ -21,9 +21,10 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	_label.text = "Money %.1f | Energy %.1f | Time %.1f | Speed x%.2f" % [
+	_label.text = "Money %.1f | Energy %.1f | Time %.1f | Speed x%.2f | Flow x%.2f" % [
 		StatsManager.get_value(StatDefinition.Type.MONEY),
 		StatsManager.get_value(StatDefinition.Type.ENERGY),
 		StatsManager.get_value(StatDefinition.Type.TIME),
 		Simulation.speed_factor(),
+		Simulation.flow_scale,
 	]

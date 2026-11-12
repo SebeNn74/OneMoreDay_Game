@@ -11,6 +11,7 @@ extends Node
 ##   HostileBrain.new(config).next_cell(..., Simulation.rng, ...)      # model 4
 ##   Simulation.set_player_activity(ResourceDynamics.Activity.WALK)    # model 5, every frame
 ##   movement speed * Simulation.speed_factor()      # model 5 fatigue feedback
+##   Simulation.begin_level(travel_distance)         # model 5: every level, when it loads
 
 ## Emitted every time a model affects the game. Evidence for testing and the gameplay video.
 signal model_used(model: StringName, detail: String)
@@ -36,7 +37,11 @@ var _event_picker: EventPicker
 var _player_reporting: bool = false
 ## Level switch for the continuous flows.
 var flows_enabled: bool = true
-
+## Multiplier of the continuous flows in the current level.
+var flow_scale: float = 1.0
+# What the continuous flows spent in the current level (negative = recovered).
+var _level_energy_spent: float = 0.0
+var _level_time_spent: float = 0.0
 
 func _ready() -> void:
 	dynamics = ResourceDynamics.new(DYNAMICS_CONFIG, PLAYER_MOVEMENT.walk_speed)
@@ -93,6 +98,23 @@ func speed_factor() -> float:
 	return dynamics.speed_factor(StatsManager.get_value(StatDefinition.Type.ENERGY))
 
 
+## Model 5. Called by every level when it loads.
+func begin_level(travel_distance: float) -> void:
+	assert(travel_distance > 0.0, "Simulation: travel_distance must be positive.")
+	flow_scale = DYNAMICS_CONFIG.scenario_length / travel_distance
+	_level_energy_spent = 0.0
+	_level_time_spent = 0.0
+	print("[Simulation] Level path: %.0f px, flow scale x%.2f" % [travel_distance, flow_scale])
+
+
+## Model 5. Called when the player reaches the exit. Reports what the flows cost in the level.
+func end_level(level_name: String) -> void:
+	if not flows_enabled:
+		return
+	report(MODEL_DYNAMICS, "%s: el trayecto costó %.1f de energía y %.1f de tiempo" % [
+		level_name, _level_energy_spent, _level_time_spent])
+
+
 ## Model 5. Euler integration of the continuous flows, one step per physics frame.
 ## Runs only in frames where the player reported its activity.
 func _physics_process(delta: float) -> void:
@@ -100,10 +122,15 @@ func _physics_process(delta: float) -> void:
 	_player_reporting = false  # The player must report again every frame.
 	if not player_reported or not flows_enabled or GameManager.current_state != GameState.Type.PLAYING:
 		return
+	var step: float = delta * flow_scale
 	var energy: float = StatsManager.get_value(StatDefinition.Type.ENERGY)
 	var max_energy: float = StatsManager.get_definition(StatDefinition.Type.ENERGY).max_value
-	StatsManager.modify(StatDefinition.Type.ENERGY, dynamics.energy_rate(energy, max_energy, player_activity) * delta)
-	StatsManager.modify(StatDefinition.Type.TIME, dynamics.time_rate() * delta)
+	var energy_change: float = dynamics.energy_rate(energy, max_energy, player_activity) * step
+	var time_change: float = dynamics.time_rate() * step
+	StatsManager.modify(StatDefinition.Type.ENERGY, energy_change)
+	StatsManager.modify(StatDefinition.Type.TIME, time_change)
+	_level_energy_spent -= energy_change
+	_level_time_spent -= time_change
 	if energy >= DYNAMICS_CONFIG.fatigue_threshold and StatsManager.get_value(StatDefinition.Type.ENERGY) < DYNAMICS_CONFIG.fatigue_threshold:
 		report(MODEL_DYNAMICS, "Energía bajo %.0f: el personaje se cansa y camina más lento" % DYNAMICS_CONFIG.fatigue_threshold)
 

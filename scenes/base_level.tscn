@@ -16,17 +16,16 @@ size = Vector2(40, 80)
 
 [node name="BaseLevel" type="Node2D" unique_id=1642240116]
 script = ExtResource("1_oox4p")
-level_size = Vector2i(640, 360)
 
 [node name="World" type="Node2D" parent="." unique_id=1300935544]
 
 [node name="Background" type="Node2D" parent="World" unique_id=1688497417]
 
 [node name="Floor" type="Sprite2D" parent="World/Background" unique_id=508486278]
-position = Vector2(320, 180)
+centered = false
 
 [node name="Walls" type="Sprite2D" parent="World/Background" unique_id=892709214]
-position = Vector2(320, 180)
+centered = false
 
 [node name="Collisions" type="Node2D" parent="World" unique_id=92770328]
 

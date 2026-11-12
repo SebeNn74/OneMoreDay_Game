@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_aqcfy"]
 
 [node name="Commute01" unique_id=1642240116 instance=ExtResource("1_imccu")]
+level_size = Vector2i(1920, 360)
 
 [node name="Background" type="CanvasLayer" parent="." index="0" unique_id=1964427042]
 layer = -1
@@ -16,5 +17,5 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.9892766, 0.8486413, 0.5476459, 1)
 
-[node name="EventZone" parent="." index="12" unique_id=512565548 instance=ExtResource("2_aqcfy")]
+[node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_aqcfy")]
 position = Vector2(320, 180)

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://boyq7yaqqiek5"]
+
+[ext_resource type="PackedScene" uid="uid://bdslmng3fjq81" path="res://scenes/base_level.tscn" id="1_2kjtj"]
+[ext_resource type="Script" uid="uid://du4vt43kj1a2u" path="res://scenes/dev/level_test.gd" id="2_02us2"]
+
+[node name="TestLevel" unique_id=1642240116 instance=ExtResource("1_2kjtj")]
+script = ExtResource("2_02us2")
+level_size = Vector2i(480, 300)
+
+[node name="ExitZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="0" unique_id=1254900974]
+position = Vector2(440, 150)
+
+[node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
+position = Vector2(40, 150)

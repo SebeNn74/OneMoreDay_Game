@@ -16,5 +16,5 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.35683084, 0.4686129, 0.8668253, 1)
 
-[node name="EventZone" parent="." index="12" unique_id=512565548 instance=ExtResource("2_l6od5")]
+[node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_l6od5")]
 position = Vector2(320, 180)
