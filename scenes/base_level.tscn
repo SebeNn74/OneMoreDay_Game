@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://wk657sqduih" path="res://scripts/levels/base_level.gd" id="1_oox4p"]
 [ext_resource type="Script" uid="uid://dackmorokhwwi" path="res://scripts/levels/level_bounds.gd" id="2_fal5o"]
-[ext_resource type="TileSet" uid="uid://diav1fa6wkeu5" path="res://assets/sprites/environment/placeholder_tileset.tres" id="2_k2uud"]
 [ext_resource type="PackedScene" uid="uid://cboxg6iymy0vu" path="res://scenes/player/player.tscn" id="3_3aqo6"]
 [ext_resource type="Script" uid="uid://cvccfejmbf5jt" path="res://scripts/levels/exit_zone.gd" id="4_rlct4"]
 [ext_resource type="PackedScene" uid="uid://be1kitwb87yy1" path="res://scenes/global/pause_menu.tscn" id="5_k2uud"]
@@ -10,49 +9,69 @@
 [ext_resource type="Script" uid="uid://di3kybjyefcxg" path="res://scripts/dev/debug_stats_overlay.gd" id="7_rlct4"]
 [ext_resource type="PackedScene" uid="uid://c5glikk8kgvjp" path="res://scenes/global/hud.tscn" id="8_earhg"]
 [ext_resource type="PackedScene" uid="uid://dq66ubm3220y2" path="res://scenes/global/phone_notification.tscn" id="9_u6ue0"]
+[ext_resource type="Script" uid="uid://b4lhjfvqtgnqc" path="res://scripts/dev/debug_level_grid.gd" id="10_fal5o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(40, 80)
 
 [node name="BaseLevel" type="Node2D" unique_id=1642240116]
 script = ExtResource("1_oox4p")
+level_size = Vector2i(640, 360)
 
-[node name="LevelBounds" type="StaticBody2D" parent="." unique_id=329540592]
-script = ExtResource("2_fal5o")
+[node name="World" type="Node2D" parent="." unique_id=1300935544]
 
-[node name="Ground" type="TileMapLayer" parent="." unique_id=679420288]
-tile_set = ExtResource("2_k2uud")
+[node name="Background" type="Node2D" parent="World" unique_id=1688497417]
 
-[node name="Walls" type="TileMapLayer" parent="." unique_id=774723601]
-tile_set = ExtResource("2_k2uud")
+[node name="Floor" type="Sprite2D" parent="World/Background" unique_id=508486278]
+position = Vector2(320, 180)
 
-[node name="Decoration" type="TileMapLayer" parent="." unique_id=1930040358]
-tile_set = ExtResource("2_k2uud")
+[node name="Walls" type="Sprite2D" parent="World/Background" unique_id=892709214]
+position = Vector2(320, 180)
 
-[node name="Entities" type="Node2D" parent="." unique_id=729001874]
+[node name="Collisions" type="Node2D" parent="World" unique_id=92770328]
+
+[node name="Props" type="Node2D" parent="World" unique_id=952873589]
+
+[node name="Entities" type="Node2D" parent="World" unique_id=729001874]
 y_sort_enabled = true
 
-[node name="Player" parent="Entities" unique_id=773780192 instance=ExtResource("3_3aqo6")]
+[node name="Player" parent="World/Entities" unique_id=773780192 instance=ExtResource("3_3aqo6")]
 collision_mask = 53
 
-[node name="SpawnPoint" type="Marker2D" parent="." unique_id=415891508]
-position = Vector2(50, 180)
+[node name="Interactables" type="Node2D" parent="World" unique_id=1886078809]
 
-[node name="ExitZone" type="Area2D" parent="." unique_id=1254900974]
+[node name="Triggers" type="Node2D" parent="World" unique_id=1612492775]
+
+[node name="ExitZone" type="Area2D" parent="World/Triggers" unique_id=1254900974]
 position = Vector2(600, 180)
 script = ExtResource("4_rlct4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=1434922719]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Triggers/ExitZone" unique_id=1434922719]
 shape = SubResource("RectangleShape2D_r5iys")
 
-[node name="DebugStatKeys" type="Node" parent="." unique_id=1363448651]
+[node name="Setup" type="Node" parent="." unique_id=2066900773]
+
+[node name="LevelBounds" type="StaticBody2D" parent="Setup" unique_id=329540592]
+script = ExtResource("2_fal5o")
+
+[node name="SpawnPoint" type="Marker2D" parent="Setup" unique_id=415891508]
+position = Vector2(50, 180)
+
+[node name="UI" type="Node" parent="." unique_id=1547102398]
+
+[node name="Hud" parent="UI" unique_id=664944951 instance=ExtResource("8_earhg")]
+
+[node name="PauseMenu" parent="UI" unique_id=175858098 instance=ExtResource("5_k2uud")]
+
+[node name="PhoneNotification" parent="UI" unique_id=1297445684 instance=ExtResource("9_u6ue0")]
+
+[node name="Debug" type="Node" parent="." unique_id=59155718]
+
+[node name="DebugStatKeys" type="Node" parent="Debug" unique_id=1363448651]
 script = ExtResource("6_3aqo6")
 
-[node name="DebugStatsOverlay" type="CanvasLayer" parent="." unique_id=872636671]
+[node name="DebugLevelGrid" type="Node2D" parent="Debug" unique_id=1766457910]
+script = ExtResource("10_fal5o")
+
+[node name="DebugStatsOverlay" type="CanvasLayer" parent="Debug" unique_id=872636671]
 script = ExtResource("7_rlct4")
-
-[node name="PauseMenu" parent="." unique_id=175858098 instance=ExtResource("5_k2uud")]
-
-[node name="Hud" parent="." unique_id=664944951 instance=ExtResource("8_earhg")]
-
-[node name="PhoneNotification" parent="." unique_id=1297445684 instance=ExtResource("9_u6ue0")]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3o86pnongpvb"
-path="res://.godot/imported/bg_paredcasa.png-947e78f82c3ba33eca16b5d586c63df8.ctex"
+uid="uid://dvb1rkyfs0cy2"
+path="res://.godot/imported/bg_home_floor.png-d574050e7ba3ba4022483467acda9860.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/environment/bg_paredcasa.png"
-dest_files=["res://.godot/imported/bg_paredcasa.png-947e78f82c3ba33eca16b5d586c63df8.ctex"]
+source_file="res://assets/sprites/environment/home/bg_home_floor.png"
+dest_files=["res://.godot/imported/bg_home_floor.png-d574050e7ba3ba4022483467acda9860.ctex"]
 
 [params]
 

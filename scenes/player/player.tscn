@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b3uvto2sb7474" path="res://scripts/interactables/interaction_detector.gd" id="6_0owmy"]
 [ext_resource type="Script" uid="uid://c58qsb07ka087" path="res://scripts/interactables/interaction_promt.gd" id="7_qek5x"]
 [ext_resource type="Script" uid="uid://cuispyc4vhwxd" path="res://scripts/simulation_bridges/player_simulation_bridge.gd" id="8_qek5x"]
+[ext_resource type="Script" uid="uid://xfi43swgqyrt" path="res://scripts/player/player_camera.gd" id="9_5gtgg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(16, 8)
@@ -38,8 +39,6 @@ script = ExtResource("5_75vfm")
 
 [node name="InteractionDetector" type="Area2D" parent="." unique_id=2073024540]
 script = ExtResource("6_0owmy")
-reach = null
-body_center_offset = null
 metadata/_custom_type_script = "uid://b3uvto2sb7474"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector" unique_id=739248011]
@@ -58,3 +57,6 @@ text = "[E]"
 
 [node name="SimulationBridge" type="Node" parent="." unique_id=1190451921]
 script = ExtResource("8_qek5x")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=691199287]
+script = ExtResource("9_5gtgg")

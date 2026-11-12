@@ -35,14 +35,14 @@ ida=commute, trabajo=work, vuelta=return
 - Los personajes (protagonista, NPC, hostiles) se dibujan a 16x24 y se muestran con
   scale 2 en su nodo de sprite.
 
-## Autoloads (core/)
-- EventBus: señales globales.
-- StatsManager: money, energy y time (configurados en data/stats/*.tres).
-- GameManager: estado general del juego.
+## Autoloads (orden de carga)
+EventBus, StatsManager, GameManager, Simulation, SceneManager.
 
 ## Capas de física 2D
-1 world, 2 player, 3 interactables, 4 hostiles.
-Los nombres están en Project Settings > Layer Names > 2D Physics.
+1 world, 2 player, 3 npc, 4 enemy, 5 interactable, 6 decoration,
+7 hitbox, 8 hurtbox, 9 detection, 10 projectile.
+Constantes en scripts/utils/physics_layers.gd. Los nombres están en
+Project Settings > Layer Names > 2D Physics.
 
 ## Flujo del día
 - El orden de escenas se define en data/levels/day_sequence.tres (DaySequence).

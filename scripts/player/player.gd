@@ -15,6 +15,7 @@ var speed_multiplier: float = 1.0
 @onready var animator: PlayerAnimator = $Animator
 @onready var interaction_detector: InteractionDetector = $InteractionDetector
 @onready var interaction_prompt: InteractionPrompt = $InteractionPrompt
+@onready var camera: PlayerCamera = $Camera
 
 
 func _ready() -> void:
