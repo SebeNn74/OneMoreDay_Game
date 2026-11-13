@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://be1kitwb87yy1" path="res://scenes/global/pause_menu.tscn" id="5_k2uud"]
 [ext_resource type="Script" uid="uid://t2gmkc4xebop" path="res://scripts/dev/debug_stat_keys.gd" id="6_3aqo6"]
 [ext_resource type="Script" uid="uid://di3kybjyefcxg" path="res://scripts/dev/debug_stats_overlay.gd" id="7_rlct4"]
+[ext_resource type="PackedScene" uid="uid://y8ps8llm22pt" path="res://scenes/global/decision_panel.tscn" id="8_b0lsh"]
 [ext_resource type="PackedScene" uid="uid://c5glikk8kgvjp" path="res://scenes/global/hud.tscn" id="8_earhg"]
 [ext_resource type="PackedScene" uid="uid://dq66ubm3220y2" path="res://scenes/global/phone_notification.tscn" id="9_u6ue0"]
 [ext_resource type="Script" uid="uid://b4lhjfvqtgnqc" path="res://scripts/dev/debug_level_grid.gd" id="10_fal5o"]
@@ -63,6 +64,8 @@ position = Vector2(50, 180)
 [node name="PauseMenu" parent="UI" unique_id=175858098 instance=ExtResource("5_k2uud")]
 
 [node name="PhoneNotification" parent="UI" unique_id=1297445684 instance=ExtResource("9_u6ue0")]
+
+[node name="DecisionPanel" parent="UI" unique_id=1405372292 instance=ExtResource("8_b0lsh")]
 
 [node name="Debug" type="Node" parent="." unique_id=59155718]
 

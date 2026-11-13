@@ -82,3 +82,14 @@ Project Settings > Layer Names > 2D Physics.
 - Estado DIALOG: jugador bloqueado y sin flujos, sin pausar el árbol. Todo diálogo debe entrar y salir de ese estado.
 - Si un evento agota un recurso, la derrota espera a que se cierre la notificación.
 - La salida de la casa se desbloquea al interactuar con el celular (HomeLevel).
+
+## Decisiones y NPC
+- Datos: DecisionDefinition (frase + opciones) y DecisionOption (texto + efectos) en data/decisions/.
+  Se generan desde la tabla de tools/generate_decision_definitions.gd (espejo de la pestaña 4 del Excel).
+  Para cambiar valores: editar la tabla y volver a ejecutar la herramienta (sobrescribe los .tres).
+- NPC: scenes/npcs/npc.tscn (Interactable con cuerpo sólido, va en World/Entities). Se le asigna Decision.
+  Ofrece una sola vez y queda gris.
+- EventBus: decision_requested(decision) abre el panel; decision_resolved(decision, chosen) es para logs y finales.
+- DecisionPanel (estado DIALOG): W/S o flechas para elegir, E para confirmar, o ratón. Aplica los efectos
+  una sola vez con Simulation.apply_change. Una opción que costaría más dinero del que tienes se desactiva.
+- Depuración: Alt + 1/2/3 deja dinero/energía/tiempo en 1.

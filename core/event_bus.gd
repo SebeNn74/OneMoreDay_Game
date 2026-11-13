@@ -44,3 +44,13 @@ signal notification_requested(text: String)
 ## The player closed the notification.
 @warning_ignore("unused_signal")
 signal notification_closed
+
+# --- Decisions ---
+
+## Asks the UI to show a decision and wait until the player picks an option.
+@warning_ignore("unused_signal")
+signal decision_requested(decision: DecisionDefinition)
+
+## The player picked an option and its effects were already applied.
+@warning_ignore("unused_signal")
+signal decision_resolved(decision: DecisionDefinition, chosen: DecisionOption)

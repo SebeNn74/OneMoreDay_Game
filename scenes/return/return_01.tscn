@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bdslmng3fjq81" path="res://scenes/base_level.tscn" id="1_ymvnk"]
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_l6od5"]
+[ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="2_ltkmf"]
+[ext_resource type="Resource" uid="uid://c0pf2jarj8vjj" path="res://data/decisions/npc_05_empanada_vendor.tres" id="3_6u3cc"]
 
 [node name="Return01" unique_id=1642240116 instance=ExtResource("1_ymvnk")]
 
@@ -15,6 +17,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.35683084, 0.4686129, 0.8668253, 1)
+
+[node name="EmpanadaVendor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_ltkmf")]
+position = Vector2(480, 140)
+decision = ExtResource("3_6u3cc")
 
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_l6od5")]
 position = Vector2(320, 180)

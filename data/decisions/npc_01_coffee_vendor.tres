@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DecisionDefinition" format=3 uid="uid://c1mx5h2n5j1bi"]
+
+[ext_resource type="Script" uid="uid://dkrx6vx6tvj5q" path="res://scripts/decisions/decision_option.gd" id="1_yebtv"]
+[ext_resource type="Script" uid="uid://d4gtrfhv2pg5o" path="res://scripts/decisions/decision_definition.gd" id="2_0w3oa"]
+
+[sub_resource type="Resource" id="Resource_t4hiy"]
+script = ExtResource("1_yebtv")
+text = "Tinto y empanada"
+money = -2.0
+energy = 10.0
+time = -5.0
+
+[sub_resource type="Resource" id="Resource_jqyut"]
+script = ExtResource("1_yebtv")
+text = "Pasar de largo"
+energy = -5.0
+time = 5.0
+
+[sub_resource type="Resource" id="Resource_sd0gw"]
+script = ExtResource("1_yebtv")
+text = "Charlar un momento con ella"
+energy = 5.0
+time = -5.0
+
+[resource]
+script = ExtResource("2_0w3oa")
+id = "NPC-01"
+speaker_name = "Vendedora de tinto"
+prompt = "«Mijo, ¿un tintico para arrancar el día?»"
+options = Array[ExtResource("1_yebtv")]([SubResource("Resource_t4hiy"), SubResource("Resource_jqyut"), SubResource("Resource_sd0gw")])

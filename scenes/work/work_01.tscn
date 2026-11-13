@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://dijhsvu5y87gm"]
 
 [ext_resource type="PackedScene" uid="uid://bdslmng3fjq81" path="res://scenes/base_level.tscn" id="1_320kb"]
+[ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="2_mmo4u"]
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_wlayi"]
+[ext_resource type="Resource" uid="uid://bq2wlvwlalako" path="res://data/decisions/npc_03_coworker.tres" id="3_njtqf"]
 
 [node name="Work01" unique_id=1642240116 instance=ExtResource("1_320kb")]
 
@@ -15,6 +17,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.5377429, 0.95186156, 0.75562155, 1)
+
+[node name="Coworker" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_mmo4u")]
+position = Vector2(400, 300)
+decision = ExtResource("3_njtqf")
 
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_wlayi")]
 position = Vector2(220, 180)

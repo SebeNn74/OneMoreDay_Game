@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="DecisionDefinition" format=3 uid="uid://dgig8jr0d0vfb"]
+
+[ext_resource type="Script" uid="uid://dkrx6vx6tvj5q" path="res://scripts/decisions/decision_option.gd" id="1_j18ue"]
+[ext_resource type="Script" uid="uid://d4gtrfhv2pg5o" path="res://scripts/decisions/decision_definition.gd" id="2_bs3uw"]
+
+[sub_resource type="Resource" id="Resource_2awi1"]
+script = ExtResource("1_j18ue")
+text = "Aceptar el turno extra"
+money = 10.0
+energy = -15.0
+time = -10.0
+
+[sub_resource type="Resource" id="Resource_k8f24"]
+script = ExtResource("1_j18ue")
+text = "Pedir salir temprano"
+money = -5.0
+energy = 5.0
+time = 10.0
+
+[sub_resource type="Resource" id="Resource_xdgis"]
+script = ExtResource("1_j18ue")
+text = "Hacer solo lo tuyo"
+energy = -5.0
+time = 5.0
+
+[resource]
+script = ExtResource("2_bs3uw")
+id = "NPC-04"
+speaker_name = "Supervisora"
+prompt = "«Hoy necesitamos gente para cerrar el turno.»"
+options = Array[ExtResource("1_j18ue")]([SubResource("Resource_2awi1"), SubResource("Resource_k8f24"), SubResource("Resource_xdgis")])
