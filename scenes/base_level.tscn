@@ -31,13 +31,13 @@ centered = false
 
 [node name="Props" type="Node2D" parent="World" unique_id=952873589]
 
+[node name="Interactables" type="Node2D" parent="World" unique_id=1886078809]
+
 [node name="Entities" type="Node2D" parent="World" unique_id=729001874]
 y_sort_enabled = true
 
 [node name="Player" parent="World/Entities" unique_id=773780192 instance=ExtResource("3_3aqo6")]
 collision_mask = 53
-
-[node name="Interactables" type="Node2D" parent="World" unique_id=1886078809]
 
 [node name="Triggers" type="Node2D" parent="World" unique_id=1612492775]
 

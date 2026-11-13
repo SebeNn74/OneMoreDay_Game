@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://da1ovgqxohvjo"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_a8x2x"]
+[ext_resource type="Texture2D" uid="uid://bbbnwwq54t3t8" path="res://assets/sprites/environment/home/decoration/obj_sofa.png" id="2_cpw13"]
+
+[resource]
+script = ExtResource("1_a8x2x")
+texture = ExtResource("2_cpw13")
+footprint = Rect2(-57, -28, 87, 28)

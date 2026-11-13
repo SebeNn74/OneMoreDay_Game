@@ -5,7 +5,7 @@ extends HBoxContainer
 
 ## Changes smaller than this (continuous flows) update the readout but show no popup.
 const MIN_POPUP_CHANGE: float = 1.0
-const POPUP_HOLD_SECONDS: float = 0.7
+const POPUP_HOLD_SECONDS: float = 1.0
 const POPUP_FADE_SECONDS: float = 0.5
 const GAIN_COLOR: Color = Color(0.45, 0.85, 0.45)
 const LOSS_COLOR: Color = Color(0.90, 0.35, 0.30)

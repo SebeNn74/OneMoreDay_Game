@@ -15,6 +15,7 @@ const MIN_TRAVEL_DISTANCE: float = 64.0
 @export_range(0.0, 10000.0, 1.0, "suffix:px") var travel_distance: float = 0.0
 
 @onready var _bounds: LevelBounds = $Setup/LevelBounds
+@onready var _floor: Sprite2D = $World/Background/Floor
 @onready var _player: Player = $World/Entities/Player
 @onready var _spawn_point: Marker2D = $Setup/SpawnPoint
 @onready var _exit_zone: ExitZone = $World/Triggers/ExitZone
@@ -35,6 +36,19 @@ func _validate_layout() -> void:
 	var level_rect: Rect2 = Rect2(Vector2.ZERO, Vector2(level_size))
 	assert(level_rect.has_point(_spawn_point.global_position), "%s: SpawnPoint is outside level_size." % name)
 	assert(level_rect.has_point(_exit_zone.global_position), "%s: ExitZone is outside level_size." % name)
+	_warn_if_floor_does_not_fit()
+	
+
+## Art pipeline check: the floor art must start at (0, 0) and cover exactly the level.
+func _warn_if_floor_does_not_fit() -> void:
+	if _floor.texture == null:
+		return
+	if _floor.centered:
+		push_warning("%s: Floor has Centered on. Turn it off and set its position to (0, 0)." % name)
+	var art_size: Vector2i = Vector2i(_floor.texture.get_size() * _floor.scale)
+	if art_size != level_size:
+		push_warning("%s: floor art covers %s px but level_size is %s. Set level_size to the art size." % [
+			name, art_size, level_size])
 
 
 func _get_travel_distance() -> float:

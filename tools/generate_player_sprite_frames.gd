@@ -1,88 +1,188 @@
+
 @tool
 extends EditorScript
-## Builds the player's SpriteFrames from the sprite sheets.
-## Run: open this file in the Script editor, then File > Run (Ctrl+Shift+X).
-## Re-run whenever P3 delivers new sheets or the table below changes.
-##
-## Generated names (read by PlayerAnimator):
-##   directional sheets     -> "<state>_<direction>"  e.g. walk_left
-##   non-directional sheets -> "<state>"              e.g. hurt
+class_name SpriteFramesGenerator
 
-const SHEETS_DIR: String = "res://assets/sprites/player/"
-const OUTPUT_PATH: String = "res://assets/sprites/player/player_sprite_frames.tres"
-const DEFAULT_CELL_SIZE: Vector2i = Vector2i(16, 24)
+## Directorio donde se encuentran los spritesheets.
+const DEFAULT_SHEETS_DIR: String = "res://assets/sprites/"
 
-## Row of each direction inside directional sheets (top to bottom).
-## If a direction looks wrong in game, swap the numbers here and re-run.
-const DIRECTION_ROWS: Dictionary = {
-	DirectionUtils.DOWN: 0,
-	DirectionUtils.UP: 1,
-	DirectionUtils.LEFT: 2,
-	DirectionUtils.RIGHT: 3,
-}
-
-## One entry per animation.
-## cell: size of one frame (optional, defaults to DEFAULT_CELL_SIZE).
+## Configuración de las animaciones.
+## Cada entrada representa un spritesheet.
 const ANIMATIONS: Array[Dictionary] = [
-	{ name = "idle", sheet = "player_idle.png", frames = 2, fps = 3.0, loop = true, directional = true },
-	{ name = "walk", sheet = "player_walk.png", frames = 4, fps = 8.0, loop = true, directional = true },
-	# TODO(P3): placeholder. Reuses the walk sheet faster until player_run.png exists.
-	{ name = "run", sheet = "player_walk.png", frames = 4, fps = 12.0, loop = true, directional = true },
-	{ name = "interact", sheet = "player_interact.png", frames = 3, fps = 6.0, loop = false, directional = false },
-	{ name = "hurt", sheet = "player_hurt.png", frames = 2, fps = 6.0, loop = false, directional = false },
-	{ name = "fall", sheet = "player_fall.png", cell = Vector2i(24, 24), frames = 4, fps = 6.0, loop = false, directional = false },
+	{
+		"name": "phone",
+		"sheet": "environment/home/spr_celular.png",
+		"cell_size": Vector2i(8, 10),
+		"frames": 2,
+		"fps": 6.0,
+		"loop": true
+	},
+	{
+		"name": "window",
+		"sheet": "environment/home/anim_ventana.png",
+		"cell_size": Vector2i(128, 64),
+		"frames": 2,
+		"fps": 6.0,
+		"loop": true
+	},
 ]
 
 
+## Configuración general de generación.
+const OUTPUT_PATH: String = "res://assets/sprites/environment/home/home_sprite_frames.tres"
+const SHEETS_DIR: String = DEFAULT_SHEETS_DIR
+
+
 func _run() -> void:
-	var sprite_frames: SpriteFrames = SpriteFrames.new()
+	var sprite_frames := SpriteFrames.new()
 	sprite_frames.remove_animation(&"default")
 
 	for spec: Dictionary in ANIMATIONS:
 		if not _add_animation(sprite_frames, spec):
-			push_error("Generation aborted. Fix the error above and run again.")
+			push_error("Generation aborted. Check the configuration.")
 			return
 
-	var error: Error = ResourceSaver.save(sprite_frames, OUTPUT_PATH)
+	var error := ResourceSaver.save(sprite_frames, OUTPUT_PATH)
+
 	if error != OK:
-		push_error("Could not save %s (error %d)." % [OUTPUT_PATH, error])
+		push_error("Could not save resource: %s (error %d)." % [
+			OUTPUT_PATH,
+			error
+		])
 		return
 
 	EditorInterface.get_resource_filesystem().scan()
-	print("Saved %s with %d animations." % [OUTPUT_PATH, sprite_frames.get_animation_names().size()])
+
+	print(
+		"SpriteFrames generated successfully: %s (%d animations)"
+		% [OUTPUT_PATH, sprite_frames.get_animation_names().size()]
+	)
 
 
-## Returns false if the sheet is missing or its size does not match the table.
-func _add_animation(sprite_frames: SpriteFrames, spec: Dictionary) -> bool:
-	var texture: Texture2D = load(SHEETS_DIR + str(spec.sheet))
+## Processes one spritesheet.
+func _add_animation(
+	sprite_frames: SpriteFrames,
+	spec: Dictionary
+) -> bool:
+
+	# Required configuration.
+	var required := ["name", "sheet", "cell_size", "frames"]
+
+	for key: String in required:
+		if not spec.has(key):
+			push_error("Missing configuration property: %s" % key)
+			return false
+
+	# Load texture.
+	var sheet_path: String = SHEETS_DIR + str(spec.sheet)
+	var texture := load(sheet_path) as Texture2D
+
 	if texture == null:
-		push_error("Missing sheet: %s" % spec.sheet)
+		push_error("Could not load spritesheet: %s" % sheet_path)
 		return false
 
-	var cell_size: Vector2i = spec.get("cell", DEFAULT_CELL_SIZE)
-	var rows: int = DIRECTION_ROWS.size() if spec.directional else 1
-	var expected_size: Vector2i = Vector2i(spec.frames * cell_size.x, rows * cell_size.y)
-	var actual_size: Vector2i = Vector2i(texture.get_size())
+	# Read configuration.
+	var cell_size: Vector2i = spec.cell_size
+	var frame_count: int = spec.frames
+	var fps: float = spec.get("fps", 8.0)
+	var loop: bool = spec.get("loop", true)
+	var directions: Dictionary = spec.get("directions", {})
+
+	# Validate configuration.
+	if cell_size.x <= 0 or cell_size.y <= 0:
+		push_error("Invalid cell size in: %s" % spec.name)
+		return false
+
+	if frame_count <= 0 or fps <= 0:
+		push_error("Invalid frame count or FPS in: %s" % spec.name)
+		return false
+
+	# Calculate expected dimensions.
+	var rows: int = 1
+
+	if not directions.is_empty():
+		for row: Variant in directions.values():
+			rows = maxi(rows, int(row) + 1)
+
+	var expected_size := Vector2i(
+		frame_count * cell_size.x,
+		rows * cell_size.y
+	)
+
+	var actual_size := Vector2i(texture.get_size())
+
 	if actual_size != expected_size:
-		push_error("%s is %s but the table expects %s (check cell size and frame count)." % [spec.sheet, actual_size, expected_size])
+		push_error(
+			"Invalid spritesheet size: %s. Expected: %s, Got: %s"
+			% [sheet_path, expected_size, actual_size]
+		)
 		return false
 
-	if spec.directional:
-		for direction: StringName in DIRECTION_ROWS:
-			var clip_name: String = "%s_%s" % [spec.name, direction]
-			_add_clip(sprite_frames, clip_name, texture, cell_size, DIRECTION_ROWS[direction], spec)
+	# Generate animations.
+	if directions.is_empty():
+		_add_clip(
+			sprite_frames,
+			str(spec.name),
+			texture,
+			cell_size,
+			0,
+			spec
+		)
 	else:
-		_add_clip(sprite_frames, str(spec.name), texture, cell_size, 0, spec)
+		for direction: Variant in directions:
+			var animation_name := "%s_%s" % [
+				spec.name,
+				direction
+			]
+
+			_add_clip(
+				sprite_frames,
+				animation_name,
+				texture,
+				cell_size,
+				int(directions[direction]),
+				spec
+			)
+
 	return true
 
 
-func _add_clip(sprite_frames: SpriteFrames, clip_name: String, texture: Texture2D, cell_size: Vector2i, row: int, spec: Dictionary) -> void:
-	sprite_frames.add_animation(clip_name)
-	sprite_frames.set_animation_speed(clip_name, spec.fps)
-	sprite_frames.set_animation_loop(clip_name, spec.loop)
+## Generates one animation from a spritesheet row.
+func _add_clip(
+	sprite_frames: SpriteFrames,
+	clip_name: String,
+	texture: Texture2D,
+	cell_size: Vector2i,
+	row: int,
+	spec: Dictionary
+) -> void:
 
-	for column: int in range(spec.frames):
-		var frame: AtlasTexture = AtlasTexture.new()
+	if sprite_frames.has_animation(clip_name):
+		push_error("Duplicate animation name: %s" % clip_name)
+		return
+
+	sprite_frames.add_animation(clip_name)
+
+	sprite_frames.set_animation_speed(
+		clip_name,
+		float(spec.get("fps", 8.0))
+	)
+
+	sprite_frames.set_animation_loop(
+		clip_name,
+		bool(spec.get("loop", true))
+	)
+
+	for column: int in range(int(spec.frames)):
+		var frame := AtlasTexture.new()
+
 		frame.atlas = texture
-		frame.region = Rect2(column * cell_size.x, row * cell_size.y, cell_size.x, cell_size.y)
+
+		frame.region = Rect2(
+			column * cell_size.x,
+			row * cell_size.y,
+			cell_size.x,
+			cell_size.y
+		)
+
 		sprite_frames.add_frame(clip_name, frame)

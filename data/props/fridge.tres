@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://bwb54xehpay1j"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_tg2r0"]
+[ext_resource type="Texture2D" uid="uid://6knj4enh8yl2" path="res://assets/sprites/environment/home/decoration/obj_nevera.png" id="2_ukhgv"]
+
+[resource]
+script = ExtResource("1_tg2r0")
+texture = ExtResource("2_ukhgv")
+footprint = Rect2(-16, -18, 30, 16)

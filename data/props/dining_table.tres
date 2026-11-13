@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://bhes7enssk0c4"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_ilqrt"]
+[ext_resource type="Texture2D" uid="uid://clp4opmxk7arl" path="res://assets/sprites/environment/home/decoration/obj_mesa_comedor.png" id="2_1o31i"]
+
+[resource]
+script = ExtResource("1_ilqrt")
+texture = ExtResource("2_1o31i")
+footprint = Rect2(-26, -34, 50, 32)

@@ -1,0 +1,45 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cxgam4vq36nmq"]
+
+[ext_resource type="Texture2D" uid="uid://dub4inkt4d6d6" path="res://assets/sprites/environment/home/spr_celular.png" id="1_n3cvy"]
+[ext_resource type="Texture2D" uid="uid://x50nhqppwv3u" path="res://assets/sprites/environment/home/anim_ventana.png" id="2_npu26"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npu26"]
+atlas = ExtResource("1_n3cvy")
+region = Rect2(0, 0, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ajun"]
+atlas = ExtResource("1_n3cvy")
+region = Rect2(8, 0, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iueu0"]
+atlas = ExtResource("2_npu26")
+region = Rect2(0, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u77e"]
+atlas = ExtResource("2_npu26")
+region = Rect2(128, 0, 128, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npu26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ajun")
+}],
+"loop": 1,
+"name": &"phone",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iueu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8u77e")
+}],
+"loop": 1,
+"name": &"window",
+"speed": 6.0
+}]

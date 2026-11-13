@@ -4,10 +4,32 @@
 [ext_resource type="Script" uid="uid://bdbvv4cj7hf1g" path="res://scripts/levels/home_level.gd" id="2_lmuoo"]
 [ext_resource type="Texture2D" uid="uid://dvb1rkyfs0cy2" path="res://assets/sprites/environment/home/bg_home_floor.png" id="3_tqsx4"]
 [ext_resource type="Texture2D" uid="uid://d3o86pnongpvb" path="res://assets/sprites/environment/home/bg_home_walls.png" id="4_mqg2p"]
+[ext_resource type="Script" uid="uid://b1mnwbj34pvmo" path="res://scripts/levels/wall_rects.gd" id="5_mqg2p"]
 [ext_resource type="Script" uid="uid://durcqs724skbg" path="res://scripts/interactables/phone_interactable.gd" id="5_tqsx4"]
+[ext_resource type="PackedScene" uid="uid://c3uq4ssnelswq" path="res://scenes/props/prop.tscn" id="7_4vlsp"]
+[ext_resource type="SpriteFrames" uid="uid://cxgam4vq36nmq" path="res://assets/sprites/environment/home/home_sprite_frames.tres" id="7_btmx0"]
+[ext_resource type="Resource" uid="uid://biouy873s5gy7" path="res://data/props/bed.tres" id="8_4rfk4"]
+[ext_resource type="Resource" uid="uid://dgr1u01xoiwa8" path="res://data/props/tv.tres" id="9_d7yna"]
+[ext_resource type="Resource" uid="uid://b5uru0f8r0ikb" path="res://data/props/desk.tres" id="10_y8yaq"]
+[ext_resource type="Resource" uid="uid://dp5elvrdibbv5" path="res://data/props/sink.tres" id="11_ewmah"]
+[ext_resource type="Resource" uid="uid://da1ovgqxohvjo" path="res://data/props/sofa.tres" id="12_10bbg"]
+[ext_resource type="Resource" uid="uid://ij17tvwo1gao" path="res://data/props/chair.tres" id="13_1n780"]
+[ext_resource type="Resource" uid="uid://bjp3yk727xgj2" path="res://data/props/stove.tres" id="14_w5drb"]
+[ext_resource type="Resource" uid="uid://bwb54xehpay1j" path="res://data/props/fridge.tres" id="15_btmx0"]
+[ext_resource type="Resource" uid="uid://c2tc5epgcg5or" path="res://data/props/shower.tres" id="16_cp6xa"]
+[ext_resource type="Resource" uid="uid://e51suy0yvway" path="res://data/props/toilet.tres" id="17_ywrmp"]
+[ext_resource type="Resource" uid="uid://bym8ofev8ts4t" path="res://data/props/wardrobe.tres" id="18_ejiy3"]
+[ext_resource type="Resource" uid="uid://bhes7enssk0c4" path="res://data/props/dining_table.tres" id="19_v2jm8"]
+[ext_resource type="Texture2D" uid="uid://jod88ske6go8" path="res://assets/sprites/environment/home/bg_home_wall.png" id="20_w5drb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
-size = Vector2(32, 32)
+size = Vector2(31, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ojbw0"]
+size = Vector2(56, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l42ft"]
+size = Vector2(44, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tqsx4"]
 size = Vector2(60, 20)
@@ -23,31 +45,93 @@ texture = ExtResource("3_tqsx4")
 [node name="Walls" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="1" unique_id=892709214]
 texture = ExtResource("4_mqg2p")
 
-[node name="Walls" type="StaticBody2D" parent="World/Collisions" parent_id_path=PackedInt32Array(92770328) index="0" unique_id=467298086]
-
-[node name="Top" type="CollisionShape2D" parent="World/Collisions/Walls" index="0" unique_id=884287143]
-
-[node name="Bottom" type="CollisionShape2D" parent="World/Collisions/Walls" index="1" unique_id=1171739261]
-
-[node name="Right" type="CollisionShape2D" parent="World/Collisions/Walls" index="2" unique_id=1004538029]
-
-[node name="Left" type="CollisionShape2D" parent="World/Collisions/Walls" index="3" unique_id=1399220476]
+[node name="WallRects" type="StaticBody2D" parent="World/Collisions" parent_id_path=PackedInt32Array(92770328) index="0" unique_id=1357850979]
+collision_mask = 0
+script = ExtResource("5_mqg2p")
+rects = Array[Rect2i]([Rect2i(386, 64, 423, 108), Rect2i(105, 57, 139, 94), Rect2i(168, 345, 239, 13), Rect2i(473, 345, 239, 14), Rect2i(603, 99, 11, 178), Rect2i(599, 270, 15, 164), Rect2i(40, 160, 11, 115), Rect2i(180, 168, 11, 100), Rect2i(41, 281, 14, 140), Rect2i(320, 357, 75, 14)])
+metadata/_custom_type_script = "uid://b1mnwbj34pvmo"
 
 [node name="Phone" type="Area2D" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) index="0" unique_id=2139657774]
 unique_name_in_owner = true
-position = Vector2(200, 180)
+position = Vector2(461, 84)
 script = ExtResource("5_tqsx4")
 action_text = "Revisar celular"
 metadata/_custom_type_script = "uid://durcqs724skbg"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Interactables/Phone" index="0" unique_id=624799445]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Interactables/Phone" index="0" unique_id=1756253685]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("7_btmx0")
+animation = &"phone"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Interactables/Phone" index="1" unique_id=624799445]
+position = Vector2(-0.5, 10)
 shape = SubResource("RectangleShape2D_r5iys")
 
-[node name="ColorRect" type="ColorRect" parent="World/Interactables/Phone" index="1" unique_id=194353048]
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
+[node name="Tv" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=901503473 instance=ExtResource("7_4vlsp")]
+position = Vector2(179, 338)
+definition = ExtResource("9_d7yna")
+
+[node name="Desk" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=229024184 instance=ExtResource("7_4vlsp")]
+position = Vector2(404, 152)
+definition = ExtResource("10_y8yaq")
+
+[node name="Sink" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=563298939 instance=ExtResource("7_4vlsp")]
+position = Vector2(123, 126)
+definition = ExtResource("11_ewmah")
+
+[node name="Sofa" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=292460236 instance=ExtResource("7_4vlsp")]
+position = Vector2(108, 338)
+definition = ExtResource("12_10bbg")
+
+[node name="Chair" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=975468432 instance=ExtResource("7_4vlsp")]
+position = Vector2(344, 210)
+definition = ExtResource("13_1n780")
+
+[node name="Stove" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=478147305 instance=ExtResource("7_4vlsp")]
+position = Vector2(244, 136)
+definition = ExtResource("14_w5drb")
+
+[node name="Prop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=599409439 instance=ExtResource("7_4vlsp")]
+position = Vector2(300, 136)
+definition = ExtResource("15_btmx0")
+
+[node name="Shower" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=614300620 instance=ExtResource("7_4vlsp")]
+position = Vector2(162, 136)
+definition = ExtResource("16_cp6xa")
+
+[node name="Toilet" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=872248258 instance=ExtResource("7_4vlsp")]
+position = Vector2(67, 120)
+definition = ExtResource("17_ywrmp")
+
+[node name="Wardrobe" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=566784058 instance=ExtResource("7_4vlsp")]
+position = Vector2(577, 138)
+definition = ExtResource("18_ejiy3")
+
+[node name="Table1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=698598939 instance=ExtResource("7_4vlsp")]
+position = Vector2(298, 216)
+definition = ExtResource("19_v2jm8")
+
+[node name="Table2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="12" unique_id=1608970549 instance=ExtResource("7_4vlsp")]
+position = Vector2(250, 216)
+definition = ExtResource("19_v2jm8")
+
+[node name="Bed" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="13" unique_id=1566854401 instance=ExtResource("7_4vlsp")]
+position = Vector2(510, 180)
+definition = ExtResource("8_4rfk4")
+
+[node name="Wall" type="StaticBody2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="14" unique_id=1387083187]
+position = Vector2(110, 177)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Entities/Wall" index="0" unique_id=272891484]
+texture = ExtResource("20_w5drb")
+
+[node name="CollisionLeft" type="CollisionShape2D" parent="World/Entities/Wall" index="1" unique_id=656084946]
+position = Vector2(-34, 37)
+shape = SubResource("RectangleShape2D_ojbw0")
+
+[node name="CollisionRight" type="CollisionShape2D" parent="World/Entities/Wall" index="2" unique_id=1625444243]
+position = Vector2(54, 37)
+shape = SubResource("RectangleShape2D_l42ft")
 
 [node name="ExitZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="0" unique_id=1254900974]
 collision_mask = 2
@@ -58,3 +142,9 @@ shape = SubResource("RectangleShape2D_tqsx4")
 
 [node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
 position = Vector2(396, 257)
+
+[node name="PauseMenu" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="1" unique_id=175858098]
+visible = false
+
+[node name="DebugLevelGrid" parent="Debug" parent_id_path=PackedInt32Array(59155718) index="1" unique_id=1766457910]
+visible = false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dae126gdgd8x4"
-path="res://.godot/imported/pantalla_inicio.png-7929fc72ce4c903154e5498602c85abd.ctex"
+uid="uid://x50nhqppwv3u"
+path="res://.godot/imported/anim_ventana.png-5c23d81894de5d1717577e5dfc900548.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/pantalla_inicio.png"
-dest_files=["res://.godot/imported/pantalla_inicio.png-7929fc72ce4c903154e5498602c85abd.ctex"]
+source_file="res://assets/sprites/environment/home/anim_ventana.png"
+dest_files=["res://.godot/imported/anim_ventana.png-5c23d81894de5d1717577e5dfc900548.ctex"]
 
 [params]
 

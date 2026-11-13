@@ -56,6 +56,14 @@ Project Settings > Layer Names > 2D Physics.
 - Energía y tiempo: 0-100.
 - Derrota: cualquier recurso llega a 0.
 
+## Jerarquía de base_level.tscn
+- World/Background: Floor y Walls (arte, origen en la esquina superior izquierda, Centered desactivado).
+- World/Collisions: WallRects (paredes como lista de rectángulos). World/Props: decoración plana sin colisión.
+- World/Interactables: objetos del suelo (celular, monedas). Se dibuja debajo de Entities.
+- World/Entities (Y-sort): Player, NPC, hostiles y muebles (Prop). Todo lo que se ordene con el jugador va aquí.
+- World/Triggers: ExitZone y EventZone.
+- Setup: LevelBounds y SpawnPoint. UI: HUD, pausa y notificaciones. Debug: solo en builds de depuración.
+
 ## Simulación (P2)
 - Autoload Simulation (core/simulation.gd): única entrada a los 5 modelos.
 - Modelos en scripts/simulation/, parámetros en data/simulation/ y data/events/.

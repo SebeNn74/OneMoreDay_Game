@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://b5uru0f8r0ikb"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_3wfu7"]
+[ext_resource type="Texture2D" uid="uid://jku13kohqlb7" path="res://assets/sprites/environment/home/decoration/obj_escritorio.png" id="2_tv1be"]
+
+[resource]
+script = ExtResource("1_3wfu7")
+texture = ExtResource("2_tv1be")
+footprint = Rect2(-30, -34, 58, 32)

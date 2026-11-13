@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://bym8ofev8ts4t"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_36s47"]
+[ext_resource type="Texture2D" uid="uid://cegix66is538b" path="res://assets/sprites/environment/home/decoration/obj_armario.png" id="2_jdqgh"]
+
+[resource]
+script = ExtResource("1_36s47")
+texture = ExtResource("2_jdqgh")
+footprint = Rect2(-22, -20, 40, 16)
