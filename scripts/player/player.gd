@@ -4,6 +4,9 @@ extends CharacterBody2D
 
 signal facing_changed(new_direction: Vector2)
 
+## Group the player joins, so other nodes (hostiles) can find it.
+const GROUP: StringName = &"player"
+
 @export var movement_config: MovementConfig
 
 ## Cardinal direction the player is facing.
@@ -16,10 +19,12 @@ var speed_multiplier: float = 1.0
 @onready var interaction_detector: InteractionDetector = $InteractionDetector
 @onready var interaction_prompt: InteractionPrompt = $InteractionPrompt
 @onready var camera: PlayerCamera = $Camera
+@onready var hurtbox: Hurtbox = $Hurtbox
 
 
 func _ready() -> void:
 	assert(movement_config != null, "Player: movement_config is not assigned.")
+	add_to_group(GROUP)
 	collision_layer = PhysicsLayers.PLAYER
 	collision_mask = PhysicsLayers.PLAYER_BLOCKERS
 	state_machine.state_changed.connect(animator.on_state_changed)
@@ -27,6 +32,7 @@ func _ready() -> void:
 	facing_changed.connect(animator.on_facing_changed)
 	facing_changed.connect(interaction_detector.face)
 	interaction_detector.focus_changed.connect(interaction_prompt.on_focus_changed)
+	hurtbox.hit_received.connect(_on_hit_received)
 	interaction_detector.face(facing_direction)
 
 
@@ -97,3 +103,7 @@ func _update_facing_direction(direction: Vector2) -> void:
 
 	facing_direction = new_facing
 	facing_changed.emit(facing_direction)
+
+
+func _on_hit_received(_source: Node) -> void:
+	state_machine.request_one_shot(PlayerState.Type.HURT)

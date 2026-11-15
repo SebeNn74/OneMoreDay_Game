@@ -4,6 +4,10 @@
 [ext_resource type="Script" uid="uid://du4vt43kj1a2u" path="res://scenes/dev/level_test.gd" id="2_02us2"]
 [ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="3_awded"]
 [ext_resource type="Resource" uid="uid://dgig8jr0d0vfb" path="res://data/decisions/npc_04_supervisor.tres" id="4_3ghmq"]
+[ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="5_3ghmq"]
+[ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_t1_urgent_call.tres" id="6_57ihs"]
+[ext_resource type="Resource" uid="uid://cfb1cuju2d5ke" path="res://data/hostiles/h_t2_paper_pile.tres" id="7_4d0dn"]
+[ext_resource type="Resource" uid="uid://bo2xim743thrm" path="res://data/hostiles/h_i3_suspicious_figure.tres" id="8_howmj"]
 
 [node name="TestLevel" unique_id=1642240116 instance=ExtResource("1_2kjtj")]
 script = ExtResource("2_02us2")
@@ -12,6 +16,18 @@ level_size = Vector2i(480, 300)
 [node name="Npc" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("3_awded")]
 position = Vector2(240, 130)
 decision = ExtResource("4_3ghmq")
+
+[node name="UrgentCall" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1444754772 instance=ExtResource("5_3ghmq")]
+position = Vector2(400, 208)
+definition = ExtResource("6_57ihs")
+
+[node name="PaperPile" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1179720334 instance=ExtResource("5_3ghmq")]
+position = Vector2(336, 112)
+definition = ExtResource("7_4d0dn")
+
+[node name="SuspiciousFigure" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=863726316 instance=ExtResource("5_3ghmq")]
+position = Vector2(400, 80)
+definition = ExtResource("8_howmj")
 
 [node name="ExitZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="0" unique_id=1254900974]
 position = Vector2(440, 150)

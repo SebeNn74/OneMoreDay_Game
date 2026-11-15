@@ -9,12 +9,16 @@
 [ext_resource type="Script" uid="uid://c58qsb07ka087" path="res://scripts/interactables/interaction_promt.gd" id="7_qek5x"]
 [ext_resource type="Script" uid="uid://cuispyc4vhwxd" path="res://scripts/simulation_bridges/player_simulation_bridge.gd" id="8_qek5x"]
 [ext_resource type="Script" uid="uid://xfi43swgqyrt" path="res://scripts/player/player_camera.gd" id="9_5gtgg"]
+[ext_resource type="Script" uid="uid://dwdsm2gymhhy1" path="res://scripts/combat/hurtbox.gd" id="10_h17s1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(26, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ojbw0"]
 size = Vector2(34, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l42ft"]
+size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D" unique_id=773780192]
 collision_layer = 2
@@ -60,3 +64,11 @@ script = ExtResource("8_qek5x")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=691199287]
 script = ExtResource("9_5gtgg")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=119795498]
+script = ExtResource("10_h17s1")
+metadata/_custom_type_script = "uid://dwdsm2gymhhy1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=160417034]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_l42ft")

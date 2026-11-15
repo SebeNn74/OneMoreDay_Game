@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_5hd3y"]
 [ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="2_uuiei"]
 [ext_resource type="Resource" uid="uid://dgig8jr0d0vfb" path="res://data/decisions/npc_04_supervisor.tres" id="3_wysr1"]
+[ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="4_2lqwf"]
+[ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_t1_urgent_call.tres" id="5_h25i8"]
+[ext_resource type="Resource" uid="uid://cfb1cuju2d5ke" path="res://data/hostiles/h_t2_paper_pile.tres" id="6_rg7im"]
 
 [node name="Work02" unique_id=1642240116 instance=ExtResource("1_7hn6c")]
 
@@ -21,6 +24,14 @@ color = Color(0.4870152, 0.95395285, 0.8280708, 1)
 [node name="Supervisor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_uuiei")]
 position = Vector2(480, 140)
 decision = ExtResource("3_wysr1")
+
+[node name="UrgentCall" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1444754772 instance=ExtResource("4_2lqwf")]
+position = Vector2(528, 272)
+definition = ExtResource("5_h25i8")
+
+[node name="PaperPile" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1015084473 instance=ExtResource("4_2lqwf")]
+position = Vector2(208, 80)
+definition = ExtResource("6_rg7im")
 
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_5hd3y")]
 position = Vector2(320, 180)

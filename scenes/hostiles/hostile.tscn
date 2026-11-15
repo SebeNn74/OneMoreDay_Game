@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b64t5vgrvwio4"]
+
+[ext_resource type="Script" uid="uid://1hjnp552bjdg" path="res://scripts/hostiles/hostile.gd" id="1_v2dqg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
+size = Vector2(24, 24)
+
+[node name="Hostile" type="Node2D" unique_id=1444754772]
+script = ExtResource("1_v2dqg")
+
+[node name="Placeholder" type="ColorRect" parent="." unique_id=1253738666]
+offset_left = -16.0
+offset_top = -48.0
+offset_right = 16.0
+mouse_filter = 2
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=264626833]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1642102377]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_r5iys")
+
+[node name="Alert" type="Label" parent="." unique_id=1405144469]
+offset_left = -5.0
+offset_top = -78.0
+offset_right = 35.0
+offset_bottom = -62.0
+theme_override_colors/font_color = Color(1, 0.8854879, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+text = "!"

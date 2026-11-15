@@ -34,6 +34,7 @@ ida=commute, trabajo=work, vuelta=return
 - Resolución interna 640x360, un escenario por pantalla.
 - Los personajes (protagonista, NPC, hostiles) se dibujan a 16x24 y se muestran con
   scale 2 en su nodo de sprite.
+- Celda de los agentes (hostiles): 32 px, igual que una casilla de arte mostrada x2 (GridUtils.CELL_SIZE).
 
 ## Autoloads (orden de carga)
 EventBus, StatsManager, GameManager, Simulation, SceneManager.
@@ -93,3 +94,13 @@ Project Settings > Layer Names > 2D Physics.
 - DecisionPanel (estado DIALOG): W/S o flechas para elegir, E para confirmar, o ratón. Aplica los efectos
   una sola vez con Simulation.apply_change. Una opción que costaría más dinero del que tienes se desactiva.
 - Depuración: Alt + 1/2/3 deja dinero/energía/tiempo en 1.
+
+## Hostiles
+- Datos: HostileDefinition (data/hostiles/): id, comportamiento (HostileConfig de P2), efecto del golpe, tick y color.
+- Hostile (scenes/hostiles/hostile.tscn, en World/Entities): se mueve celda a celda (GridUtils.CELL_SIZE = 32 px),
+  decide con HostileBrain (caminata + persecución) y golpea una sola vez por escenario al tocar el Hurtbox del jugador.
+- Una celda está libre si una consulta de física no choca con world ni decoration (paredes, LevelBounds, muebles).
+- Un hostil queda inmóvil fuera del estado PLAYING (diálogo, pausa, transiciones).
+- Player: grupo "player", hijo Hurtbox y animación hurt al recibir un golpe.
+- EventBus.hostile_hit(definition) es para logs y finales.
+- Daño por defecto (Guía): -5 energía y -2 tiempo. Los hostiles de dinero (H-I3, H-V3) quitan -2 de dinero.

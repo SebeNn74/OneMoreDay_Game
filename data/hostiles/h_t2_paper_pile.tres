@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HostileDefinition" format=3 uid="uid://cfb1cuju2d5ke"]
+
+[ext_resource type="Resource" path="res://data/simulation/hostile_wanderer.tres" id="1_7wq1a"]
+[ext_resource type="Script" uid="uid://dwcuquqhg86cp" path="res://scripts/hostiles/hostile_definition.gd" id="1_at3ww"]
+
+[resource]
+script = ExtResource("1_at3ww")
+id = "H-T2"
+display_name = "Pila de papeles"
+behavior = ExtResource("1_7wq1a")
+hit_energy = -5.0
+hit_time = -2.0
+placeholder_color = Color(0.4613862, 0.28948832, 0.07821607, 1)
+metadata/_custom_type_script = "uid://dwcuquqhg86cp"

@@ -54,3 +54,9 @@ signal decision_requested(decision: DecisionDefinition)
 ## The player picked an option and its effects were already applied.
 @warning_ignore("unused_signal")
 signal decision_resolved(decision: DecisionDefinition, chosen: DecisionOption)
+
+# --- Hostiles ---
+
+## A hostile hit the player and its effects were already applied.
+@warning_ignore("unused_signal")
+signal hostile_hit(definition: HostileDefinition)
