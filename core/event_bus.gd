@@ -60,3 +60,9 @@ signal decision_resolved(decision: DecisionDefinition, chosen: DecisionOption)
 ## A hostile hit the player and its effects were already applied.
 @warning_ignore("unused_signal")
 signal hostile_hit(definition: HostileDefinition)
+
+# --- Items ---
+
+## The player used an item (coin, coffee...) and its effects were already applied.
+@warning_ignore("unused_signal")
+signal item_used(item: ItemDefinition)

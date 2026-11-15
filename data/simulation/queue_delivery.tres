@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="DecisionDefinition" format=3 uid="uid://b5j4vfc3gk42e"]
+
+[ext_resource type="Script" uid="uid://dkrx6vx6tvj5q" path="res://scripts/decisions/decision_option.gd" id="1_y8ano"]
+[ext_resource type="Script" uid="uid://d4gtrfhv2pg5o" path="res://scripts/decisions/decision_definition.gd" id="2_27slu"]
+[ext_resource type="Resource" uid="uid://ce7esoib8vba2" path="res://data/simulation/queue_delivery_slow.tres" id="2_g487i"]
+[ext_resource type="Resource" uid="uid://cj3334ldxvhtn" path="res://data/simulation/queue_delivery_fast.tres" id="3_jktme"]
+
+[sub_resource type="Resource" id="Resource_g487i"]
+script = ExtResource("1_y8ano")
+text = "Ventanilla A (la fila corta)"
+queue = ExtResource("2_g487i")
+metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
+
+[sub_resource type="Resource" id="Resource_jktme"]
+script = ExtResource("1_y8ano")
+text = "Ventanilla B (la fila larga)"
+queue = ExtResource("3_jktme")
+metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
+
+[resource]
+script = ExtResource("2_27slu")
+id = "QUEUE-DELIVERY"
+speaker_name = "Punto de entrega"
+prompt = "Dos ventanillas atienden las entregas. ¿En cuál haces la fila?"
+options = Array[ExtResource("1_y8ano")]([SubResource("Resource_g487i"), SubResource("Resource_jktme")])
+metadata/_custom_type_script = "uid://d4gtrfhv2pg5o"

@@ -6,6 +6,7 @@ signal facing_changed(new_direction: Vector2)
 
 ## Group the player joins, so other nodes (hostiles) can find it.
 const GROUP: StringName = &"player"
+const REST_TINT: Color = Color(0.7, 0.85, 1.0)
 
 @export var movement_config: MovementConfig
 
@@ -13,6 +14,7 @@ const GROUP: StringName = &"player"
 var facing_direction: Vector2 = Vector2.DOWN
 ## Scales the movement speed. Written by PlayerSimulationBridge.
 var speed_multiplier: float = 1.0
+var is_resting: bool = false
 
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var animator: PlayerAnimator = $Animator
@@ -38,6 +40,8 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	var input_direction: Vector2 = _read_input_direction()
+	if is_resting and not input_direction.is_zero_approx():
+		stop_resting()
 	_update_facing_direction(input_direction)
 	state_machine.update_locomotion(
 		not input_direction.is_zero_approx(),
@@ -106,4 +110,17 @@ func _update_facing_direction(direction: Vector2) -> void:
 
 
 func _on_hit_received(_source: Node) -> void:
+	stop_resting()
 	state_machine.request_one_shot(PlayerState.Type.HURT)
+
+
+func start_resting() -> void:
+	is_resting = true
+	animator.modulate = REST_TINT
+
+
+func stop_resting() -> void:
+	if not is_resting:
+		return
+	is_resting = false
+	animator.modulate = Color.WHITE

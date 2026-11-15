@@ -38,6 +38,14 @@ func get_definition(type: StatDefinition.Type) -> StatDefinition:
 	return _get_stat(type).definition
 
 
+## True when [param amount] can be added without leaving the stat depleted.
+func can_afford(type: StatDefinition.Type, amount: float) -> bool:
+	if amount >= 0.0:
+		return true
+	var stat: Stat = _get_stat(type)
+	return not stat.definition.is_depleted_at(stat.value + amount)
+
+
 ## Restores every stat to its initial value (start of a new day).
 func reset_all() -> void:
 	for type: StatDefinition.Type in _stats:

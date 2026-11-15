@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3 uid="uid://dg41ror5qktri"]
+
+[ext_resource type="Script" uid="uid://cap1inobl0yu0" path="res://scripts/items/item_definition.gd" id="1_v0rli"]
+
+[resource]
+script = ExtResource("1_v0rli")
+id = "ITEM-EMPANADA"
+display_name = "Empanada"
+action_text = "Comer una empanada"
+money = -3.0
+energy = 15.0
+placeholder_color = Color(0.83787686, 0.5650462, 0.35604474, 1)
+placeholder_size = Vector2(16, 12)
+metadata/_custom_type_script = "uid://cap1inobl0yu0"

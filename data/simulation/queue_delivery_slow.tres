@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="QueueConfig" format=3 uid="uid://ce7esoib8vba2"]
+
+[ext_resource type="Script" uid="uid://cwt3r07y50vcd" path="res://scripts/simulation/queue_config.gd" id="1_sbyu2"]
+
+[resource]
+script = ExtResource("1_sbyu2")
+display_name = "Ventanilla A"
+arrival_rate = 0.3
+service_rate = 0.5
+metadata/_custom_type_script = "uid://cwt3r07y50vcd"

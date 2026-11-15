@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3 uid="uid://d17q4w1ogggtv"]
+
+[ext_resource type="Script" uid="uid://cap1inobl0yu0" path="res://scripts/items/item_definition.gd" id="1_tc2uj"]
+
+[resource]
+script = ExtResource("1_tc2uj")
+id = "ITEM-COFFEE"
+display_name = "Tinto"
+action_text = "Tomar un tinto"
+money = -2.0
+energy = 10.0
+placeholder_color = Color(0.45592785, 0.264931, 0.10312884, 1)
+placeholder_size = Vector2(12, 16)
+metadata/_custom_type_script = "uid://cap1inobl0yu0"

@@ -7,3 +7,4 @@ extends Resource
 @export var money: float = 0.0
 @export var energy: float = 0.0
 @export var time: float = 0.0
+@export var queue: QueueConfig

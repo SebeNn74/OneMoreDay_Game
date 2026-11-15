@@ -104,3 +104,13 @@ Project Settings > Layer Names > 2D Physics.
 - Player: grupo "player", hijo Hurtbox y animación hurt al recibir un golpe.
 - EventBus.hostile_hit(definition) es para logs y finales.
 - Daño por defecto (Guía): -5 energía y -2 tiempo. Los hostiles de dinero (H-I3, H-V3) quitan -2 de dinero.
+
+## Colas, descanso y objetos
+- Fila (modelo 1): una DecisionOption con queue (QueueConfig). El botón muestra "N en la fila, espera estimada W de tiempo"
+  (Lq y Wq de QueueModel). La espera real se sortea al elegir (Simulation.queue_wait) y se avisa con una notificación.
+- Punto de fila: un Npc (scenes/npcs/npc.tscn) con una Decision de fila y su Action Text. QueueCrowd dibuja la gente (Lq).
+- Descanso (modelo 5): RestSpot (scenes/objects/rest_spot.tscn) pone Player.is_resting. PlayerSimulationBridge reporta REST;
+  moverse o un golpe lo levanta, y termina solo cerca de la energía máxima.
+- Objetos: ItemDefinition (data/items/) + ItemPickup (scenes/objects/item_pickup.tscn), de un solo uso.
+  Un objeto que cuesta dinero no se puede tomar si no alcanza (StatsManager.can_afford).
+- Las filas de las ventanillas (A corta y lenta, B larga y rápida) son dos QueueConfig en data/simulation/.

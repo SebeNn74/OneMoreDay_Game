@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3 uid="uid://byib54agitfcg"]
+
+[ext_resource type="Script" uid="uid://cap1inobl0yu0" path="res://scripts/items/item_definition.gd" id="1_m506g"]
+
+[resource]
+script = ExtResource("1_m506g")
+id = "ITEM-COIN"
+display_name = "Moneda"
+action_text = "Recoger moneda"
+money = 1.0
+placeholder_color = Color(0.84166586, 0.70314366, 0.24276379, 1)
+placeholder_size = Vector2(12, 12)
+metadata/_custom_type_script = "uid://cap1inobl0yu0"

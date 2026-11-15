@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3 uid="uid://cjv0l52gwv4g8"]
+
+[ext_resource type="Script" uid="uid://cap1inobl0yu0" path="res://scripts/items/item_definition.gd" id="1_646q0"]
+
+[resource]
+script = ExtResource("1_646q0")
+id = "ITEM-BILL"
+display_name = "Billete"
+action_text = "Recoger billete"
+money = 5.0
+placeholder_color = Color(0.43254188, 0.59846234, 0.21102947, 1)
+placeholder_size = Vector2(20, 12)
+metadata/_custom_type_script = "uid://cap1inobl0yu0"

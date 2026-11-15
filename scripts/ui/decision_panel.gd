@@ -7,9 +7,11 @@ const DRAW_LAYER: int = 20
 const SELECTED_MODULATE: Color = Color(1.0, 0.9, 0.4)
 const UNSELECTED_MODULATE: Color = Color.WHITE
 const EFFECT_SEPARATOR: String = "   "
-## Player-visible texts (Spanish).
 const NO_EFFECTS_TEXT: String = "Sin efecto"
 const UNAFFORDABLE_TEXT: String = "No te alcanza el dinero"
+const QUEUE_SUMMARY_FORMAT: String = "%d en la fila, espera estimada %d de tiempo"
+const WAITED_FORMAT: String = "Esperaste %d de tiempo en la fila."
+const NO_WAIT_TEXT: String = "La fila andaba vacía: pasaste sin esperar."
 
 @onready var _content: Control = %Content
 @onready var _speaker_label: Label = %SpeakerLabel
@@ -70,7 +72,7 @@ func _build_buttons() -> void:
 		button.focus_mode = Control.FOCUS_NONE
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		button.disabled = not is_affordable
-		button.text = "%s\n%s" % [option.text, _describe_effects(option) if is_affordable else UNAFFORDABLE_TEXT]
+		button.text = "%s\n%s" % [option.text, _describe_option(option) if is_affordable else UNAFFORDABLE_TEXT]
 		button.pressed.connect(_choose.bind(index))
 		button.mouse_entered.connect(_select.bind(index))
 		_options_box.add_child(button)
@@ -86,10 +88,28 @@ func _build_buttons() -> void:
 ## Money is a payment: an option that would leave it depleted cannot be paid.
 ## Energy and time costs are a risk the player may take, so they never disable an option.
 func _is_affordable(option: DecisionOption) -> bool:
-	if option.money >= 0.0:
-		return true
-	var money_after: float = StatsManager.get_value(StatDefinition.Type.MONEY) + option.money
-	return not StatsManager.get_definition(StatDefinition.Type.MONEY).is_depleted_at(money_after)
+	return StatsManager.can_afford(StatDefinition.Type.MONEY, option.money)
+
+
+## Second line of a button. A queue option shows the visible line and the estimated wait
+## (model 1): the real wait is random and only known once chosen. Others show their effects.
+func _describe_option(option: DecisionOption) -> String:
+	if option.queue != null:
+		return QUEUE_SUMMARY_FORMAT % [
+			roundi(QueueModel.mean_queue_length(option.queue)),
+			roundi(QueueModel.mean_wait(option.queue)),
+		]
+	return _describe_effects(option)
+
+
+## Model 1: the player waits in the option's queue. Returns the message that tells how long
+func _apply_queue_wait(option: DecisionOption) -> String:
+	if option.queue == null:
+		return ""
+	var wait: float = Simulation.queue_wait(option.queue)
+	if roundi(wait) == 0:
+		return NO_WAIT_TEXT
+	return WAITED_FORMAT % roundi(wait)
 
 
 func _describe_effects(option: DecisionOption) -> String:
@@ -140,8 +160,11 @@ func _choose(index: int) -> void:
 	_is_resolved = true
 	var option: DecisionOption = _decision.options[index]
 	Simulation.apply_change(option.money, option.energy, option.time)
+	var wait_message: String = _apply_queue_wait(option)
 	EventBus.decision_resolved.emit(_decision, option)
 	_close()
+	if not wait_message.is_empty() and GameManager.current_state == GameState.Type.PLAYING:
+		EventBus.notification_requested.emit(wait_message)
 
 
 func _close() -> void:

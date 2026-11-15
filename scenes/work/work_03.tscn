@@ -1,7 +1,12 @@
 [gd_scene format=3 uid="uid://jjxs1sgsgg4i"]
 
 [ext_resource type="PackedScene" uid="uid://bdslmng3fjq81" path="res://scenes/base_level.tscn" id="1_hqy8s"]
+[ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="2_6dvbe"]
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_sgvnx"]
+[ext_resource type="Resource" uid="uid://b5j4vfc3gk42e" path="res://data/simulation/queue_delivery.tres" id="3_re031"]
+[ext_resource type="Script" uid="uid://b05o0sxre1j7y" path="res://scripts/simulation_bridges/queue_crowd.gd" id="4_aqwhd"]
+[ext_resource type="Resource" uid="uid://ce7esoib8vba2" path="res://data/simulation/queue_delivery_slow.tres" id="5_xtkkp"]
+[ext_resource type="Resource" uid="uid://cj3334ldxvhtn" path="res://data/simulation/queue_delivery_fast.tres" id="6_tjod6"]
 
 [node name="Work03" unique_id=1642240116 instance=ExtResource("1_hqy8s")]
 
@@ -15,6 +20,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.51154464, 0.9404955, 0.89166844, 1)
+
+[node name="DeliveryPoint" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_6dvbe")]
+position = Vector2(500, 150)
+decision = ExtResource("3_re031")
+action_text = "Ver las ventanillas"
+
+[node name="WindowACrowd" type="Node2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=327013748]
+position = Vector2(460, 110)
+script = ExtResource("4_aqwhd")
+queue = ExtResource("5_xtkkp")
+metadata/_custom_type_script = "uid://b05o0sxre1j7y"
+
+[node name="WindowBCrowd" type="Node2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1391150626]
+position = Vector2(460, 240)
+script = ExtResource("4_aqwhd")
+queue = ExtResource("6_tjod6")
+metadata/_custom_type_script = "uid://b05o0sxre1j7y"
 
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_sgvnx")]
 position = Vector2(320, 180)

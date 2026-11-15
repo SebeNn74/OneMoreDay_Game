@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bvbh266ej608l"]
+
+[ext_resource type="Script" uid="uid://b8lf57js4u6fl" path="res://scripts/interactables/rest_spot.gd" id="1_oa2fl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
+size = Vector2(32, 32)
+
+[node name="RestSpot" type="Area2D" unique_id=1703585282]
+script = ExtResource("1_oa2fl")
+action_text = "Descansar"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1648936939]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_r5iys")
+
+[node name="Placeholder" type="ColorRect" parent="." unique_id=611090767]
+offset_left = -12.0
+offset_top = -24.0
+offset_right = 12.0
+mouse_filter = 2
