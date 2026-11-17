@@ -69,6 +69,10 @@ Project Settings > Layer Names > 2D Physics.
 - Autoload Simulation (core/simulation.gd): única entrada a los 5 modelos.
 - Modelos en scripts/simulation/, parámetros en data/simulation/ y data/events/.
 - Prueba: godot --headless --path . -s res://tools/simulation_self_test.gd
+- Monte Carlo (modelo 3): los eventos se sortean con Metropolis-Hastings (MCMC, MetropolisSampler).
+  EventCatalog.mcmc_steps = 10 pasos por sorteo; 0 vuelve al sorteo directo (Monte Carlo clásico).
+- Módulos standalone en simulation_standalone/ (Godot lo ignora por .gdignore). Modelo 3:
+  python simulation_standalone/jimenez_poveda_modelo3_montecarlo_mcmc.py (validación + gráficos en salidas_modelo3/).
 
 ## Dinámica de recursos (modelo 5)
 - PlayerSimulationBridge (hijo de Player) reporta la actividad a Simulation cada frame y aplica el factor de fatiga a Player.speed_multiplier.
