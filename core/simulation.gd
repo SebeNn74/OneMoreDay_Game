@@ -71,7 +71,9 @@ func queue_wait(config: QueueConfig) -> float:
 func draw_event(stage: GameEvent.Stage) -> GameEvent:
 	var event: GameEvent = _event_picker.draw(stage, rng)
 	if event != null:
-		report(MODEL_MONTE_CARLO, "%s (peso %d)" % [event.id, event.weight])
+		var sampler: String = ("MCMC Metropolis, %d pasos" % EVENT_CATALOG.mcmc_steps
+			if EVENT_CATALOG.mcmc_steps > 0 else "sorteo directo")
+		report(MODEL_MONTE_CARLO, "%s (peso %d, %s)" % [event.id, event.weight, sampler])
 	return event
 
 

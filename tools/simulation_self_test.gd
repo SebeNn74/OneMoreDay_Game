@@ -13,6 +13,12 @@ const LCG_FIRST: Array[float] = [0.0204, 0.01654, 0.54315, 0.6349, 0.91002]
 const QUEUE_SAMPLES: int = 20000
 const QUEUE_MEAN_WAIT: float = 4.029255170510533
 const EVENT_IDS: Array[String] = ["EV-06", "EV-07", "EV-10", "EV-16", "EV-18", "EV-12", "EV-14"]
+# Python model 3 (jimenez_poveda_modelo3_montecarlo_mcmc.py) with Metropolis-Hastings, k = 10.
+const MCMC_STEPS: int = 10
+const MCMC_EVENT_IDS: Array[String] = ["EV-06", "EV-08", "EV-11", "EV-13", "EV-17", "EV-18", "EV-12"]
+const MCMC_WEIGHTS: Array[float] = [3.0, 3.0, 2.0, 2.0, 2.0, 2.0]
+const MCMC_SAMPLES: int = 2000
+const MCMC_COUNTS: Array[int] = [446, 417, 274, 287, 299, 277]
 const WALK_CELLS: Array[Vector2i] = [
 	Vector2i(0, 0), Vector2i(0, 0), Vector2i(0, 0), Vector2i(0, 0), Vector2i(1, 0),
 	Vector2i(1, 0), Vector2i(1, 1), Vector2i(0, 1), Vector2i(0, 1), Vector2i(1, 1),
@@ -91,18 +97,31 @@ func _test_random_walk() -> void:
 
 
 func _test_events() -> void:
-	var picker: EventPicker = EventPicker.new(load("res://data/events/event_catalog.tres"))
+	for steps: int in [0, MCMC_STEPS]:
+		var catalog: EventCatalog = load("res://data/events/event_catalog.tres").duplicate() as EventCatalog
+		catalog.mcmc_steps = steps
+		var picker: EventPicker = EventPicker.new(catalog)
+		var rng: Lcg = Lcg.new(SEED)
+		var ids: Array[String] = []
+		for i: int in 3:
+			ids.append(picker.draw(GameEvent.Stage.COMMUTE, rng).id)
+		for i: int in 4:
+			ids.append(picker.draw(GameEvent.Stage.WORK, rng).id)
+		var sampler: String = "direct draw" if steps == 0 else "MCMC k = %d" % steps
+		_check("Monte Carlo (%s): drawn events equal Python" % sampler,
+			ids == (EVENT_IDS if steps == 0 else MCMC_EVENT_IDS), str(ids))
+		var commute_left: int = 0
+		while picker.draw(GameEvent.Stage.COMMUTE, rng) != null:
+			commute_left += 1
+		_check("Monte Carlo (%s): no repetition (3 of 6 commute events left)" % sampler, commute_left == 3,
+			str(commute_left))
+
 	var rng: Lcg = Lcg.new(SEED)
-	var ids: Array[String] = []
-	for i: int in 3:
-		ids.append(picker.draw(GameEvent.Stage.COMMUTE, rng).id)
-	for i: int in 4:
-		ids.append(picker.draw(GameEvent.Stage.WORK, rng).id)
-	_check("Monte Carlo: drawn events equal Python", ids == EVENT_IDS, str(ids))
-	var commute_left: int = 0
-	while picker.draw(GameEvent.Stage.COMMUTE, rng) != null:
-		commute_left += 1
-	_check("Monte Carlo: no repetition (3 of 6 commute events left)", commute_left == 3, str(commute_left))
+	var counts: Array[int] = []
+	counts.resize(MCMC_WEIGHTS.size())
+	for i: int in MCMC_SAMPLES:
+		counts[MetropolisSampler.sample(MCMC_WEIGHTS, MCMC_STEPS, rng)] += 1
+	_check("MCMC: Metropolis state counts equal Python", counts == MCMC_COUNTS, str(counts))
 
 
 func _test_hostile() -> void:
