@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://c7heh822560ne"]
+
+[ext_resource type="Script" uid="uid://cqtsk47x7dxlw" path="res://scripts/ui/clock_hud.gd" id="1_fob4u"]
+
+[node name="ClockHud" type="CanvasLayer" unique_id=603068341]
+script = ExtResource("1_fob4u")
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=966907264]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 30
+
+[node name="VBox" type="VBoxContainer" parent="Margin" unique_id=953262740]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ClockLabel" type="Label" parent="Margin/VBox" unique_id=1083293249]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+
+[node name="ProgressLabel" type="Label" parent="Margin/VBox" unique_id=667030931]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 1

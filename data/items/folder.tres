@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3 uid="uid://jp7cn1ggke2g"]
+
+[ext_resource type="Script" uid="uid://cap1inobl0yu0" path="res://scripts/items/item_definition.gd" id="1_e6ogd"]
+
+[resource]
+script = ExtResource("1_e6ogd")
+id = "ITEM-FOLDER"
+display_name = "Carpeta"
+action_text = "Recoger carpeta"
+sprite_animation = &"folder"
+metadata/_custom_type_script = "uid://cap1inobl0yu0"

@@ -39,6 +39,8 @@ var _player_reporting: bool = false
 var flows_enabled: bool = true
 ## Multiplier of the continuous flows in the current level.
 var flow_scale: float = 1.0
+## Extra multiplier of the clock flow only (energy is not affected). 1 = normal.
+var time_flow_scale: float = 1.0
 # What the continuous flows spent in the current level (negative = recovered).
 var _level_energy_spent: float = 0.0
 var _level_time_spent: float = 0.0
@@ -64,6 +66,7 @@ func queue_wait(config: QueueConfig) -> float:
 	StatsManager.modify(StatDefinition.Type.TIME, -wait)
 	report(MODEL_QUEUE, "%s: espera %.2f (Wq teórico %.2f, ρ = %.2f)" % [
 		config.display_name, wait, QueueModel.mean_wait(config), QueueModel.utilization(config)])
+	EventBus.queue_waited.emit(config, wait)
 	return wait
 
 
@@ -104,10 +107,18 @@ func speed_factor() -> float:
 func begin_level(travel_distance: float) -> void:
 	assert(travel_distance > 0.0, "Simulation: travel_distance must be positive.")
 	flow_scale = DYNAMICS_CONFIG.scenario_length / travel_distance
+	time_flow_scale = 1.0
 	_level_energy_spent = 0.0
 	_level_time_spent = 0.0
 	print("[Simulation] Level path: %.0f px, flow scale x%.2f" % [travel_distance, flow_scale])
 
+## Model 5. For a challenge with its own clock: over [param duration] seconds of play the TIME stat
+## falls by [param time_cost] in total, whatever the size of the level. Call it after begin_level().
+func set_time_cost_over(time_cost: float, duration: float) -> void:
+	assert(time_cost >= 0.0 and duration > 0.0, "Simulation: invalid time budget.")
+	time_flow_scale = (time_cost / duration) / (dynamics.clock * flow_scale)
+	print("[Simulation] Challenge clock: TIME falls %.1f over %.0f s (time flow x%.2f)" % [
+		time_cost, duration, time_flow_scale])
 
 ## Model 5. Called when the player reaches the exit. Reports what the flows cost in the level.
 func end_level(level_name: String) -> void:
@@ -128,7 +139,7 @@ func _physics_process(delta: float) -> void:
 	var energy: float = StatsManager.get_value(StatDefinition.Type.ENERGY)
 	var max_energy: float = StatsManager.get_definition(StatDefinition.Type.ENERGY).max_value
 	var energy_change: float = dynamics.energy_rate(energy, max_energy, player_activity) * step
-	var time_change: float = dynamics.time_rate() * step
+	var time_change: float = dynamics.time_rate() * step * time_flow_scale
 	StatsManager.modify(StatDefinition.Type.ENERGY, energy_change)
 	StatsManager.modify(StatDefinition.Type.TIME, time_change)
 	_level_energy_spent -= energy_change

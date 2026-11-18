@@ -118,3 +118,14 @@ Project Settings > Layer Names > 2D Physics.
 - Objetos: ItemDefinition (data/items/) + ItemPickup (scenes/objects/item_pickup.tscn), de un solo uso.
   Un objeto que cuesta dinero no se puede tomar si no alcanza (StatsManager.can_afford).
 - Las filas de las ventanillas (A corta y lenta, B larga y rápida) son dos QueueConfig en data/simulation/.
+
+## El Marcador (Work 3)
+- ClockChallengeLevel (hereda de BaseLevel) en work_03; parámetros en data/challenges/el_marcador.tres.
+- Reloj propio de 45 s, pausado en diálogos/pausa/transiciones. El stat Tiempo baja time_cost (6) en toda la duración:
+  Simulation.set_time_cost_over(). La energía usa Travel Distance = 1500.
+- 3 carpetas sorteadas (Monte Carlo) entre los Marker2D de FolderSpawns. Una carpeta es un ItemPickup sin efectos.
+- Un golpe resta hit_penalty_seconds (3 s); una espera de la fila resta espera x wait_seconds_per_unit (3 s).
+- Entregar = resolver la decisión queue_delivery con las 3 carpetas: bono +10 y salida abierta. Fallo = D-05.
+- SceneManager.defeat_reason_override pone el texto D-05 mientras dura el encuentro (el paso 12 lo reemplaza).
+- EventBus: challenge_clock_changed, challenge_progress_changed, challenge_finished(is_success, seconds_left), queue_waited.
+- work_03: 960x544, muro con dos huecos (corto con más hostiles, largo con menos).

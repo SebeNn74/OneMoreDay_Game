@@ -8,7 +8,7 @@ const MAIN_MENU_SCENE: String = "res://scenes/global/main_menu.tscn"
 
 ## Outcome of the last finished day. Null until a day finishes.
 var last_result: DayResult
-
+var defeat_reason_override: String = ""
 var _steps: Array[DayStep] = []
 var _current_index: int = -1  # -1 means no day is running.
 var _is_changing_scene: bool = false
@@ -39,12 +39,16 @@ func start_day() -> void:
 
 ## Ends the day and shows the victory or defeat screen.
 ## [param depleted_stat] is the cause of a defeat (null if unknown or on victory).
-func finish_day(victory: bool, depleted_stat: StatDefinition = null) -> void:
+## [param custom_reason] replaces the stat's text.
+func finish_day(victory: bool, depleted_stat: StatDefinition = null, custom_reason: String = "") -> void:
 	if _is_changing_scene:
 		return
 	_current_index = -1
 	_pending_defeat_stat = null
-	last_result = DayResult.new(victory, depleted_stat)
+	var reason: String = custom_reason
+	if reason.is_empty() and not victory:
+		reason = defeat_reason_override
+	last_result = DayResult.new(victory, depleted_stat, reason)
 	print("[SceneManager] Day finished. Victory: %s" % victory)
 	GameManager.change_state(GameState.Type.VICTORY if victory else GameState.Type.GAME_OVER)
 	EventBus.day_finished.emit(last_result)

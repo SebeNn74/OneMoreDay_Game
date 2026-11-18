@@ -7,15 +7,19 @@ const NOT_ENOUGH_MONEY_TEXT: String = "No te alcanza el dinero."
 
 @export var item: ItemDefinition
 
-@onready var _placeholder: ColorRect = $Placeholder
+@onready var _animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
 func _ready() -> void:
 	super()
 	assert(item != null, "%s: item is not assigned." % name)
-	_placeholder.color = item.placeholder_color
-	_placeholder.size = item.placeholder_size
-	_placeholder.position = Vector2(-item.placeholder_size.x / 2.0, -item.placeholder_size.y)
+	assert(
+		_animated_sprite.sprite_frames != null
+		and _animated_sprite.sprite_frames.has_animation(item.sprite_animation),
+		"%s: animation '%s' is missing from the item SpriteFrames." % [name, item.sprite_animation]
+	)
+	_animated_sprite.animation = item.sprite_animation
+	_animated_sprite.play()
 	if action_text.is_empty():
 		action_text = item.action_text
 

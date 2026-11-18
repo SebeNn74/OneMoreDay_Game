@@ -10,26 +10,66 @@ const DEFAULT_SHEETS_DIR: String = "res://assets/sprites/"
 ## Cada entrada representa un spritesheet.
 const ANIMATIONS: Array[Dictionary] = [
 	{
-		"name": "phone",
-		"sheet": "environment/home/spr_celular.png",
-		"cell_size": Vector2i(8, 10),
-		"frames": 2,
-		"fps": 6.0,
+		"name": "bill",
+		"sheet": "items/bill.png",
+		"cell_size": Vector2i(16, 16),
+		"frames": 4,
+		"fps": 5.0,
 		"loop": true
 	},
 	{
-		"name": "window",
-		"sheet": "environment/home/anim_ventana.png",
-		"cell_size": Vector2i(128, 64),
-		"frames": 2,
-		"fps": 6.0,
+		"name": "clock",
+		"sheet": "items/clock.png",
+		"cell_size": Vector2i(16, 16),
+		"frames": 4,
+		"fps": 5.0,
+		"loop": true
+	},
+	{
+		"name": "coffee",
+		"sheet": "items/coffee.png",
+		"cell_size": Vector2i(16, 16),
+		"frames": 4,
+		"fps": 5.0,
+		"loop": true
+	},
+	{
+		"name": "coin",
+		"sheet": "items/coin.png",
+		"cell_size": Vector2i(16, 16),
+		"frames": 4,
+		"fps": 5.0,
+		"loop": true
+	},
+	{
+		"name": "dropoff",
+		"sheet": "items/dropoff.png",
+		"cell_size": Vector2i(16, 16),
+		"frames": 4,
+		"fps": 5.0,
+		"loop": true
+	},
+	{
+		"name": "empanada",
+		"sheet": "items/empanada.png",
+		"cell_size": Vector2i(16, 16),
+		"frames": 4,
+		"fps": 5.0,
+		"loop": true
+	},
+	{
+		"name": "folder",
+		"sheet": "items/folder.png",
+		"cell_size": Vector2i(16, 16),
+		"frames": 4,
+		"fps": 5.0,
 		"loop": true
 	},
 ]
 
 
 ## Configuración general de generación.
-const OUTPUT_PATH: String = "res://assets/sprites/environment/home/home_sprite_frames.tres"
+const OUTPUT_PATH: String = "res://assets/sprites/items/items_sprite_frames.tres"
 const SHEETS_DIR: String = DEFAULT_SHEETS_DIR
 
 

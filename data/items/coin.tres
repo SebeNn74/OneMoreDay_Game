@@ -8,6 +8,5 @@ id = "ITEM-COIN"
 display_name = "Moneda"
 action_text = "Recoger moneda"
 money = 1.0
-placeholder_color = Color(0.84166586, 0.70314366, 0.24276379, 1)
-placeholder_size = Vector2(12, 12)
+sprite_animation = &"coin"
 metadata/_custom_type_script = "uid://cap1inobl0yu0"

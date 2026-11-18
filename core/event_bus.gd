@@ -66,3 +66,23 @@ signal hostile_hit(definition: HostileDefinition)
 ## The player used an item (coin, coffee...) and its effects were already applied.
 @warning_ignore("unused_signal")
 signal item_used(item: ItemDefinition)
+
+# --- Queues ---
+
+## The player waited in an M/M/1 queue. [param wait] is in time units (the same the TIME stat uses).
+@warning_ignore("unused_signal")
+signal queue_waited(queue: QueueConfig, wait: float)
+
+# --- Challenge (El Marcador) ---
+
+## Seconds left on the challenge clock.
+@warning_ignore("unused_signal")
+signal challenge_clock_changed(seconds_left: float)
+
+## Folders collected out of the total.
+@warning_ignore("unused_signal")
+signal challenge_progress_changed(collected: int, total: int)
+
+## The challenge ended. [param seconds_left] is what remained on the clock (for the endings).
+@warning_ignore("unused_signal")
+signal challenge_finished(is_success: bool, seconds_left: float)

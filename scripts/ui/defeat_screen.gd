@@ -7,9 +7,6 @@ extends EndScreen
 
 func _ready() -> void:
 	var result: DayResult = SceneManager.last_result
-	var cause: StatDefinition = result.depleted_stat if result != null else null
-	var has_reason: bool = cause != null and not cause.depletion_message.is_empty()
-
-	_reason_label.visible = has_reason
-	if has_reason:
-		_reason_label.text = cause.depletion_message
+	var reason: String = result.reason if result != null else ""
+	_reason_label.visible = not reason.is_empty()
+	_reason_label.text = reason

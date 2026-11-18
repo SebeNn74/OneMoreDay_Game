@@ -9,6 +9,5 @@ display_name = "Tinto"
 action_text = "Tomar un tinto"
 money = -2.0
 energy = 10.0
-placeholder_color = Color(0.45592785, 0.264931, 0.10312884, 1)
-placeholder_size = Vector2(12, 16)
+sprite_animation = &"coffee"
 metadata/_custom_type_script = "uid://cap1inobl0yu0"

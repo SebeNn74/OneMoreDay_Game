@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ClockChallengeConfig" format=3 uid="uid://cvs1b5414636i"]
+
+[ext_resource type="Resource" uid="uid://b5j4vfc3gk42e" path="res://data/simulation/queue_delivery.tres" id="1_h4gbv"]
+[ext_resource type="Script" uid="uid://c300pwyswegas" path="res://scripts/levels/clock_challenge_config.gd" id="1_suc7k"]
+[ext_resource type="Resource" uid="uid://jp7cn1ggke2g" path="res://data/items/folder.tres" id="2_hr7oa"]
+
+[resource]
+script = ExtResource("1_suc7k")
+display_name = "El Marcador"
+folder_item = ExtResource("2_hr7oa")
+delivery_decision = ExtResource("1_h4gbv")
+intro_text = "¡El Marcador! Recoge las carpetas y entrégalas antes de que el reloj llegue a 0."
+fail_text = "La alarma sonó y el reloj no perdonó. No alcanzaste a entregar a tiempo. Pero ya sabes cuánto cuesta cada minuto."
+metadata/_custom_type_script = "uid://c300pwyswegas"
