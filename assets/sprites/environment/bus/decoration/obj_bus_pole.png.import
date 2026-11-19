@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gas68wnrdr51"
-path="res://.godot/imported/bg_return_02_walls.png-aba2134ec3c4b36c64e15165f3cae1a9.ctex"
+uid="uid://3p188fty2n8p"
+path="res://.godot/imported/obj_bus_pole.png-7fd3f2c1ae99df7a7775b32e625c5347.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/environment/street/bg_return_02_walls.png"
-dest_files=["res://.godot/imported/bg_return_02_walls.png-aba2134ec3c4b36c64e15165f3cae1a9.ctex"]
+source_file="res://assets/sprites/environment/bus/decoration/obj_bus_pole.png"
+dest_files=["res://.godot/imported/obj_bus_pole.png-7fd3f2c1ae99df7a7775b32e625c5347.ctex"]
 
 [params]
 

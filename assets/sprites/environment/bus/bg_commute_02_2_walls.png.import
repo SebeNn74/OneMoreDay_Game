@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhe1xj67bi86w"
-path="res://.godot/imported/bg_return_02_floor.png-baa70577b03734a722c6c29452a27c72.ctex"
+uid="uid://b1hag72eo71cs"
+path="res://.godot/imported/bg_commute_02_2_walls.png-da7fa0dc4c7f0b2a7ca22dbb8f851f03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/environment/street/bg_return_02_floor.png"
-dest_files=["res://.godot/imported/bg_return_02_floor.png-baa70577b03734a722c6c29452a27c72.ctex"]
+source_file="res://assets/sprites/environment/bus/bg_commute_02_2_walls.png"
+dest_files=["res://.godot/imported/bg_commute_02_2_walls.png-da7fa0dc4c7f0b2a7ca22dbb8f851f03.ctex"]
 
 [params]
 
