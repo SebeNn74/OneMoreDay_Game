@@ -297,16 +297,20 @@ def tower(im, x0, x1, rng, lit, entrance=False):
         rect(im, x0, gy, x1, gy, hexc("74726e"))
     rect(im, x0, podium, x1, podium, hexc("b4b2ae"))
     if entrance:
-        ex = x1 - 44
-        rect(im, ex - 3, podium - 6, ex + 40, podium - 1, hexc("2a3440"))
-        rect(im, ex - 3, podium - 1, ex + 40, podium - 1, hexc("c8a84a"))
-        text(im, ex + (38 - text_width("OFICINAS")) // 2, podium - 6, "OFICINAS", hexc("f0e0a0"))
-        rect(im, ex + 2, podium + 1, ex + 35, FACADE_H - 2, hexc("2a3440"))
+        ex, top = x1 - 44, 13
+        rect(im, ex + 1, top + 6, ex + 36, FACADE_H - 1, hexc("2a3440"))
         for dx in (ex + 3, ex + 19):
-            rect(im, dx, podium + 2, dx + 14, FACADE_H - 2, hexc("a8c8dc"))
-            px(im, dx + 10, podium + 3, hexc("dcecf4"))
-            px(im, dx + 9, podium + 4, hexc("dcecf4"))
-        lit.append((ex + 3, podium + 2, ex + 34, FACADE_H - 2))
+            rect(im, dx, top + 8, dx + 14, FACADE_H - 2, hexc("a8c8dc"))
+            for k in range(6):
+                px(im, dx + 11 - k, top + 10 + k, hexc("dcecf4"))
+            rect(im, dx + (12 if dx == ex + 3 else 2), top + 24, dx + (12 if dx == ex + 3 else 2), top + 28, hexc("c8a84a"))
+        rect(im, ex + 18, top + 8, ex + 18, FACADE_H - 2, hexc("c8a84a"))
+        lit.append((ex + 3, top + 8, ex + 34, FACADE_H - 2))
+        rect(im, ex - 3, top - 1, ex + 40, top + 5, OUT)
+        rect(im, ex - 2, top, ex + 39, top + 4, hexc("2a3440"))
+        rect(im, ex - 2, top + 5, ex + 39, top + 5, hexc("c8a84a"))
+        text(im, ex + (42 - text_width("OFICINAS")) // 2, top, "OFICINAS", hexc("f0e0a0"))
+        art.shadow_band(im, ex + 1, top + 6, ex + 36, top + 9, "top", 0.35)
 
 
 def cables(im, width):
@@ -657,7 +661,19 @@ def office_feature(w, kind, x, rng, lit):
         text(w, x + 10, 14, "B", hexc("60c0f0"))
 
 
-def office_level(width, height, seed, features=(), lobby=None, queue_lines=(), doors=(75, 107)):
+def delivery_mark(floor, x0, y0, x1, y1):
+    """Dashed yellow square on the floor where the folders are delivered."""
+    for x in range(x0, x1 + 1):
+        for y in (y0, y1):
+            if (x // 3) % 2 == 0:
+                px(floor, x, y, hexc("e2bf48"))
+    for y in range(y0, y1 + 1):
+        for x in (x0, x1):
+            if (y // 3) % 2 == 0:
+                px(floor, x, y, hexc("e2bf48"))
+
+
+def office_level(width, height, seed, features=(), lobby=None, queue_lines=(), doors=(75, 107), delivery=None):
     rng = random.Random(seed)
     floor = new(width, height)
     for ty in range(0, height, 16):
@@ -694,6 +710,8 @@ def office_level(width, height, seed, features=(), lobby=None, queue_lines=(), d
         for ax in range(x0 + 6, x1 - 4, 20):
             for k in range(3):
                 rect(floor, ax + k, y - 5 + k, ax + k, y - 1 - k, hexc("e4e2d8"))
+    if delivery:
+        delivery_mark(floor, *delivery)
     art.shadow_band(floor, 0, FACE_END + 1, width - 1, FACE_END + 6, "top", 0.42)
     art.shadow_band(floor, 4, 0, 9, height - 1, "left", 0.35)
     art.shadow_band(floor, width - 10, 0, width - 5, height - 1, "right", 0.3)
@@ -937,6 +955,278 @@ def obj_extinguisher():
     return shadowed(outline(im), 4)
 
 
+# ---------------------------------------------------------------- vertical street (640 x 1920 on screen)
+
+V_W = 320
+V_COLS = {"roof_l": (0, 71), "side_l": (72, 103), "curb_l": 104, "road": (107, 212), "curb_r": 213,
+          "side_r": (216, 247), "roof_r": (248, 319)}
+
+
+def roof_top(im, x0, y0, x1, y1, rng):
+    """Buildings seen from above along a vertical street: clay tiles, flat concrete with water tanks, or zinc."""
+    y = y0
+    while y <= y1:
+        h = min(rng.randint(36, 80), y1 - y + 1)
+        if y1 - (y + h) < 20:
+            h = y1 - y + 1
+        kind = rng.choice(("tile", "tile", "flat", "flat", "zinc"))
+        b0, b1 = y, y + h - 1
+        if kind == "tile":
+            ridge = (x0 + x1) // 2
+            for yy in range(b0, b1 + 1):
+                for xx in range(x0, x1 + 1):
+                    phase, tx = (xx - x0) % 3, ((yy - b0) + ((xx - x0) // 3) % 2 * 2) % 4
+                    c = PAL["roof_hi"] if phase == 0 else (PAL["roof_lo"] if phase == 2 else (hexc("a24c33") if tx == 0 else PAL["roof"]))
+                    px(im, xx, yy, shade(c, 0.88) if xx > ridge else c)
+            rect(im, ridge, b0, ridge, b1, PAL["roof_edge"])
+        elif kind == "flat":
+            base = hexc(rng.choice(["a8a49a", "b4b0a4", "9c988e"]))
+            art.mottle(im, x0, b0, x1, b1, base, shade(base, 1.05), shade(base, 0.93), rng.randint(0, 999), cell=10, spread=0.15)
+            ImageDraw.Draw(im).rectangle([x0 + 1, b0 + 1, x1 - 1, b1 - 1], outline=shade(base, 1.15))
+            for _ in range(rng.randint(1, 2)):
+                tx, ty = rng.randint(x0 + 6, x1 - 14), rng.randint(b0 + 4, max(b0 + 4, b1 - 14))
+                ImageDraw.Draw(im).ellipse([tx, ty, tx + 9, ty + 9], fill=hexc("26282e"))
+                ImageDraw.Draw(im).ellipse([tx + 2, ty + 1, tx + 6, ty + 4], fill=hexc("40434c"))
+            if rng.random() < 0.5:
+                for k in range(3):
+                    line(im, x0 + 5, b1 - 6 - k * 3, x0 + 25, b1 - 6 - k * 3, hexc("6a6a70"))
+                    px(im, x0 + 9 + k * 5, b1 - 5 - k * 3, rng.choice((hexc("d04040"), hexc("3c6aa0"), hexc("f0d060"))))
+        else:
+            for xx in range(x0, x1 + 1):
+                c = hexc("8a96a2") if (xx - x0) % 3 == 0 else (hexc("a8b2bc") if (xx - x0) % 3 == 1 else hexc("97a2ad"))
+                rect(im, xx, b0, xx, b1, c)
+            art.speckle(im, x0, b0, x1, b1, [hexc("8a6a4a"), hexc("7a5a3a")], 0.03, rng)
+        rect(im, x0, b1, x1, b1, PAL["brown_line"])
+        y += h
+    edge = x1 if x0 == 0 else x0
+    rect(im, edge, y0, edge, y1, PAL["brown_line"])
+
+
+def vertical_street(height, seed, cross=(), lamps_y=(), pits_y=()):
+    """Long vertical street: roofs on both sides, sidewalks, a two-lane road and horizontal cross streets.
+    Every block shows its south facade (48 rows) right above each cross street."""
+    rng = random.Random(seed)
+    c = V_COLS
+    floor = new(V_W, height)
+    walls = new(V_W, height)
+    lit = []
+    for side in ("side_l", "side_r"):
+        a, b = c[side]
+        sidewalk(floor, a, 0, b, height - 1, rng)
+    for x in (c["curb_l"], c["curb_r"]):
+        rect(floor, x, 0, x, height - 1, PAL["curb_top"])
+        rect(floor, x + 1, 0, x + 1, height - 1, PAL["curb_face"])
+        rect(floor, x + 2, 0, x + 2, height - 1, PAL["curb_dark"])
+    r0, r1 = c["road"]
+    art.mottle(floor, r0, 0, r1, height - 1, PAL["asphalt"], PAL["asphalt_hi"], PAL["asphalt_lo"], seed, cell=22, spread=0.11)
+    art.speckle(floor, r0, 0, r1, height - 1, [hexc("5c5f68"), hexc("44474e")], 0.03, rng)
+    mid = (r0 + r1) // 2
+    for y in range(0, height, 20):
+        rect(floor, mid, y + 4, mid, y + 13, PAL["paint_y"])
+    rect(floor, r0 + 2, 0, r0 + 2, height - 1, PAL["paint_w"])
+    rect(floor, r1 - 2, 0, r1 - 2, height - 1, PAL["paint_w"])
+    for y in range(40, height - 8, 120):
+        for x in (r0 + 1, r1 - 3):
+            rect(floor, x, y, x + 2, y + 7, hexc("2a2b30"))
+    for y in range(90, height - 10, 210):
+        ImageDraw.Draw(floor).ellipse([mid + 14, y, mid + 20, y + 8], fill=hexc("3a3b40"), outline=hexc("2a2b30"))
+    for _ in range(height // 60):
+        x, y = rng.randint(r0 + 4, r1 - 12), rng.randint(0, height - 8)
+        rect(floor, x, y, x + rng.randint(5, 12), y + rng.randint(8, 18), hexc("474a51"))
+    for y in pits_y:
+        for x in (c["side_l"][0] + 10, c["side_r"][0] + 10):
+            rect(floor, x, y, x + 11, y + 11, PAL["curb_face"])
+            rect(floor, x + 1, y + 1, x + 10, y + 10, PAL["soil"])
+    art.shadow_band(floor, c["side_l"][0], 0, c["side_l"][0] + 4, height - 1, "left", 0.4)
+    art.shadow_band(floor, c["side_r"][1] - 4, 0, c["side_r"][1], height - 1, "right", 0.3)
+
+    blocks, top = [], 0
+    for cy in cross:
+        blocks.append((top, cy - 13))
+        top = cy + 60
+    blocks.append((top, height - 1))
+    for i, (b0, b1) in enumerate(blocks):
+        has_facade = i < len(cross)
+        for side in ("roof_l", "roof_r"):
+            a, b = c[side]
+            roof_end = b1 - FACADE_H if has_facade else b1
+            if roof_end > b0:
+                roof_top(walls, a, b0, b, roof_end, rng)
+            if has_facade:
+                band = new(b - a + 1, FACADE_H)
+                kind = rng.choice(SHOPS) if rng.random() < 0.6 else None
+                if kind:
+                    shop(band, 0, band.width - 1, kind, rng.choice(art.FACADE_COLORS), rng, [])
+                else:
+                    house(band, 0, band.width - 1, rng.choice(art.FACADE_COLORS), rng, [])
+                walls.alpha_composite(band, (a, b1 - FACADE_H + 1))
+                lit.extend([(a + 3, b1 - FACADE_H + 25, b - 3, b1 - 10)])
+    for cy in cross:
+        y0, y1 = cy - 12, cy + 59
+        sidewalk(floor, 0, y0, c["side_l"][1], y0 + 11, rng)
+        sidewalk(floor, c["side_r"][0], y0, V_W - 1, y0 + 11, rng)
+        sidewalk(floor, 0, y1 - 11, c["side_l"][1], y1, rng)
+        sidewalk(floor, c["side_r"][0], y1 - 11, V_W - 1, y1, rng)
+        art.shadow_band(floor, 0, y0, V_W - 1, y0 + 3, "top", 0.4)
+        art.mottle(floor, 0, cy, V_W - 1, cy + 47, PAL["asphalt"], PAL["asphalt_hi"], PAL["asphalt_lo"], cy, cell=22, spread=0.11)
+        for x in range(0, V_W, 20):
+            if not (r0 - 4 < x < r1):
+                rect(floor, x + 4, cy + 23, x + 13, cy + 23, PAL["paint_y"])
+        for x in range(r0 + 4, r1 - 3, 6):
+            rect(floor, x, cy + 48, x + 3, cy + 57, PAL["paint_w"])
+            rect(floor, x, cy - 10, x + 3, cy - 1, PAL["paint_w"])
+        rect(floor, 0, cy - 1, c["side_l"][1], cy - 1, PAL["curb_dark"])
+        rect(floor, c["side_r"][0], cy - 1, V_W - 1, cy - 1, PAL["curb_dark"])
+        rect(floor, 0, cy + 48, c["side_l"][1], cy + 48, PAL["curb_top"])
+        rect(floor, c["side_r"][0], cy + 48, V_W - 1, cy + 48, PAL["curb_top"])
+    return floor, walls, lit
+
+
+# ---------------------------------------------------------------- TransMilenio interior (1920 x 360 on screen)
+
+TM_W, TM_H = 960, 180
+TM_WALL_END, TM_BOTTOM = 39, 170
+TM_DOORS = (90, 330, 610, 850)
+TM_JOINT = (466, 503)
+
+
+def bus_view(im, x0, y0, x1, y1, night, seed):
+    """What the bus windows show: sky, the city and the speed streaks of the road."""
+    rng = random.Random(seed)
+    top, bot = (hexc("2a2a4a"), hexc("8a4a5a")) if night else (hexc("8cc0e8"), hexc("d8ecf4"))
+    for y in range(y0, y1 + 1):
+        t = (y - y0) / max(1, y1 - y0)
+        rect(im, x0, y, x1, y, tuple(int(top[i] + (bot[i] - top[i]) * t) for i in range(3)) + (255,))
+    x = x0 - rng.randint(0, 8)
+    while x < x1:
+        w, h = rng.randint(6, 14), rng.randint(6, (y1 - y0) - 4)
+        c = hexc(rng.choice(["3a3a50", "4a4a64", "2e2e44"] if night else ["c8a890", "a8b4c0", "d8c8a8", "b48a6a"]))
+        rect(im, max(x0, x), y1 - h, min(x1, x + w), y1, c)
+        for wy in range(y1 - h + 2, y1 - 1, 3):
+            for wx in range(max(x0, x + 1), min(x1, x + w), 3):
+                if rng.random() < (0.45 if night else 0.3):
+                    px(im, wx, wy, hexc("f0c86e") if night else shade(c, 0.75))
+        x += w + rng.randint(1, 4)
+    for _ in range((x1 - x0) // 4):
+        sx, sy = rng.randint(x0, x1 - 6), rng.randint(y0 + (y1 - y0) // 2, y1)
+        rect(im, sx, sy, min(x1, sx + rng.randint(4, 10)), sy, hexc("f08a40") if night and rng.random() < 0.4 else
+             (hexc("e8e8f0", 180) if not night else hexc("6a6a90")))
+
+
+def transmilenio(seed, night=False):
+    """Inside an articulated bus: windows and doors on the far wall, rubber floor, the turntable joint."""
+    rng = random.Random(seed)
+    floor = new(TM_W, TM_H)
+    base = hexc("4a4e56")
+    rect(floor, 0, 0, TM_W - 1, TM_H - 1, base)
+    for y in range(TM_WALL_END + 1, TM_BOTTOM):
+        for x in range((y % 2), TM_W, 3):
+            px(floor, x, y, hexc("555a62"))
+    art.speckle(floor, 0, TM_WALL_END + 1, TM_W - 1, TM_BOTTOM - 1, [hexc("42464d"), hexc("5a5e66")], 0.04, rng)
+    rect(floor, 0, 98, TM_W - 1, 111, hexc("545860"))
+    for x in TM_DOORS:
+        rect(floor, x - 4, TM_WALL_END + 1, x + 43, TM_WALL_END + 12, hexc("e2bf48"))
+        for k in range(x - 3, x + 43, 3):
+            px(floor, k, TM_WALL_END + 4, hexc("b8962c"))
+            px(floor, k + 1, TM_WALL_END + 9, hexc("b8962c"))
+    j0, j1 = TM_JOINT
+    cx, cy = (j0 + j1) // 2, (TM_WALL_END + TM_BOTTOM) // 2
+    ImageDraw.Draw(floor).ellipse([cx - 18, cy - 30, cx + 18, cy + 30], fill=hexc("8a8e96"), outline=hexc("2a2b30"))
+    for r in range(5, 18, 4):
+        ImageDraw.Draw(floor).ellipse([cx - r, cy - r * 1.65, cx + r, cy + r * 1.65], outline=hexc("6a6e76"))
+    art.shadow_band(floor, 0, TM_WALL_END + 1, TM_W - 1, TM_WALL_END + 5, "top", 0.42)
+    art.shadow_band(floor, 0, TM_BOTTOM - 5, TM_W - 1, TM_BOTTOM - 1, "bottom", 0.35)
+
+    walls = new(TM_W, TM_H)
+    panel = hexc("c8ccd0")
+    rect(walls, 0, 0, TM_W - 1, TM_WALL_END, panel)
+    rect(walls, 0, 0, TM_W - 1, 3, hexc("e8eaec"))
+    rect(walls, 0, 3, TM_W - 1, 3, hexc("9aa0a6"))
+    rect(walls, 0, 31, TM_W - 1, TM_WALL_END - 1, hexc("a8aeb4"))
+    rect(walls, 0, TM_WALL_END, TM_W - 1, TM_WALL_END, hexc("5a6068"))
+    rect(walls, 0, 30, TM_W - 1, 30, hexc("d03a3a"))
+    for x0 in range(4, TM_W - 40, 44):
+        if any(d - 6 < x0 + 40 and x0 < d + 46 for d in TM_DOORS) or (j0 - 40 < x0 < j1):
+            continue
+        rect(walls, x0 - 1, 7, x0 + 40, 28, hexc("5a6068"))
+        bus_view(walls, x0, 8, x0 + 39, 27, night, seed + x0)
+        for k in range(10):
+            px(walls, x0 + 30 - k, 9 + k, hexc("ffffff", 90))
+    for d in TM_DOORS:
+        rect(walls, d - 2, 4, d + 41, TM_WALL_END, hexc("e2bf48"))
+        rect(walls, d, 6, d + 39, TM_WALL_END, hexc("2a2e34"))
+        for half in (d + 1, d + 21):
+            bus_view(walls, half, 7, half + 17, TM_WALL_END - 1, night, seed + half)
+            for yy in range(7, TM_WALL_END):
+                for xx in range(half, half + 18):
+                    art.lighten(walls, xx, yy, 0.22, (200, 224, 236))
+            for k in range(8):
+                px(walls, half + 14 - k, 9 + k, hexc("eef6fa"))
+        rect(walls, d + 19, 6, d + 20, TM_WALL_END, hexc("1a1a1a"))
+        rect(walls, d + 12, 1, d + 27, 3, hexc("1a1a1a"))
+    for k in range(j0, j1 + 1):
+        c = hexc("3a3e44") if (k - j0) % 3 == 0 else hexc("5a5e66")
+        rect(walls, k, 0, k, TM_WALL_END, c)
+        rect(walls, k, TM_BOTTOM, k, TM_H - 1, c)
+    led = "G43 PORTAL" if not night else "B13 PORTAL"
+    for x in (200, 720):
+        rect(walls, x - 1, 0, x + text_width(led) + 2, 7, OUT)
+        rect(walls, x, 1, x + text_width(led) + 1, 6, hexc("1a1a1a"))
+        text(walls, x + 1, 1, led, hexc("f0a030"))
+    rect(walls, 0, TM_BOTTOM, TM_W - 1, TM_H - 1, hexc("d8dadc"))
+    rect(walls, 0, TM_BOTTOM, TM_W - 1, TM_BOTTOM, hexc("eceef0"))
+    rect(walls, 0, TM_BOTTOM + 4, TM_W - 1, TM_BOTTOM + 6, hexc("7aa0c0"))
+    for x in range(0, TM_W, 44):
+        rect(walls, x, TM_BOTTOM + 3, x + 1, TM_BOTTOM + 7, hexc("9aa0a6"))
+    rect(walls, 0, TM_H - 3, TM_W - 1, TM_H - 1, hexc("c83c3c"))
+    rect(walls, 0, TM_H - 1, TM_W - 1, TM_H - 1, OUT)
+    for side in (0, TM_W - 4):
+        rect(walls, side, 0, side + 3, TM_H - 1, hexc("c83c3c"))
+        rect(walls, side + (3 if side == 0 else 0), 0, side + (3 if side == 0 else 0), TM_H - 1, hexc("8a2a2a"))
+    if night:
+        floor = grade(floor, (0.86, 0.84, 0.94))
+    return floor, walls, []
+
+
+def obj_bus_seats(color="c83c3c"):
+    """Pair of bus seats seen from behind (they face the front of the bus, to the right)."""
+    seat = hexc(color)
+    im = new(16, 24)
+    for x0 in (1, 8):
+        rect(im, x0, 1, x0 + 6, 13, seat)
+        rect(im, x0, 1, x0 + 6, 1, shade(seat, 1.25))
+        rect(im, x0 + 6, 2, x0 + 6, 13, shade(seat, 0.75))
+        rect(im, x0 + 1, 3, x0 + 5, 5, shade(seat, 1.12))
+        rect(im, x0, 14, x0 + 6, 16, shade(seat, 0.85))
+    rect(im, 2, 17, 2, 21, PAL["metal_lo"])
+    rect(im, 13, 17, 13, 21, PAL["metal_lo"])
+    rect(im, 1, 0, 14, 0, PAL["metal_hi"])
+    return shadowed(outline(im), 14)
+
+
+def obj_bus_pole():
+    im = new(6, 44)
+    rect(im, 2, 0, 3, 41, hexc("e2bf48"))
+    rect(im, 2, 0, 2, 41, hexc("f0d870"))
+    rect(im, 1, 40, 4, 42, PAL["metal_lo"])
+    return shadowed(outline(im), 5)
+
+
+def obj_bus_bar():
+    """Horizontal handrail on posts, along the windows."""
+    im = new(40, 18)
+    rect(im, 1, 2, 38, 3, hexc("e2bf48"))
+    rect(im, 1, 2, 38, 2, hexc("f0d870"))
+    for x in (2, 37):
+        rect(im, x, 3, x + 1, 15, hexc("c8a83a"))
+    return shadowed(outline(im), 36)
+
+
+BUS = art.SPRITES / "environment" / "bus"
+BUS_OBJECTS = {"obj_bus_seats": obj_bus_seats, "obj_bus_seats_priority": lambda: obj_bus_seats("3c6aa0"),
+               "obj_bus_pole": obj_bus_pole, "obj_bus_bar": obj_bus_bar}
+
+
 STREET_OBJECTS = {
     "obj_tree": obj_tree, "obj_lamppost": obj_lamppost, "obj_bus_stop": obj_bus_stop, "obj_bench": obj_bench,
     "obj_trash_can": obj_trash_can, "obj_hydrant": obj_hydrant, "obj_planter": obj_planter, "obj_bollard": obj_bollard,
@@ -967,20 +1257,43 @@ STREET_LEVELS = {
                        objects=[("obj_planter", 20, 52), ("obj_planter", 100, 52), ("obj_lamppost", 65, 28),
                                 ("obj_lamppost", 210, 28), ("obj_bollard", 250, 62), ("obj_bollard", 262, 62),
                                 ("obj_bench", 130, 150), ("obj_tree", 280, 120), ("obj_trash_can", 180, 58)]),
-    "return_01": dict(width=320, seed=21, light="dusk", street=dict(crossings=(210,), bus_at=24, painted=((60, 115),)),
-                      objects=[("obj_bus_stop", 62, 30), ("obj_empanada_stand", 222, 44), ("obj_lamppost", 158, 30),
-                               ("obj_lamppost", 296, 30), ("obj_trash_can", 130, 58), ("obj_tree", 8, 116),
-                               ("obj_bench", 258, 150)]),
-    "return_02": dict(width=320, seed=22, light="evening", street=dict(crossings=(100,), bottom="park", puddles=5),
-                      objects=[("obj_lamppost", 50, 28), ("obj_lamppost", 160, 28), ("obj_lamppost", 270, 28),
-                               ("obj_tree", 30, 128), ("obj_tree", 150, 128), ("obj_tree", 260, 128),
-                               ("obj_bench", 200, 150), ("obj_trash_can", 120, 58)]),
+    "return_01": dict(width=320, seed=24, light="dusk",
+                      street=dict(style="towers", crossings=(150,), bus_at=24, painted=((30, 95),), tactile_strip=True),
+                      objects=[("obj_bus_stop", 30, 30), ("obj_lamppost", 110, 28), ("obj_lamppost", 200, 28),
+                               ("obj_empanada_stand", 222, 44), ("obj_trash_can", 100, 58), ("obj_planter", 140, 52),
+                               ("obj_bench", 60, 150), ("obj_tree", 260, 120)]),
     "return_03": dict(width=320, seed=23, light="night", street=dict(pits=(75, 225), home_end=True),
                       objects=[("obj_lamppost", 50, 28), ("obj_lamppost", 160, 28), ("obj_lamppost", 270, 28),
                                ("obj_tree", 63, 22), ("obj_tree", 213, 22), ("obj_trash_can", 140, 58),
                                ("obj_planter", 280, 150)]),
 }
 LAMPS = ((56, 64, 45), (166, 64, 45), (276, 64, 45))
+
+# Vertical streets (320 x 960 half units = 640 x 1920) and TransMilenio interiors (960 x 180 = 1920 x 360).
+VERTICAL_LEVELS = {
+    "commute_02_1": dict(seed=41, light=None, cross=(300, 660), pits_y=(82, 222, 442, 582, 822),
+                         objects=[("obj_tree", 69, 40), ("obj_tree", 213, 180), ("obj_tree", 69, 400), ("obj_tree", 213, 540),
+                                  ("obj_tree", 69, 780), ("obj_lamppost", 88, 120), ("obj_lamppost", 226, 260),
+                                  ("obj_lamppost", 88, 480), ("obj_lamppost", 226, 740), ("obj_trash_can", 92, 230),
+                                  ("obj_kiosk", 214, 860), ("obj_bench", 74, 600), ("obj_hydrant", 230, 120),
+                                  ("obj_bus_stop", 190, 900)]),
+    "return_02_1": dict(seed=42, light="evening", cross=(320, 640), pits_y=(102, 262, 482, 622, 862),
+                        objects=[("obj_tree", 69, 60), ("obj_tree", 213, 220), ("obj_tree", 69, 440), ("obj_tree", 213, 580),
+                                 ("obj_tree", 69, 820), ("obj_lamppost", 88, 150), ("obj_lamppost", 226, 300),
+                                 ("obj_lamppost", 88, 520), ("obj_lamppost", 226, 760), ("obj_lamppost", 88, 900),
+                                 ("obj_trash_can", 230, 120), ("obj_bench", 220, 700), ("obj_bus_stop", 76, 20)]),
+}
+V_LAMPS = {"return_02_1": [(96, y + 36, 45) for y in (150, 520, 900)] + [(234, y + 36, 45) for y in (300, 760)]}
+BUS_LEVELS = {
+    "commute_02_2": dict(seed=51, night=False),
+    "return_02_2": dict(seed=52, night=True),
+}
+_SEAT_X = [x for x in range(12, 940, 20) if not any(d - 18 < x < d + 46 for d in TM_DOORS)
+           and not (TM_JOINT[0] - 18 < x < TM_JOINT[1] + 2)]
+_PRIORITY = ((min(_SEAT_X, key=lambda x: abs(x - TM_DOORS[0] - 50)), 36), (min(_SEAT_X, key=lambda x: abs(x - TM_DOORS[2] - 50)), 140))
+BUS_PLACEMENT = ([("obj_bus_seats", x, y) for y in (36, 140) for x in _SEAT_X if (x, y) not in _PRIORITY] +
+                 [("obj_bus_seats_priority", x, y) for x, y in _PRIORITY] +
+                 [("obj_bus_pole", d + 48, 70) for d in TM_DOORS] + [("obj_bus_pole", d - 12, 70) for d in TM_DOORS])
 LIGHTS = {"dusk": DUSK, "evening": EVENING, "night": NIGHT}
 
 OFFICE_LEVELS = {
@@ -1004,14 +1317,17 @@ OFFICE_LEVELS = {
                              ("obj_office_desk", 56, 135), ("obj_printer", 125, 125), ("obj_coffee_station", 280, 35),
                              ("obj_plant_big", 295, 135), ("obj_boxes", 210, 145), ("obj_office_trash", 100, 90),
                              ("obj_filing_cabinet", 240, 35)]),
-    "work_03": dict(size=(320, 180), seed=33,
-                    office=dict(features=(("window", 20), ("clock", 70), ("poster", 90), ("turno", 150),
-                                          ("sign", 195), ("window", 260)),
-                                queue_lines=((150, 215, 70), (150, 215, 135))),
-                    objects=[("obj_counter_a", 215, 35), ("obj_counter_b", 215, 100), ("obj_stanchion", 160, 60),
-                             ("obj_stanchion", 160, 125), ("obj_delivery_tray", 260, 60), ("obj_filing_cabinet", 290, 130),
-                             ("obj_plant_big", 10, 135), ("obj_water_cooler", 120, 35), ("obj_sofa", 30, 150),
-                             ("obj_printer", 75, 40), ("obj_office_trash", 130, 150)]),
+    "work_03": dict(size=(480, 272), seed=33,
+                    office=dict(features=(("window", 20), ("whiteboard", 70), ("clock", 120), ("poster", 140),
+                                          ("window", 185), ("board", 235), ("turno", 280), ("sign", 330), ("window", 390),
+                                          ("clock", 440)),
+                                queue_lines=((300, 396, 112), (300, 396, 187)), doors=(118, 154),
+                                delivery=(410, 126, 434, 148)),
+                    objects=[("obj_counter_a", 400, 84), ("obj_counter_b", 400, 159), ("obj_stanchion", 330, 98),
+                             ("obj_stanchion", 330, 173), ("obj_delivery_tray", 402, 120), ("obj_filing_cabinet", 450, 200),
+                             ("obj_plant_big", 10, 230), ("obj_water_cooler", 260, 35), ("obj_sofa", 40, 230),
+                             ("obj_printer", 75, 40), ("obj_office_trash", 130, 220), ("obj_coffee_station", 180, 190),
+                             ("obj_office_chair", 350, 210)]),
 }
 
 
@@ -1055,6 +1371,34 @@ def main():
         save(x2(floor), STREET / f"bg_{name}_floor.png")
         save(x2(walls), STREET / f"bg_{name}_walls.png")
         preview(name, floor, walls, objects, spec["objects"])
+
+    print("Vertical streets (pixel x2)")
+    for name, spec in VERTICAL_LEVELS.items():
+        floor, walls, lit = vertical_street(960, spec["seed"], spec["cross"], pits_y=spec["pits_y"])
+        objects = street
+        if spec["light"]:
+            tint = LIGHTS[spec["light"]]
+            floor = grade(floor, tint, lamps=V_LAMPS.get(name, ()))
+            walls = grade(walls, tint, lit_rects=lit)
+            objects = {k: grade(v, DUSK) for k, v in street.items()}
+        save(x2(floor), STREET / f"bg_{name}_floor.png")
+        save(x2(walls), STREET / f"bg_{name}_walls.png")
+        preview(name, floor, walls, objects, spec["objects"])
+
+    print("TransMilenio (pixel x2)")
+    bus = {name: fn() for name, fn in BUS_OBJECTS.items()}
+    for name, im in bus.items():
+        save(x2(im), BUS / "decoration" / f"{name}.png")
+    for name, spec in BUS_LEVELS.items():
+        floor, walls, _ = transmilenio(spec["seed"], spec["night"])
+        save(x2(floor), BUS / f"bg_{name}_floor.png")
+        save(x2(walls), BUS / f"bg_{name}_walls.png")
+        preview(name, floor, walls, bus, BUS_PLACEMENT)
+
+    print("Street fences (bottom rail as its own Y-sorted prop)")
+    for name in ("commute_01", "commute_03", "return_01", "return_03"):
+        walls = Image.open(STREET / f"bg_{name}_walls.png")
+        save(walls.crop((0, walls.height - 24, walls.width, walls.height)), STREET / f"bg_{name}_fence.png")
 
     print("Office levels (pixel x2)")
     for name, spec in OFFICE_LEVELS.items():
