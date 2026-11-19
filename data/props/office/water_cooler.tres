@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://dlvt2iiiy8ivm"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_4pv55"]
+[ext_resource type="Texture2D" uid="uid://b4outss7hrxt3" path="res://assets/sprites/environment/office/decoration/obj_water_cooler.png" id="2_hci75"]
+
+[resource]
+script = ExtResource("1_4pv55")
+texture = ExtResource("2_hci75")
+footprint = Rect2(-8, -16, 18, 16)

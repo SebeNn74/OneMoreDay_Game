@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://dets2n674h81l"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_qdqyi"]
+[ext_resource type="Texture2D" uid="uid://bhev7uw7p6gs7" path="res://assets/sprites/environment/street/decoration/obj_kiosk_dusk.png" id="2_gv75l"]
+
+[resource]
+script = ExtResource("1_qdqyi")
+texture = ExtResource("2_gv75l")
+footprint = Rect2(-32, -32, 64, 32)

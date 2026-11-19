@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://bacpoqlmwawya"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_fg0vh"]
+[ext_resource type="Texture2D" uid="uid://dudp55r2qmssw" path="res://assets/sprites/environment/street/decoration/obj_hydrant_dusk.png" id="2_oargo"]
+
+[resource]
+script = ExtResource("1_fg0vh")
+texture = ExtResource("2_oargo")
+footprint = Rect2(-8, -16, 16, 16)

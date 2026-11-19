@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://cxdanv0fpm05n"]
 
 [ext_resource type="Script" uid="uid://40etx67h4jx7" path="res://scripts/interactables/npc.gd" id="1_ivh6b"]
+[ext_resource type="SpriteFrames" uid="uid://dh23u2uf46sj6" path="res://assets/sprites/npcs/npc_sprite_frames.tres" id="2_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m5fb5"]
 size = Vector2(16, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ejjj"]
-size = Vector2(48, 48)
+size = Vector2(42, 50)
 
 [node name="Npc" type="Area2D" unique_id=1407326683]
 script = ExtResource("1_ivh6b")
@@ -19,12 +20,11 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_m5fb5")
 
 [node name="InteractionShape" type="CollisionShape2D" parent="." unique_id=1982153295]
-position = Vector2(0, -16)
+position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_5ejjj")
 
-[node name="Placeholder" type="ColorRect" parent="." unique_id=1929582863]
-offset_left = -16.0
-offset_top = -48.0
-offset_right = 16.0
-mouse_filter = 2
-color = Color(0.9627382, 0.5451342, 0.17097214, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1929582863]
+position = Vector2(0, -24)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("2_frames")
+animation = &"coffee_vendor"

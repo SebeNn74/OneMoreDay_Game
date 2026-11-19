@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://c82w8ddyorkjf"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_fx0uk"]
+[ext_resource type="Texture2D" uid="uid://b3ewsmf1qf2hm" path="res://assets/sprites/environment/street/bg_commute_01_fence.png" id="2_010uy"]
+
+[resource]
+script = ExtResource("1_fx0uk")
+texture = ExtResource("2_010uy")
+metadata/_custom_type_script = "uid://blaehmx8jxbga"

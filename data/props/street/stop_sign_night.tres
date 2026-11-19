@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://bqfmlw4xqb2d7"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_ccmlx"]
+[ext_resource type="Texture2D" uid="uid://rgfw5qhyk383" path="res://assets/sprites/environment/street/decoration/obj_stop_sign_night.png" id="2_krwk0"]
+
+[resource]
+script = ExtResource("1_ccmlx")
+texture = ExtResource("2_krwk0")
+footprint = Rect2(-22, -16, 44, 16)

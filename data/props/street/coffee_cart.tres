@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://b8pn37yaq4t2a"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_5kdc5"]
+[ext_resource type="Texture2D" uid="uid://48sgf2tn2pfl" path="res://assets/sprites/environment/street/decoration/obj_coffee_cart.png" id="2_kcso1"]
+
+[resource]
+script = ExtResource("1_5kdc5")
+texture = ExtResource("2_kcso1")
+footprint = Rect2(-40, -23, 80, 20)

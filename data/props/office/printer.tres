@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://fhkxg11g30gc"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_30qfp"]
+[ext_resource type="Texture2D" uid="uid://bl7s2eo518ta3" path="res://assets/sprites/environment/office/decoration/obj_printer.png" id="2_r2kjn"]
+
+[resource]
+script = ExtResource("1_30qfp")
+texture = ExtResource("2_r2kjn")
+footprint = Rect2(-20, -16, 40, 16)

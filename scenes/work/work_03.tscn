@@ -14,8 +14,8 @@
 [ext_resource type="Resource" uid="uid://cj3334ldxvhtn" path="res://data/simulation/queue_delivery_fast.tres" id="6_tjod6"]
 [ext_resource type="PackedScene" uid="uid://bvbh266ej608l" path="res://scenes/objects/rest_spot.tscn" id="7_k2nw6"]
 [ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="10_l7o87"]
-[ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_t1_urgent_call.tres" id="11_pn7bd"]
-[ext_resource type="Resource" uid="uid://cfb1cuju2d5ke" path="res://data/hostiles/h_t2_paper_pile.tres" id="12_ktx1e"]
+[ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_urgent_call.tres" id="11_pn7bd"]
+[ext_resource type="Resource" uid="uid://cfb1cuju2d5ke" path="res://data/hostiles/h_paper_pile.tres" id="12_ktx1e"]
 [ext_resource type="PackedScene" uid="uid://c7heh822560ne" path="res://scenes/global/clock_hud.tscn" id="17_t1xob"]
 
 [node name="Work03" unique_id=1642240116 instance=ExtResource("1_hqy8s")]

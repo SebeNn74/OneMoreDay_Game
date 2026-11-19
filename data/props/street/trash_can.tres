@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://u73j4inah6ue"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_8r6sg"]
+[ext_resource type="Texture2D" uid="uid://cl5v5f7bf6u5v" path="res://assets/sprites/environment/street/decoration/obj_trash_can.png" id="2_1aebt"]
+
+[resource]
+script = ExtResource("1_8r6sg")
+texture = ExtResource("2_1aebt")
+footprint = Rect2(-10, -16, 20, 16)

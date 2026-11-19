@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://dqvx8kx41y5p"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_rtn8k"]
+[ext_resource type="Texture2D" uid="uid://b0je8srjgssua" path="res://assets/sprites/environment/street/decoration/obj_bus_stop_dusk.png" id="2_qpmbi"]
+
+[resource]
+script = ExtResource("1_rtn8k")
+texture = ExtResource("2_qpmbi")
+footprint = Rect2(-54, -32, 108, 32)

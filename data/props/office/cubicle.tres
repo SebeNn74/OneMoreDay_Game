@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://qgyo7fl41b75"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_si6jd"]
+[ext_resource type="Texture2D" uid="uid://b65beu1b8al3y" path="res://assets/sprites/environment/office/decoration/obj_cubicle.png" id="2_jd2pa"]
+
+[resource]
+script = ExtResource("1_si6jd")
+texture = ExtResource("2_jd2pa")
+footprint = Rect2(-36, -18, 72, 16)

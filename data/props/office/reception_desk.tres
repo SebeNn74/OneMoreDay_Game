@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://c7c3cfi0a064o"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_n0xve"]
+[ext_resource type="Texture2D" uid="uid://dtcvy65yacku2" path="res://assets/sprites/environment/office/decoration/obj_reception_desk.png" id="2_lio6j"]
+
+[resource]
+script = ExtResource("1_n0xve")
+texture = ExtResource("2_lio6j")
+footprint = Rect2(-56, -16, 112, 16)

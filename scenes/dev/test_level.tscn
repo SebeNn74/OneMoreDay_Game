@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="3_awded"]
 [ext_resource type="Resource" uid="uid://dgig8jr0d0vfb" path="res://data/decisions/npc_04_supervisor.tres" id="4_3ghmq"]
 [ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="5_3ghmq"]
-[ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_t1_urgent_call.tres" id="6_57ihs"]
-[ext_resource type="Resource" uid="uid://cfb1cuju2d5ke" path="res://data/hostiles/h_t2_paper_pile.tres" id="7_4d0dn"]
-[ext_resource type="Resource" uid="uid://bo2xim743thrm" path="res://data/hostiles/h_i3_suspicious_figure.tres" id="8_howmj"]
+[ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_urgent_call.tres" id="6_57ihs"]
+[ext_resource type="Resource" uid="uid://cfb1cuju2d5ke" path="res://data/hostiles/h_paper_pile.tres" id="7_4d0dn"]
+[ext_resource type="Resource" uid="uid://bo2xim743thrm" path="res://data/hostiles/h_suspicious_figure.tres" id="8_howmj"]
 [ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="9_wfao1"]
 [ext_resource type="Resource" uid="uid://byib54agitfcg" path="res://data/items/coin.tres" id="10_of1or"]
 [ext_resource type="Resource" uid="uid://cjv0l52gwv4g8" path="res://data/items/bill.tres" id="11_e3m56"]
@@ -25,6 +25,7 @@ level_size = Vector2i(480, 300)
 [node name="Npc" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("3_awded")]
 position = Vector2(240, 130)
 decision = ExtResource("4_3ghmq")
+sprite_animation = &"supervisor"
 
 [node name="UrgentCall" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1444754772 instance=ExtResource("5_3ghmq")]
 position = Vector2(400, 208)
@@ -60,7 +61,6 @@ position = Vector2(60, 260)
 [node name="BusStop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=5235306 instance=ExtResource("3_awded")]
 position = Vector2(380, 270)
 decision = ExtResource("16_0h6dq")
-placeholder_color = Color(0.53194773, 0.7023735, 0.7885421, 1)
 action_text = "Ver la fila"
 
 [node name="BusStopCrowd" type="Node2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=1122238191]

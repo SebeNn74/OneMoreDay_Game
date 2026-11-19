@@ -29,6 +29,61 @@ const PROPS: Array[Dictionary] = [
 	{ name = "toilet", texture = "home/decoration/obj_inodoro.png", solid_rows = 1 },
 	{ name = "sink", texture = "home/decoration/obj_lavamanos.png", solid_rows = 1 },
 	{ name = "shower", texture = "home/decoration/obj_ducha.png", solid_rows = 2 },
+	{ name = "bookshelf", folder = "office", texture = "office/decoration/obj_bookshelf.png", solid_rows = 2 },
+	{ name = "boxes", folder = "office", texture = "office/decoration/obj_boxes.png", solid_rows = 1 },
+	{ name = "coffee_station", folder = "office", texture = "office/decoration/obj_coffee_station.png", solid_rows = 1 },
+	{ name = "counter_a", folder = "office", texture = "office/decoration/obj_counter_a.png", solid_rows = 1 },
+	{ name = "counter_b", folder = "office", texture = "office/decoration/obj_counter_b.png", solid_rows = 1 },
+	{ name = "cubicle", folder = "office", texture = "office/decoration/obj_cubicle.png", solid_rows = 1 },
+	{ name = "delivery_tray", folder = "office", texture = "office/decoration/obj_delivery_tray.png", solid_rows = 1 },
+	{ name = "extinguisher", folder = "office", texture = "office/decoration/obj_extinguisher.png", solid_rows = 1 },
+	{ name = "filing_cabinet", folder = "office", texture = "office/decoration/obj_filing_cabinet.png", solid_rows = 2 },
+	{ name = "office_chair", folder = "office", texture = "office/decoration/obj_office_chair.png", solid_rows = 1 },
+	{ name = "office_desk", folder = "office", texture = "office/decoration/obj_office_desk.png", solid_rows = 1 },
+	{ name = "office_trash", folder = "office", texture = "office/decoration/obj_office_trash.png", solid_rows = 1 },
+	{ name = "plant", folder = "office", texture = "office/decoration/obj_plant.png", solid_rows = 1 },
+	{ name = "plant_big", folder = "office", texture = "office/decoration/obj_plant_big.png", solid_rows = 1 },
+	{ name = "printer", folder = "office", texture = "office/decoration/obj_printer.png", solid_rows = 1 },
+	{ name = "reception_desk", folder = "office", texture = "office/decoration/obj_reception_desk.png", solid_rows = 1 },
+	{ name = "sofa", folder = "office", texture = "office/decoration/obj_sofa.png", solid_rows = 1 },
+	{ name = "stanchion", folder = "office", texture = "office/decoration/obj_stanchion.png", solid_rows = 1 },
+	{ name = "water_cooler", folder = "office", texture = "office/decoration/obj_water_cooler.png", solid_rows = 1 },
+	{ name = "bench", folder = "street", texture = "street/decoration/obj_bench.png", solid_rows = 1 },
+	{ name = "bench_dusk", folder = "street", texture = "street/decoration/obj_bench_dusk.png", solid_rows = 1 },
+	{ name = "bench_night", folder = "street", texture = "street/decoration/obj_bench_night.png", solid_rows = 1 },
+	{ name = "bollard", folder = "street", texture = "street/decoration/obj_bollard.png", solid_rows = 1 },
+	{ name = "bollard_dusk", folder = "street", texture = "street/decoration/obj_bollard_dusk.png", solid_rows = 1 },
+	{ name = "bollard_night", folder = "street", texture = "street/decoration/obj_bollard_night.png", solid_rows = 1 },
+	{ name = "bus_stop", folder = "street", texture = "street/decoration/obj_bus_stop.png", solid_rows = 2 },
+	{ name = "bus_stop_dusk", folder = "street", texture = "street/decoration/obj_bus_stop_dusk.png", solid_rows = 2 },
+	{ name = "bus_stop_night", folder = "street", texture = "street/decoration/obj_bus_stop_night.png", solid_rows = 2 },
+	{ name = "coffee_cart", folder = "street", texture = "street/decoration/obj_coffee_cart.png", solid_rows = 2 },
+	{ name = "coffee_cart_dusk", folder = "street", texture = "street/decoration/obj_coffee_cart_dusk.png", solid_rows = 2 },
+	{ name = "coffee_cart_night", folder = "street", texture = "street/decoration/obj_coffee_cart_night.png", solid_rows = 2 },
+	{ name = "empanada_stand", folder = "street", texture = "street/decoration/obj_empanada_stand.png", solid_rows = 2 },
+	{ name = "empanada_stand_dusk", folder = "street", texture = "street/decoration/obj_empanada_stand_dusk.png", solid_rows = 2 },
+	{ name = "empanada_stand_night", folder = "street", texture = "street/decoration/obj_empanada_stand_night.png", solid_rows = 2 },
+	{ name = "hydrant", folder = "street", texture = "street/decoration/obj_hydrant.png", solid_rows = 1 },
+	{ name = "hydrant_dusk", folder = "street", texture = "street/decoration/obj_hydrant_dusk.png", solid_rows = 1 },
+	{ name = "hydrant_night", folder = "street", texture = "street/decoration/obj_hydrant_night.png", solid_rows = 1 },
+	{ name = "kiosk", folder = "street", texture = "street/decoration/obj_kiosk.png", solid_rows = 2 },
+	{ name = "kiosk_dusk", folder = "street", texture = "street/decoration/obj_kiosk_dusk.png", solid_rows = 2 },
+	{ name = "kiosk_night", folder = "street", texture = "street/decoration/obj_kiosk_night.png", solid_rows = 2 },
+	{ name = "lamppost", folder = "street", texture = "street/decoration/obj_lamppost.png", solid_rows = 1 },
+	{ name = "lamppost_dusk", folder = "street", texture = "street/decoration/obj_lamppost_dusk.png", solid_rows = 1 },
+	{ name = "lamppost_night", folder = "street", texture = "street/decoration/obj_lamppost_night.png", solid_rows = 1 },
+	{ name = "planter", folder = "street", texture = "street/decoration/obj_planter.png", solid_rows = 1 },
+	{ name = "planter_dusk", folder = "street", texture = "street/decoration/obj_planter_dusk.png", solid_rows = 1 },
+	{ name = "planter_night", folder = "street", texture = "street/decoration/obj_planter_night.png", solid_rows = 1 },
+	{ name = "stop_sign", folder = "street", texture = "street/decoration/obj_stop_sign.png", solid_rows = 1 },
+	{ name = "stop_sign_dusk", folder = "street", texture = "street/decoration/obj_stop_sign_dusk.png", solid_rows = 1 },
+	{ name = "stop_sign_night", folder = "street", texture = "street/decoration/obj_stop_sign_night.png", solid_rows = 1 },
+	{ name = "trash_can", folder = "street", texture = "street/decoration/obj_trash_can.png", solid_rows = 1 },
+	{ name = "trash_can_dusk", folder = "street", texture = "street/decoration/obj_trash_can_dusk.png", solid_rows = 1 },
+	{ name = "trash_can_night", folder = "street", texture = "street/decoration/obj_trash_can_night.png", solid_rows = 1 },
+	{ name = "tree", folder = "street", texture = "street/decoration/obj_tree.png", solid_rows = 2 },
+	{ name = "tree_dusk", folder = "street", texture = "street/decoration/obj_tree_dusk.png", solid_rows = 2 },
+	{ name = "tree_night", folder = "street", texture = "street/decoration/obj_tree_night.png", solid_rows = 2 },
 ]
 
 
@@ -44,7 +99,12 @@ func _run() -> void:
 
 ## Returns true if a new file was written.
 func _create_definition(spec: Dictionary) -> bool:
-	var output_path: String = "%s%s.tres" % [OUTPUT_DIR, spec.name]
+	var output_dir: String = OUTPUT_DIR
+	var folder: String = str(spec.get("folder", ""))
+	if not folder.is_empty():
+		output_dir += folder + "/"
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_dir))
+	var output_path: String = "%s%s.tres" % [output_dir, spec.name]
 	if ResourceLoader.exists(output_path):
 		print("  [skip] %s already exists" % output_path)
 		return false

@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_wlayi"]
 [ext_resource type="Resource" uid="uid://bq2wlvwlalako" path="res://data/decisions/npc_03_coworker.tres" id="3_njtqf"]
 [ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="4_0yb34"]
-[ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_t1_urgent_call.tres" id="5_jlm77"]
-[ext_resource type="Resource" uid="uid://cfb1cuju2d5ke" path="res://data/hostiles/h_t2_paper_pile.tres" id="6_0kcv3"]
+[ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_urgent_call.tres" id="5_jlm77"]
+[ext_resource type="Resource" uid="uid://cfb1cuju2d5ke" path="res://data/hostiles/h_paper_pile.tres" id="6_0kcv3"]
 
 [node name="Work01" unique_id=1642240116 instance=ExtResource("1_320kb")]
 level_size = Vector2i(800, 600)
@@ -25,6 +25,7 @@ color = Color(0.5377429, 0.95186156, 0.75562155, 1)
 [node name="Coworker" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_mmo4u")]
 position = Vector2(400, 300)
 decision = ExtResource("3_njtqf")
+sprite_animation = &"coworker"
 
 [node name="UrgentCall" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1444754772 instance=ExtResource("4_0yb34")]
 position = Vector2(752, 208)

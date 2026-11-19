@@ -25,6 +25,7 @@ color = Color(0.98937523, 0.7917869, 0.54781777, 1)
 [node name="BusDriver" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_3bl1u")]
 position = Vector2(400, 300)
 decision = ExtResource("3_ln38h")
+sprite_animation = &"bus_driver"
 
 [node name="BusStop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1099617956 instance=ExtResource("2_3bl1u")]
 position = Vector2(288, 780)

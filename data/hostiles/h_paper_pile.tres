@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="HostileDefinition" format=3 uid="uid://cfb1cuju2d5ke"]
+
+[ext_resource type="Resource" path="res://data/simulation/hostile_wanderer.tres" id="1_7wq1a"]
+[ext_resource type="Script" uid="uid://dwcuquqhg86cp" path="res://scripts/hostiles/hostile_definition.gd" id="1_at3ww"]
+[ext_resource type="SpriteFrames" uid="uid://mlvrfjmn4kkr" path="res://assets/sprites/enemies/enemy_sprite_frames.tres" id="2_frames"]
+
+[resource]
+script = ExtResource("1_at3ww")
+id = "H-PAPER-PILE"
+display_name = "Pila de papeles"
+behavior = ExtResource("1_7wq1a")
+sprite_frames = ExtResource("2_frames")
+sprite_animation = &"papers_manila"
+hit_energy = -5.0
+hit_time = -2.0
+metadata/_custom_type_script = "uid://dwcuquqhg86cp"

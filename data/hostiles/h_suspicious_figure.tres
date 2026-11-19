@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="HostileDefinition" format=3 uid="uid://bo2xim743thrm"]
+
+[ext_resource type="Resource" path="res://data/simulation/hostile_chaser.tres" id="1_ogbkm"]
+[ext_resource type="Script" uid="uid://dwcuquqhg86cp" path="res://scripts/hostiles/hostile_definition.gd" id="2_k5h2a"]
+[ext_resource type="SpriteFrames" uid="uid://mlvrfjmn4kkr" path="res://assets/sprites/enemies/enemy_sprite_frames.tres" id="3_n4kl5"]
+
+[resource]
+script = ExtResource("2_k5h2a")
+id = "H-SUSPICIOUS_FIGURE"
+display_name = "Figura sospechosa"
+behavior = ExtResource("1_ogbkm")
+sprite_frames = ExtResource("3_n4kl5")
+sprite_animation = &"suspicious_gray"
+hit_money = -2.0
+metadata/_custom_type_script = "uid://dwcuquqhg86cp"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://h41rcodpb3ul"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_vt35h"]
+[ext_resource type="Texture2D" uid="uid://bkbdncp88bvvj" path="res://assets/sprites/environment/street/decoration/obj_bench.png" id="2_0h7oi"]
+
+[resource]
+script = ExtResource("1_vt35h")
+texture = ExtResource("2_0h7oi")
+footprint = Rect2(-28, -16, 56, 16)

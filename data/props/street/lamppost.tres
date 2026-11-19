@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://cquo85gm64bys"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_mline"]
+[ext_resource type="Texture2D" uid="uid://r2ro2q8pl7cy" path="res://assets/sprites/environment/street/decoration/obj_lamppost.png" id="2_eh01u"]
+
+[resource]
+script = ExtResource("1_mline")
+texture = ExtResource("2_eh01u")
+footprint = Rect2(-10, -18, 16, 12)

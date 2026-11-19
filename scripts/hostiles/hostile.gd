@@ -11,7 +11,8 @@ const DEBUG_VISION_COLOR: Color = Color(1.0, 0.3, 0.3, 0.6)
 @export var definition: HostileDefinition
 
 @onready var _hitbox: Area2D = $Hitbox
-@onready var _placeholder: ColorRect = $Placeholder
+@onready var _hitbox_shape: CollisionShape2D = $Hitbox/CollisionShape2D
+@onready var _animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _alert: Label = $Alert
 
 var _brain: HostileBrain
@@ -26,9 +27,39 @@ var _has_reported_walk: bool = false
 func _ready() -> void:
 	assert(definition != null, "%s: definition is not assigned." % name)
 	assert(definition.behavior != null, "%s: the definition has no behavior." % name)
+	assert(definition.sprite_frames != null, "%s: the definition has no SpriteFrames." % name)
+	var has_directional_animation: bool = false
+	var has_all_directions: bool = true
+	for direction: Vector2 in [Vector2.DOWN, Vector2.UP, Vector2.LEFT, Vector2.RIGHT]:
+		var directional_animation: StringName = _directional_animation_name(direction)
+		var direction_exists: bool = definition.sprite_frames.has_animation(directional_animation)
+		has_directional_animation = has_directional_animation or direction_exists
+		has_all_directions = has_all_directions and direction_exists
+	assert(
+		has_all_directions or (
+			not has_directional_animation
+			and definition.sprite_frames.has_animation(definition.sprite_animation)
+		),
+		"%s: SpriteFrames must contain either all four directional animations or the selected animation '%s'." % [
+			name, definition.sprite_animation
+		]
+	)
 	_hitbox.collision_layer = PhysicsLayers.HITBOX
 	_hitbox.collision_mask = PhysicsLayers.HURTBOX
-	_placeholder.color = definition.placeholder_color
+	_animated_sprite.sprite_frames = definition.sprite_frames
+	var initial_animation: StringName = _animation_for_direction(Vector2.DOWN)
+	var first_frame: Texture2D = definition.sprite_frames.get_frame_texture(initial_animation, 0)
+	var frame_size: Vector2 = first_frame.get_size()
+	var fit_scale: float = float(GridUtils.CELL_SIZE) / frame_size.x
+	var sprite_scale: float = fit_scale * definition.sprite_scale
+	_animated_sprite.scale = Vector2.ONE * sprite_scale
+	_animated_sprite.position = Vector2(0.0, -frame_size.y * sprite_scale / 2.0)
+	_animated_sprite.play(initial_animation)
+
+	var hitbox_shape := RectangleShape2D.new()
+	hitbox_shape.size = definition.hitbox_size * definition.sprite_scale
+	_hitbox_shape.shape = hitbox_shape
+	_hitbox_shape.position = definition.hitbox_offset * definition.sprite_scale
 	_alert.visible = false
 
 	_probe = RectangleShape2D.new()
@@ -66,9 +97,25 @@ func _tick() -> void:
 	var destination: Vector2i = _brain.next_cell(_cell, player_cell, Simulation.rng, _is_cell_free)
 	if destination == _cell:
 		return
+	var movement: Vector2i = destination - _cell
 	_cell = destination
 	_target_position = GridUtils.center_of(_cell)
+	var animation_name: StringName = _animation_for_direction(Vector2(movement))
+	if _animated_sprite.animation != animation_name:
+		_animated_sprite.play(animation_name)
 	_report_walk_once()
+
+
+func _animation_for_direction(direction: Vector2) -> StringName:
+	var directional_animation: StringName = _directional_animation_name(direction)
+	if definition.sprite_frames.has_animation(directional_animation):
+		return directional_animation
+	return definition.sprite_animation
+
+
+func _directional_animation_name(direction: Vector2) -> StringName:
+	var cardinal: Vector2 = DirectionUtils.to_cardinal(direction)
+	return StringName("%s_%s" % [definition.sprite_animation, DirectionUtils.name_of(cardinal)])
 
 
 ## A cell is free when no wall, bound or furniture overlaps it. Passed to the brain as a Callable.
@@ -113,7 +160,7 @@ func _report_walk_once() -> void:
 
 func _on_brain_state_changed(new_state: HostileBrain.State) -> void:
 	_alert.visible = new_state == HostileBrain.State.CHASE
-	_placeholder.modulate = COOLDOWN_TINT if new_state == HostileBrain.State.COOLDOWN else Color.WHITE
+	_animated_sprite.modulate = COOLDOWN_TINT if new_state == HostileBrain.State.COOLDOWN else Color.WHITE
 	if new_state == HostileBrain.State.CHASE:
 		Simulation.report(Simulation.MODEL_AGENTS, "%s detecta al jugador y lo persigue" % definition.id)
 

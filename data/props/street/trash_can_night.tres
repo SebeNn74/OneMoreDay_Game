@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://bjj5mhfp2pvqc"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_ss617"]
+[ext_resource type="Texture2D" uid="uid://cgvd3guv6c6sg" path="res://assets/sprites/environment/street/decoration/obj_trash_can_night.png" id="2_1c05e"]
+
+[resource]
+script = ExtResource("1_ss617")
+texture = ExtResource("2_1c05e")
+footprint = Rect2(-10, -16, 20, 16)

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://b7r31tmoxcv63"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_3ib2y"]
+[ext_resource type="Texture2D" uid="uid://cboahw15wxwqt" path="res://assets/sprites/environment/street/decoration/obj_bollard.png" id="2_agjc4"]
+
+[resource]
+script = ExtResource("1_3ib2y")
+texture = ExtResource("2_agjc4")
+footprint = Rect2(-6, -16, 12, 16)

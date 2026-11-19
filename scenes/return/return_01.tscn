@@ -24,6 +24,7 @@ color = Color(0.35683084, 0.4686129, 0.8668253, 1)
 [node name="EmpanadaVendor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_ltkmf")]
 position = Vector2(480, 140)
 decision = ExtResource("3_6u3cc")
+sprite_animation = &"empanada_vendor"
 
 [node name="BusStop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1280852267 instance=ExtResource("2_ltkmf")]
 position = Vector2(180, 130)

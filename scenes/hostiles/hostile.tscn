@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b64t5vgrvwio4"]
 
 [ext_resource type="Script" uid="uid://1hjnp552bjdg" path="res://scripts/hostiles/hostile.gd" id="1_v2dqg"]
+[ext_resource type="SpriteFrames" uid="uid://mlvrfjmn4kkr" path="res://assets/sprites/enemies/enemy_sprite_frames.tres" id="2_dlry8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(24, 24)
@@ -8,11 +9,10 @@ size = Vector2(24, 24)
 [node name="Hostile" type="Node2D" unique_id=1444754772]
 script = ExtResource("1_v2dqg")
 
-[node name="Placeholder" type="ColorRect" parent="." unique_id=1253738666]
-offset_left = -16.0
-offset_top = -48.0
-offset_right = 16.0
-mouse_filter = 2
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1253738666]
+position = Vector2(0, -24)
+sprite_frames = ExtResource("2_dlry8")
+animation = &"call_black_down"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=264626833]
 

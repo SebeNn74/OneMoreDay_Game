@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://be6rqvfmjgm8n"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_qbcdy"]
+[ext_resource type="Texture2D" uid="uid://1efyg1nfyohh" path="res://assets/sprites/environment/office/decoration/obj_stanchion.png" id="2_ogjwb"]
+
+[resource]
+script = ExtResource("1_qbcdy")
+texture = ExtResource("2_ogjwb")
+footprint = Rect2(-26, -16, 52, 16)

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://diihd8ni0x8dm"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_8y8b4"]
+[ext_resource type="Texture2D" uid="uid://u0ylu4iaa0dj" path="res://assets/sprites/environment/street/decoration/obj_empanada_stand_dusk.png" id="2_31xvu"]
+
+[resource]
+script = ExtResource("1_8y8b4")
+texture = ExtResource("2_31xvu")
+footprint = Rect2(-40, -32, 80, 32)

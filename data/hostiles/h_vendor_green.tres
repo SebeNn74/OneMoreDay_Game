@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="HostileDefinition" format=3 uid="uid://b0f8w0oiaiw7k"]
+
+[ext_resource type="Resource" path="res://data/simulation/hostile_wanderer.tres" id="1_behavior"]
+[ext_resource type="Script" uid="uid://dwcuquqhg86cp" path="res://scripts/hostiles/hostile_definition.gd" id="2_script"]
+[ext_resource type="SpriteFrames" uid="uid://mlvrfjmn4kkr" path="res://assets/sprites/enemies/enemy_sprite_frames.tres" id="3_frames"]
+
+[resource]
+script = ExtResource("2_script")
+id = "H-VENDOR-GREEN"
+display_name = "Vendedor verde"
+behavior = ExtResource("1_behavior")
+sprite_frames = ExtResource("3_frames")
+sprite_animation = &"vendor_green"
+metadata/_custom_type_script = "uid://dwcuquqhg86cp"

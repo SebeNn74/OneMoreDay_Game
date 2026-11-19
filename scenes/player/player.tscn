@@ -12,13 +12,13 @@
 [ext_resource type="Script" uid="uid://dwdsm2gymhhy1" path="res://scripts/combat/hurtbox.gd" id="10_h17s1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
-size = Vector2(26, 11)
+size = Vector2(24, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ojbw0"]
-size = Vector2(34, 24)
+size = Vector2(28, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l42ft"]
-size = Vector2(16, 16)
+size = Vector2(20, 16)
 
 [node name="Player" type="CharacterBody2D" unique_id=773780192]
 collision_layer = 2
@@ -28,14 +28,14 @@ script = ExtResource("1_dovo2")
 movement_config = ExtResource("2_lvxji")
 
 [node name="Animator" type="AnimatedSprite2D" parent="." unique_id=755340765]
-position = Vector2(0, -33)
-scale = Vector2(3, 3)
+position = Vector2(0, -24)
+scale = Vector2(2, 2)
 sprite_frames = ExtResource("3_gmlin")
 animation = &"idle_down"
 script = ExtResource("4_p47bc")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=518466264]
-position = Vector2(0, -4.5)
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_r5iys")
 
 [node name="StateMachine" type="Node" parent="." unique_id=878764065]
@@ -70,5 +70,5 @@ script = ExtResource("10_h17s1")
 metadata/_custom_type_script = "uid://dwdsm2gymhhy1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=160417034]
-position = Vector2(0, -12)
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_l42ft")

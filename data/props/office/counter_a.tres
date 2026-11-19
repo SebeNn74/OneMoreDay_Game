@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropDefinition" format=3 uid="uid://cmf7tl2q1hjnx"]
+
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="1_c5hyi"]
+[ext_resource type="Texture2D" uid="uid://cl305c2qt85h3" path="res://assets/sprites/environment/office/decoration/obj_counter_a.png" id="2_touos"]
+
+[resource]
+script = ExtResource("1_c5hyi")
+texture = ExtResource("2_touos")
+footprint = Rect2(-36, -16, 72, 16)
