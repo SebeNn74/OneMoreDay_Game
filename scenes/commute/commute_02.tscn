@@ -37,6 +37,7 @@ position = Vector2(288, 740)
 script = ExtResource("6_pthhn")
 queue = ExtResource("7_kpunq")
 spacing = 28.0
+facing_direction = Vector2(0, 1)
 metadata/_custom_type_script = "uid://b05o0sxre1j7y"
 
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_m6f13")]

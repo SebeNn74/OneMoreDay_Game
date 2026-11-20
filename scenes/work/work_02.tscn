@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://bdslmng3fjq81" path="res://scenes/base_level.tscn" id="1_7hn6c"]
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_5hd3y"]
+[ext_resource type="Texture2D" uid="uid://b11b6lv6yj1al" path="res://assets/sprites/environment/office/bg_work_02_floor.png" id="2_rg7im"]
 [ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="2_uuiei"]
+[ext_resource type="Texture2D" uid="uid://lpdvam0je6wd" path="res://assets/sprites/environment/office/bg_work_02_walls.png" id="3_csi8l"]
 [ext_resource type="Resource" uid="uid://dgig8jr0d0vfb" path="res://data/decisions/npc_04_supervisor.tres" id="3_wysr1"]
 [ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="4_2lqwf"]
 [ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_urgent_call.tres" id="5_h25i8"]
@@ -10,16 +12,11 @@
 
 [node name="Work02" unique_id=1642240116 instance=ExtResource("1_7hn6c")]
 
-[node name="Background" type="CanvasLayer" parent="." index="0" unique_id=1993217798]
-layer = -1
+[node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
+texture = ExtResource("2_rg7im")
 
-[node name="ColorRect" type="ColorRect" parent="Background" index="0" unique_id=1710728221]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4870152, 0.95395285, 0.8280708, 1)
+[node name="Walls" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="1" unique_id=892709214]
+texture = ExtResource("3_csi8l")
 
 [node name="Supervisor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_uuiei")]
 position = Vector2(480, 140)

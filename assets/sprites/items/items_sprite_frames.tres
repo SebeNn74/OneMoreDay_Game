@@ -1,12 +1,12 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://bhedl4mhino7y"]
 
-[ext_resource type="Texture2D" uid="uid://by1pskaw4oti8" path="res://assets/sprites/items/bill.png" id="1_81mwu"]
-[ext_resource type="Texture2D" uid="uid://bsx7hni2t85b7" path="res://assets/sprites/items/clock.png" id="2_2pgfg"]
-[ext_resource type="Texture2D" uid="uid://dblrtjujk0ug" path="res://assets/sprites/items/coffee.png" id="3_upc2o"]
-[ext_resource type="Texture2D" uid="uid://b4rptytp2d3pa" path="res://assets/sprites/items/coin.png" id="4_8os56"]
-[ext_resource type="Texture2D" uid="uid://dc5mm11mcuabh" path="res://assets/sprites/items/dropoff.png" id="5_i4htg"]
-[ext_resource type="Texture2D" uid="uid://t0ueof1u66ua" path="res://assets/sprites/items/empanada.png" id="6_caopx"]
-[ext_resource type="Texture2D" uid="uid://7bggbupx2brk" path="res://assets/sprites/items/folder.png" id="7_h8qo5"]
+[ext_resource type="Texture2D" uid="uid://dswgegjn5sscu" path="res://assets/sprites/items/item_bill.png" id="1_81mwu"]
+[ext_resource type="Texture2D" uid="uid://dw30fgms0rhku" path="res://assets/sprites/items/item_clock.png" id="2_2pgfg"]
+[ext_resource type="Texture2D" uid="uid://cbs8sewtchqcc" path="res://assets/sprites/items/item_coffee.png" id="3_upc2o"]
+[ext_resource type="Texture2D" uid="uid://dofu0p83m8tw8" path="res://assets/sprites/items/item_coin.png" id="4_8os56"]
+[ext_resource type="Texture2D" uid="uid://cmoipua115b8" path="res://assets/sprites/items/item_dropoff.png" id="5_i4htg"]
+[ext_resource type="Texture2D" uid="uid://c6bvps1r8nwp4" path="res://assets/sprites/items/item_empanada.png" id="6_caopx"]
+[ext_resource type="Texture2D" uid="uid://dx7h23t53kf35" path="res://assets/sprites/items/item_folder.png" id="7_h8qo5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2hw0f"]
 atlas = ExtResource("1_81mwu")

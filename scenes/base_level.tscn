@@ -30,8 +30,6 @@ centered = false
 
 [node name="Collisions" type="Node2D" parent="World" unique_id=92770328]
 
-[node name="Props" type="Node2D" parent="World" unique_id=952873589]
-
 [node name="Interactables" type="Node2D" parent="World" unique_id=1886078809]
 
 [node name="Entities" type="Node2D" parent="World" unique_id=729001874]

@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("1_ccmlx")
 texture = ExtResource("2_krwk0")
-footprint = Rect2(-22, -16, 44, 16)
+footprint = Rect2(-20, -16, 40, 16)

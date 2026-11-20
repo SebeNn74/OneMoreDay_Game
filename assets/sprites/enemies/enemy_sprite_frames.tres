@@ -1730,7 +1730,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_a_down",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1747,7 +1747,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_a_left",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1764,7 +1764,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_a_right",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1781,7 +1781,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_a_up",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1798,7 +1798,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_b_down",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1815,7 +1815,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_b_left",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1832,7 +1832,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_b_right",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1849,7 +1849,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_b_up",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1866,7 +1866,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_c_down",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1883,7 +1883,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_c_left",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1900,7 +1900,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_c_right",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1917,7 +1917,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"crowd_c_up",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
