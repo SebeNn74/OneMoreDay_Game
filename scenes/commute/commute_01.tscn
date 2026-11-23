@@ -7,14 +7,17 @@
 [ext_resource type="Texture2D" uid="uid://buln3f3cplqg2" path="res://assets/sprites/environment/street/bg_commute_01_walls.png" id="3_k8igx"]
 [ext_resource type="Resource" uid="uid://c1mx5h2n5j1bi" path="res://data/decisions/npc_01_coffee_vendor.tres" id="3_mcgbo"]
 [ext_resource type="Script" uid="uid://b1mnwbj34pvmo" path="res://scripts/levels/wall_rects.gd" id="4_k8igx"]
+[ext_resource type="Resource" uid="uid://dny2dt4h8f0vm" path="res://data/decisions/queue_bus_stop.tres" id="7_je4im"]
 [ext_resource type="PackedScene" uid="uid://c3uq4ssnelswq" path="res://scenes/props/prop.tscn" id="7_vf05k"]
+[ext_resource type="Script" uid="uid://b05o0sxre1j7y" path="res://scripts/simulation_bridges/queue_crowd.gd" id="8_6soeg"]
 [ext_resource type="Resource" uid="uid://c82w8ddyorkjf" path="res://data/props/home/commute_fence.tres" id="8_ynmvd"]
 [ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="9_7de4p"]
+[ext_resource type="Resource" path="res://data/simulation/queue_bus_stop.tres" id="9_cp105"]
 [ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="9_mmf2o"]
-[ext_resource type="Resource" uid="uid://clq1sdup8n8mb" path="res://data/hostiles/h_urgent_call.tres" id="10_0njvq"]
 [ext_resource type="Texture2D" uid="uid://bjw8euwab7nku" path="res://assets/sprites/environment/street/decoration/obj_tree.png" id="10_6mq4l"]
 [ext_resource type="Resource" uid="uid://cquo85gm64bys" path="res://data/props/street/lamppost.tres" id="11_6mq4l"]
 [ext_resource type="Resource" uid="uid://cydqj5c8uvqcd" path="res://data/hostiles/h_car_red.tres" id="11_6rohb"]
+[ext_resource type="Resource" uid="uid://cx7v0kripskih" path="res://data/hostiles/h_vendor_red.tres" id="11_je4im"]
 [ext_resource type="Resource" uid="uid://dggmd6ovfyu33" path="res://data/hostiles/h_moto_red.tres" id="12_7bnxx"]
 [ext_resource type="Resource" uid="uid://u73j4inah6ue" path="res://data/props/street/trash_can.tres" id="12_larmk"]
 [ext_resource type="Resource" uid="uid://b8pn37yaq4t2a" path="res://data/props/street/coffee_cart.tres" id="12_ypq5m"]
@@ -75,110 +78,123 @@ position = Vector2(647, 125)
 decision = ExtResource("3_mcgbo")
 sprite_animation = &"coffee_vendor"
 
-[node name="CallBlack" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1444754772 instance=ExtResource("9_7de4p")]
-position = Vector2(458, 204)
-definition = ExtResource("10_0njvq")
+[node name="BusStopNpc" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=835682123 instance=ExtResource("2_tfu5p")]
+position = Vector2(1742, 311)
+decision = ExtResource("7_je4im")
+sprite_animation = &"bus_driver"
+action_text = "Ver la fila"
 
-[node name="CarRed" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1094226365 instance=ExtResource("9_7de4p")]
-position = Vector2(550, 300)
+[node name="BusStopCrowd" type="Node2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1163674971]
+position = Vector2(1686, 319)
+script = ExtResource("8_6soeg")
+queue = ExtResource("9_cp105")
+spacing = 28.0
+metadata/_custom_type_script = "uid://b05o0sxre1j7y"
+
+[node name="Ventor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=1444754772 instance=ExtResource("9_7de4p")]
+position = Vector2(463, 191)
+definition = ExtResource("11_je4im")
+
+[node name="CarRed" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=1094226365 instance=ExtResource("9_7de4p")]
+position = Vector2(797, 252)
 definition = ExtResource("11_6rohb")
 
-[node name="Moto" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=1848454443 instance=ExtResource("9_7de4p")]
-position = Vector2(800, 200)
+[node name="Moto" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=1848454443 instance=ExtResource("9_7de4p")]
+position = Vector2(1153, 194)
 definition = ExtResource("12_7bnxx")
 
-[node name="SuspiciousFigure" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=818585213 instance=ExtResource("9_7de4p")]
-position = Vector2(900, 250)
+[node name="SuspiciousFigure" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=818585213 instance=ExtResource("9_7de4p")]
+position = Vector2(1504, 247)
 definition = ExtResource("13_x48yh")
 
-[node name="Fence" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=256812024 instance=ExtResource("7_vf05k")]
+[node name="Fence" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=256812024 instance=ExtResource("7_vf05k")]
 position = Vector2(960, 360)
 definition = ExtResource("8_ynmvd")
 
-[node name="Tree1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=1608970549 instance=ExtResource("7_vf05k")]
+[node name="Tree1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=1608970549 instance=ExtResource("7_vf05k")]
 position = Vector2(102, 140)
 definition = SubResource("Resource_ypq5m")
 
-[node name="Tree2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=1333625065 instance=ExtResource("7_vf05k")]
+[node name="Tree2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=1333625065 instance=ExtResource("7_vf05k")]
 texture_repeat = 3
 position = Vector2(422, 140)
 definition = SubResource("Resource_cm5k8")
 
-[node name="Tree3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=951634825 instance=ExtResource("7_vf05k")]
+[node name="Tree3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=951634825 instance=ExtResource("7_vf05k")]
 position = Vector2(872, 140)
 definition = SubResource("Resource_ndbk1")
 
-[node name="Tree4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=1391758031 instance=ExtResource("7_vf05k")]
+[node name="Tree4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="12" unique_id=1391758031 instance=ExtResource("7_vf05k")]
 texture_repeat = 3
 position = Vector2(1192, 140)
 definition = SubResource("Resource_ql7r3")
 
-[node name="Tree5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=1019251203 instance=ExtResource("7_vf05k")]
+[node name="Tree5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="13" unique_id=1019251203 instance=ExtResource("7_vf05k")]
 texture_repeat = 3
 position = Vector2(1572, 140)
 definition = SubResource("Resource_mmf2o")
 
-[node name="LampPost1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="12" unique_id=1573374147 instance=ExtResource("7_vf05k")]
+[node name="LampPost1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="14" unique_id=1573374147 instance=ExtResource("7_vf05k")]
 position = Vector2(265, 144)
 definition = ExtResource("11_6mq4l")
 
-[node name="LampPost2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="13" unique_id=1962400377 instance=ExtResource("7_vf05k")]
+[node name="LampPost2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="15" unique_id=1962400377 instance=ExtResource("7_vf05k")]
 position = Vector2(1033, 302)
 definition = ExtResource("11_6mq4l")
 
-[node name="LampPost3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="14" unique_id=439607746 instance=ExtResource("7_vf05k")]
+[node name="LampPost3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="16" unique_id=439607746 instance=ExtResource("7_vf05k")]
 position = Vector2(1729, 146)
 definition = ExtResource("11_6mq4l")
 
-[node name="TrashCan" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="15" unique_id=1869250918 instance=ExtResource("7_vf05k")]
+[node name="TrashCan" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="17" unique_id=1869250918 instance=ExtResource("7_vf05k")]
 position = Vector2(515, 132)
 definition = ExtResource("12_larmk")
 
-[node name="Stop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="16" unique_id=1636148308 instance=ExtResource("7_vf05k")]
+[node name="Stop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="18" unique_id=1636148308 instance=ExtResource("7_vf05k")]
 position = Vector2(1343, 143)
 definition = ExtResource("13_n2w2s")
 
-[node name="Hydrant" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="17" unique_id=1986628906 instance=ExtResource("7_vf05k")]
+[node name="Hydrant" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="19" unique_id=1986628906 instance=ExtResource("7_vf05k")]
 position = Vector2(167, 298)
 definition = ExtResource("14_i87ok")
 
-[node name="Planter" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="18" unique_id=2088000974 instance=ExtResource("7_vf05k")]
+[node name="Planter" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="20" unique_id=2088000974 instance=ExtResource("7_vf05k")]
 position = Vector2(343, 305)
 definition = ExtResource("15_n2w2s")
 
-[node name="Bollard1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="19" unique_id=1222286400 instance=ExtResource("7_vf05k")]
+[node name="Bollard1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="21" unique_id=1222286400 instance=ExtResource("7_vf05k")]
 position = Vector2(625, 291)
 definition = ExtResource("15_o7f62")
 
-[node name="Bollard2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="20" unique_id=1822001203 instance=ExtResource("7_vf05k")]
+[node name="Bollard2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="22" unique_id=1822001203 instance=ExtResource("7_vf05k")]
 position = Vector2(681, 291)
 definition = ExtResource("15_o7f62")
 
-[node name="Bollard3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="21" unique_id=278765351 instance=ExtResource("7_vf05k")]
+[node name="Bollard3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="23" unique_id=278765351 instance=ExtResource("7_vf05k")]
 position = Vector2(1285, 292)
 definition = ExtResource("15_o7f62")
 
-[node name="Bollard4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="22" unique_id=1130807931 instance=ExtResource("7_vf05k")]
+[node name="Bollard4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="24" unique_id=1130807931 instance=ExtResource("7_vf05k")]
 position = Vector2(1341, 292)
 definition = ExtResource("15_o7f62")
 
-[node name="CoffeeCart" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="23" unique_id=1237554614 instance=ExtResource("7_vf05k")]
+[node name="CoffeeCart" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="25" unique_id=1237554614 instance=ExtResource("7_vf05k")]
 position = Vector2(711, 138)
 definition = ExtResource("12_ypq5m")
 
-[node name="Bench1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="24" unique_id=1180872396 instance=ExtResource("7_vf05k")]
+[node name="Bench1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="26" unique_id=1180872396 instance=ExtResource("7_vf05k")]
 position = Vector2(909, 319)
 definition = ExtResource("17_je4im")
 
-[node name="Bench2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="25" unique_id=885758765 instance=ExtResource("7_vf05k")]
+[node name="Bench2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="27" unique_id=885758765 instance=ExtResource("7_vf05k")]
 position = Vector2(1153, 318)
 definition = ExtResource("17_je4im")
 
-[node name="BusStop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="26" unique_id=1892028383 instance=ExtResource("7_vf05k")]
+[node name="BusStop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="28" unique_id=1892028383 instance=ExtResource("7_vf05k")]
 position = Vector2(1825, 322)
 definition = ExtResource("18_6soeg")
 
-[node name="Kiosk" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="27" unique_id=431576840 instance=ExtResource("7_vf05k")]
+[node name="Kiosk" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="29" unique_id=431576840 instance=ExtResource("7_vf05k")]
 position = Vector2(1522, 321)
 definition = ExtResource("19_cp105")
 

@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://oe54rjtrgsti"]
+
+[ext_resource type="PackedScene" uid="uid://bdslmng3fjq81" path="res://scenes/base_level.tscn" id="1_4aa7w"]
+[ext_resource type="Texture2D" uid="uid://dmurxloqrbje5" path="res://assets/sprites/environment/street/bg_commute_02_1_floor.png" id="2_lev8e"]
+[ext_resource type="Texture2D" uid="uid://s0m25v3hl5hj" path="res://assets/sprites/environment/street/bg_commute_02_1_walls.png" id="3_5jtc0"]
+[ext_resource type="Script" uid="uid://b1mnwbj34pvmo" path="res://scripts/levels/wall_rects.gd" id="4_lev8e"]
+[ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="4_u7eg6"]
+[ext_resource type="Resource" uid="uid://c0pf2jarj8vjj" path="res://data/decisions/npc_05_empanada_vendor.tres" id="6_uda7l"]
+[ext_resource type="PackedScene" uid="uid://c3uq4ssnelswq" path="res://scenes/props/prop.tscn" id="7_5jtc0"]
+[ext_resource type="Resource" uid="uid://burw61n57nki4" path="res://data/props/street/tree.tres" id="8_u7eg6"]
+[ext_resource type="Resource" uid="uid://o6hdsh60lepf" path="res://data/props/street/stop_sign.tres" id="9_76oy8"]
+[ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="9_muyte"]
+[ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="9_q5ig1"]
+[ext_resource type="Resource" uid="uid://cquo85gm64bys" path="res://data/props/street/lamppost.tres" id="10_m0nkj"]
+[ext_resource type="Resource" uid="uid://dquj7ioradijy" path="res://data/hostiles/h_moto_blue.tres" id="10_x0u80"]
+[ext_resource type="PackedScene" uid="uid://bvbh266ej608l" path="res://scenes/objects/rest_spot.tscn" id="11_76oy8"]
+[ext_resource type="Resource" uid="uid://bo2xim743thrm" path="res://data/hostiles/h_suspicious_figure.tres" id="11_qw51f"]
+[ext_resource type="Resource" uid="uid://cnsk7h7ul7ev4" path="res://data/hostiles/h_car_taxi.tres" id="12_5fau0"]
+[ext_resource type="Texture2D" uid="uid://bkbdncp88bvvj" path="res://assets/sprites/environment/street/decoration/obj_bench.png" id="12_m0nkj"]
+[ext_resource type="Resource" uid="uid://bewv51ek233b7" path="res://data/props/street/hydrant.tres" id="13_0sqxm"]
+[ext_resource type="Resource" uid="uid://shaf4k45wdcn" path="res://data/hostiles/h_crowd_a.tres" id="13_jyur6"]
+[ext_resource type="Resource" uid="uid://u73j4inah6ue" path="res://data/props/street/trash_can.tres" id="14_ivcy6"]
+[ext_resource type="Resource" uid="uid://dupcwsmhi1ogi" path="res://data/hostiles/h_crowd_c.tres" id="14_x0u80"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5jtc0"]
+size = Vector2(351, 32)
+
+[node name="Commute02Walk" unique_id=1642240116 instance=ExtResource("1_4aa7w")]
+level_size = Vector2i(640, 1920)
+
+[node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
+texture = ExtResource("2_lev8e")
+
+[node name="Walls" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="1" unique_id=892709214]
+texture = ExtResource("3_5jtc0")
+
+[node name="WallRects" type="StaticBody2D" parent="World/Collisions" parent_id_path=PackedInt32Array(92770328) index="0" unique_id=116170450]
+collision_mask = 0
+script = ExtResource("4_lev8e")
+rects = Array[Rect2i]([Rect2i(72, 288, 144, 575), Rect2i(568, 288, 144, 575), Rect2i(72, 1008, 144, 575), Rect2i(568, 1008, 144, 575), Rect2i(72, 1680, 144, 480), Rect2i(568, 1680, 144, 480)])
+metadata/_custom_type_script = "uid://b1mnwbj34pvmo"
+
+[node name="Npc" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("4_u7eg6")]
+position = Vector2(606, 704)
+decision = ExtResource("6_uda7l")
+
+[node name="RestSpot" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1703585282 instance=ExtResource("11_76oy8")]
+position = Vector2(97, 586)
+texture = ExtResource("12_m0nkj")
+
+[node name="Moto1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1444754772 instance=ExtResource("9_muyte")]
+position = Vector2(99, 651)
+definition = ExtResource("10_x0u80")
+
+[node name="Moto2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=819231831 instance=ExtResource("9_muyte")]
+position = Vector2(133, 1370)
+definition = ExtResource("10_x0u80")
+
+[node name="Suspicious" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=1290155993 instance=ExtResource("9_muyte")]
+position = Vector2(176, 997)
+definition = ExtResource("11_qw51f")
+
+[node name="Taxi1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=1669553344 instance=ExtResource("9_muyte")]
+position = Vector2(315, 1378)
+definition = ExtResource("12_5fau0")
+
+[node name="Taxi2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=644213408 instance=ExtResource("9_muyte")]
+position = Vector2(537, 653)
+definition = ExtResource("12_5fau0")
+
+[node name="Crowd1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=2137088300 instance=ExtResource("9_muyte")]
+position = Vector2(312, 1760)
+definition = ExtResource("13_jyur6")
+
+[node name="Crowd2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=981395663 instance=ExtResource("9_muyte")]
+position = Vector2(375, 297)
+definition = ExtResource("14_x0u80")
+
+[node name="Tree1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=1608970549 instance=ExtResource("7_5jtc0")]
+position = Vector2(176, 187)
+definition = ExtResource("8_u7eg6")
+
+[node name="Tree2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=563309124 instance=ExtResource("7_5jtc0")]
+position = Vector2(464, 187)
+definition = ExtResource("8_u7eg6")
+
+[node name="Tree3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="12" unique_id=267340856 instance=ExtResource("7_5jtc0")]
+position = Vector2(176, 467)
+definition = ExtResource("8_u7eg6")
+
+[node name="Tree4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="13" unique_id=561634665 instance=ExtResource("7_5jtc0")]
+position = Vector2(464, 467)
+definition = ExtResource("8_u7eg6")
+
+[node name="Tree5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="14" unique_id=1265131557 instance=ExtResource("7_5jtc0")]
+position = Vector2(176, 907)
+definition = ExtResource("8_u7eg6")
+
+[node name="Tree6" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="15" unique_id=1365499608 instance=ExtResource("7_5jtc0")]
+position = Vector2(464, 907)
+definition = ExtResource("8_u7eg6")
+
+[node name="Tree7" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="16" unique_id=4627515 instance=ExtResource("7_5jtc0")]
+position = Vector2(176, 1187)
+definition = ExtResource("8_u7eg6")
+
+[node name="Tree8" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="17" unique_id=1521229286 instance=ExtResource("7_5jtc0")]
+position = Vector2(464, 1187)
+definition = ExtResource("8_u7eg6")
+
+[node name="Tree9" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="18" unique_id=1761470578 instance=ExtResource("7_5jtc0")]
+position = Vector2(176, 1667)
+definition = ExtResource("8_u7eg6")
+
+[node name="Tree10" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="19" unique_id=1000786585 instance=ExtResource("7_5jtc0")]
+position = Vector2(464, 1667)
+definition = ExtResource("8_u7eg6")
+
+[node name="StopSign1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="20" unique_id=1808922534 instance=ExtResource("7_5jtc0")]
+position = Vector2(440, 710)
+definition = ExtResource("9_76oy8")
+
+[node name="StopSign2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="21" unique_id=328439994 instance=ExtResource("7_5jtc0")]
+position = Vector2(440, 1430)
+definition = ExtResource("9_76oy8")
+
+[node name="LampPost1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="22" unique_id=1742592165 instance=ExtResource("7_5jtc0")]
+position = Vector2(195, 310)
+definition = ExtResource("10_m0nkj")
+
+[node name="LampPost2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="23" unique_id=1744117890 instance=ExtResource("7_5jtc0")]
+position = Vector2(195, 725)
+definition = ExtResource("10_m0nkj")
+
+[node name="LampPost3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="24" unique_id=1557176897 instance=ExtResource("7_5jtc0")]
+position = Vector2(195, 1310)
+definition = ExtResource("10_m0nkj")
+
+[node name="LampPost4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="25" unique_id=1432893552 instance=ExtResource("7_5jtc0")]
+position = Vector2(195, 1830)
+definition = ExtResource("10_m0nkj")
+
+[node name="Hydrant1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="26" unique_id=525287384 instance=ExtResource("7_5jtc0")]
+position = Vector2(460, 575)
+definition = ExtResource("13_0sqxm")
+
+[node name="Hydrant2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="27" unique_id=985786666 instance=ExtResource("7_5jtc0")]
+position = Vector2(180, 1450)
+definition = ExtResource("13_0sqxm")
+
+[node name="TrashCan1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="28" unique_id=1405362189 instance=ExtResource("7_5jtc0")]
+position = Vector2(134, 1317)
+definition = ExtResource("14_ivcy6")
+
+[node name="TrashCan2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="29" unique_id=1526775188 instance=ExtResource("7_5jtc0")]
+position = Vector2(505, 1316)
+definition = ExtResource("14_ivcy6")
+
+[node name="CollisionShape2D" parent="World/Triggers/ExitZone" parent_id_path=PackedInt32Array(1254900974) index="0" unique_id=1434922719]
+position = Vector2(-280.5, 1724)
+shape = SubResource("RectangleShape2D_5jtc0")
+
+[node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("9_q5ig1")]
+position = Vector2(320, 1033)
+rotation = 1.5707964
+
+[node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
+position = Vector2(179, 70)
+
+[node name="PauseMenu" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="1" unique_id=175858098]
+visible = false
+
+[node name="PhoneNotification" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="2" unique_id=1297445684]
+visible = false
+
+[node name="DecisionPanel" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="3" unique_id=1405372292]
+visible = false

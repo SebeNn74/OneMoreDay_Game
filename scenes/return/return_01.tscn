@@ -81,3 +81,12 @@ shape = SubResource("RectangleShape2D_ta8vv")
 
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_l6od5")]
 position = Vector2(320, 180)
+
+[node name="PauseMenu" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="1" unique_id=175858098]
+visible = false
+
+[node name="PhoneNotification" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="2" unique_id=1297445684]
+visible = false
+
+[node name="DecisionPanel" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="3" unique_id=1405372292]
+visible = false

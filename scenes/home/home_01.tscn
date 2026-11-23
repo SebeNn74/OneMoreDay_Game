@@ -17,19 +17,28 @@
 [ext_resource type="Resource" uid="uid://bjp3yk727xgj2" path="res://data/props/home/stove.tres" id="14_w5drb"]
 [ext_resource type="Resource" uid="uid://bwb54xehpay1j" path="res://data/props/home/fridge.tres" id="15_btmx0"]
 [ext_resource type="Resource" uid="uid://c2tc5epgcg5or" path="res://data/props/home/shower.tres" id="16_cp6xa"]
+[ext_resource type="Resource" uid="uid://c7dn0pbnhrcbd" path="res://data/props/office/plant.tres" id="16_ejiy3"]
 [ext_resource type="Resource" uid="uid://e51suy0yvway" path="res://data/props/home/toilet.tres" id="17_ywrmp"]
 [ext_resource type="Resource" uid="uid://bym8ofev8ts4t" path="res://data/props/home/wardrobe.tres" id="18_ejiy3"]
 [ext_resource type="Resource" uid="uid://bhes7enssk0c4" path="res://data/props/home/dining_table.tres" id="19_v2jm8"]
 [ext_resource type="Texture2D" uid="uid://jod88ske6go8" path="res://assets/sprites/environment/home/bg_home_wall.png" id="20_w5drb"]
+[ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="21_ywrmp"]
+[ext_resource type="Texture2D" uid="uid://bvcs6uxa1gayw" path="res://assets/sprites/environment/home/bg_home_wall_2.png" id="22_ejiy3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(31, 46)
 
+[sub_resource type="Resource" id="Resource_cvsng"]
+script = ExtResource("21_ywrmp")
+texture = ExtResource("22_ejiy3")
+footprint = Rect2(-5, -140, 10, 140)
+metadata/_custom_type_script = "uid://blaehmx8jxbga"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ojbw0"]
-size = Vector2(56, 8)
+size = Vector2(48, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l42ft"]
-size = Vector2(44, 8)
+size = Vector2(43, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tqsx4"]
 size = Vector2(60, 20)
@@ -53,7 +62,7 @@ metadata/_custom_type_script = "uid://b1mnwbj34pvmo"
 
 [node name="Phone" type="Area2D" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) index="0" unique_id=2139657774]
 unique_name_in_owner = true
-position = Vector2(461, 84)
+position = Vector2(386, 89)
 script = ExtResource("5_tqsx4")
 action_text = "Revisar celular"
 metadata/_custom_type_script = "uid://durcqs724skbg"
@@ -64,73 +73,91 @@ sprite_frames = ExtResource("7_btmx0")
 animation = &"phone"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Interactables/Phone" index="1" unique_id=624799445]
-position = Vector2(-0.5, 10)
 shape = SubResource("RectangleShape2D_r5iys")
 
+[node name="Player" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="0" unique_id=773780192]
+scale = Vector2(1.5, 1.5)
+
 [node name="Tv" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=901503473 instance=ExtResource("7_4vlsp")]
-position = Vector2(179, 338)
+position = Vector2(518, 218)
 definition = ExtResource("9_d7yna")
 
 [node name="Desk" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=229024184 instance=ExtResource("7_4vlsp")]
-position = Vector2(404, 152)
+position = Vector2(487, 137)
 definition = ExtResource("10_y8yaq")
 
 [node name="Sink" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=563298939 instance=ExtResource("7_4vlsp")]
-position = Vector2(123, 126)
+position = Vector2(113, 126)
 definition = ExtResource("11_ewmah")
 
 [node name="Sofa" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=292460236 instance=ExtResource("7_4vlsp")]
-position = Vector2(108, 338)
+position = Vector2(101, 337)
 definition = ExtResource("12_10bbg")
 
-[node name="Chair" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=975468432 instance=ExtResource("7_4vlsp")]
-position = Vector2(344, 210)
+[node name="Chair1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=975468432 instance=ExtResource("7_4vlsp")]
+position = Vector2(304, 214)
 definition = ExtResource("13_1n780")
 
-[node name="Stove" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=478147305 instance=ExtResource("7_4vlsp")]
-position = Vector2(244, 136)
+[node name="Chair2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=1608970549 instance=ExtResource("7_4vlsp")]
+position = Vector2(255, 214)
+definition = ExtResource("13_1n780")
+
+[node name="Stove" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=478147305 instance=ExtResource("7_4vlsp")]
+position = Vector2(244, 138)
 definition = ExtResource("14_w5drb")
 
-[node name="Prop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=599409439 instance=ExtResource("7_4vlsp")]
-position = Vector2(300, 136)
+[node name="Fridge" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=599409439 instance=ExtResource("7_4vlsp")]
+position = Vector2(313, 138)
 definition = ExtResource("15_btmx0")
 
-[node name="Shower" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=614300620 instance=ExtResource("7_4vlsp")]
-position = Vector2(162, 136)
+[node name="Plant1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=1838713130 instance=ExtResource("7_4vlsp")]
+position = Vector2(164, 340)
+definition = ExtResource("16_ejiy3")
+
+[node name="Plant2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=721877844 instance=ExtResource("7_4vlsp")]
+position = Vector2(194, 340)
+definition = ExtResource("16_ejiy3")
+
+[node name="Shower" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=614300620 instance=ExtResource("7_4vlsp")]
+position = Vector2(160, 120)
 definition = ExtResource("16_cp6xa")
 
-[node name="Toilet" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=872248258 instance=ExtResource("7_4vlsp")]
+[node name="Toilet" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="12" unique_id=872248258 instance=ExtResource("7_4vlsp")]
 position = Vector2(67, 120)
 definition = ExtResource("17_ywrmp")
 
-[node name="Wardrobe" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=566784058 instance=ExtResource("7_4vlsp")]
-position = Vector2(577, 138)
+[node name="Wardrobe" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="13" unique_id=566784058 instance=ExtResource("7_4vlsp")]
+position = Vector2(568, 138)
 definition = ExtResource("18_ejiy3")
 
-[node name="Table1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=698598939 instance=ExtResource("7_4vlsp")]
-position = Vector2(298, 216)
+[node name="Table1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="14" unique_id=698598939 instance=ExtResource("7_4vlsp")]
+position = Vector2(255, 225)
 definition = ExtResource("19_v2jm8")
 
-[node name="Table2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="12" unique_id=1608970549 instance=ExtResource("7_4vlsp")]
-position = Vector2(250, 216)
+[node name="Table2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="15" unique_id=559570870 instance=ExtResource("7_4vlsp")]
+position = Vector2(304, 225)
 definition = ExtResource("19_v2jm8")
 
-[node name="Bed" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="13" unique_id=1566854401 instance=ExtResource("7_4vlsp")]
-position = Vector2(510, 180)
+[node name="Bed" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="16" unique_id=1566854401 instance=ExtResource("7_4vlsp")]
+position = Vector2(518, 340)
 definition = ExtResource("8_4rfk4")
 
-[node name="Wall" type="StaticBody2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="14" unique_id=1387083187]
+[node name="MiddleWall" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="17" unique_id=1947778649 instance=ExtResource("7_4vlsp")]
+position = Vector2(436, 340)
+definition = SubResource("Resource_cvsng")
+
+[node name="BathroomWall" type="StaticBody2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="18" unique_id=1387083187]
 position = Vector2(110, 177)
 
-[node name="Sprite2D" type="Sprite2D" parent="World/Entities/Wall" index="0" unique_id=272891484]
+[node name="Sprite2D" type="Sprite2D" parent="World/Entities/BathroomWall" index="0" unique_id=272891484]
 texture = ExtResource("20_w5drb")
 
-[node name="CollisionLeft" type="CollisionShape2D" parent="World/Entities/Wall" index="1" unique_id=656084946]
-position = Vector2(-34, 37)
+[node name="CollisionLeft" type="CollisionShape2D" parent="World/Entities/BathroomWall" index="1" unique_id=656084946]
+position = Vector2(-37, 33)
 shape = SubResource("RectangleShape2D_ojbw0")
 
-[node name="CollisionRight" type="CollisionShape2D" parent="World/Entities/Wall" index="2" unique_id=1625444243]
-position = Vector2(54, 37)
+[node name="CollisionRight" type="CollisionShape2D" parent="World/Entities/BathroomWall" index="2" unique_id=1625444243]
+position = Vector2(54.5, 33)
 shape = SubResource("RectangleShape2D_l42ft")
 
 [node name="ExitZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="0" unique_id=1254900974]
@@ -141,7 +168,7 @@ position = Vector2(-280, 170)
 shape = SubResource("RectangleShape2D_tqsx4")
 
 [node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
-position = Vector2(511, 210)
+position = Vector2(465, 289)
 
 [node name="DebugLevelGrid" parent="Debug" parent_id_path=PackedInt32Array(59155718) index="1" unique_id=1766457910]
 visible = false

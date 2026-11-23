@@ -17,18 +17,18 @@ const DEFAULT_SOLID_ROWS: int = 1
 ## solid_rows: rows of 16 px (counted from the bottom) that block movement.
 ## First guess for the home; check it with Debug > Visible Collision Shapes and edit the .tres.
 const PROPS: Array[Dictionary] = [
-	{ name = "bed", texture = "home/decoration/obj_cama.png", solid_rows = 3 },
-	{ name = "wardrobe", texture = "home/decoration/obj_armario.png", solid_rows = 1 },
-	{ name = "desk", texture = "home/decoration/obj_escritorio.png", solid_rows = 2 },
-	{ name = "chair", texture = "home/decoration/obj_silla.png", solid_rows = 1 },
-	{ name = "sofa", texture = "home/decoration/obj_sofa.png", solid_rows = 2 },
-	{ name = "tv", texture = "home/decoration/obj_tv.png", solid_rows = 1 },
-	{ name = "stove", texture = "home/decoration/obj_cocina.png", solid_rows = 1 },
-	{ name = "fridge", texture = "home/decoration/obj_nevera.png", solid_rows = 1 },
-	{ name = "dining_table", texture = "home/decoration/obj_mesa_comedor.png", solid_rows = 2 },
-	{ name = "toilet", texture = "home/decoration/obj_inodoro.png", solid_rows = 1 },
-	{ name = "sink", texture = "home/decoration/obj_lavamanos.png", solid_rows = 1 },
-	{ name = "shower", texture = "home/decoration/obj_ducha.png", solid_rows = 2 },
+	{ name = "bed", folder = "home", texture = "home/decoration/obj_cama.png", solid_rows = 3 },
+	{ name = "wardrobe", folder = "home", texture = "home/decoration/obj_armario.png", solid_rows = 1 },
+	{ name = "desk", folder = "home", texture = "home/decoration/obj_escritorio.png", solid_rows = 2 },
+	{ name = "chair", folder = "home", texture = "home/decoration/obj_silla.png", solid_rows = 1 },
+	{ name = "sofa", folder = "home", texture = "home/decoration/obj_sofa.png", solid_rows = 2 },
+	{ name = "tv", folder = "home", texture = "home/decoration/obj_tv.png", solid_rows = 1 },
+	{ name = "stove", folder = "home", texture = "home/decoration/obj_cocina.png", solid_rows = 1 },
+	{ name = "fridge", folder = "home", texture = "home/decoration/obj_nevera.png", solid_rows = 1 },
+	{ name = "dining_table", folder = "home", texture = "home/decoration/obj_mesa_comedor.png", solid_rows = 2 },
+	{ name = "toilet", folder = "home", texture = "home/decoration/obj_inodoro.png", solid_rows = 1 },
+	{ name = "sink", folder = "home", texture = "home/decoration/obj_lavamanos.png", solid_rows = 1 },
+	{ name = "shower", folder = "home", texture = "home/decoration/obj_ducha.png", solid_rows = 2 },
 	{ name = "bookshelf", folder = "office", texture = "office/decoration/obj_bookshelf.png", solid_rows = 2 },
 	{ name = "boxes", folder = "office", texture = "office/decoration/obj_boxes.png", solid_rows = 1 },
 	{ name = "coffee_station", folder = "office", texture = "office/decoration/obj_coffee_station.png", solid_rows = 1 },
@@ -84,6 +84,10 @@ const PROPS: Array[Dictionary] = [
 	{ name = "tree", folder = "street", texture = "street/decoration/obj_tree.png", solid_rows = 2 },
 	{ name = "tree_dusk", folder = "street", texture = "street/decoration/obj_tree_dusk.png", solid_rows = 2 },
 	{ name = "tree_night", folder = "street", texture = "street/decoration/obj_tree_night.png", solid_rows = 2 },
+	{ name = "bus_bar", folder = "bus", texture = "bus/decoration/obj_bus_bar.png", solid_rows = 1 },
+	{ name = "bus_pole", folder = "bus", texture = "bus/decoration/obj_bus_pole.png", solid_rows = 1 },
+	{ name = "bus_seats", folder = "bus", texture = "bus/decoration/obj_bus_seats.png", solid_rows = 1 },
+	{ name = "bus_seats_priority", folder = "bus", texture = "bus/decoration/obj_bus_seats_priority.png", solid_rows = 1 },
 ]
 
 

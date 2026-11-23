@@ -11,4 +11,5 @@ display_name = "Lluvia hostil"
 behavior = ExtResource("1_behavior")
 sprite_frames = ExtResource("3_frames")
 sprite_animation = &"rain"
+sprite_scale = 3.0
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"
