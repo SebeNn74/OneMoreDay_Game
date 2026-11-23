@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_gyfes"]
 [ext_resource type="Texture2D" uid="uid://ckxgioahuihh3" path="res://assets/sprites/environment/street/bg_return_03_floor.png" id="2_ti07k"]
 [ext_resource type="Texture2D" uid="uid://ccgiksbbjdvn3" path="res://assets/sprites/environment/street/bg_return_03_walls.png" id="3_aocjp"]
+[ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="3_eo1lo"]
 [ext_resource type="Script" uid="uid://b1mnwbj34pvmo" path="res://scripts/levels/wall_rects.gd" id="4_8km0s"]
+[ext_resource type="Resource" uid="uid://dg41ror5qktri" path="res://data/items/empanada.tres" id="4_eo1lo"]
 [ext_resource type="PackedScene" uid="uid://c3uq4ssnelswq" path="res://scenes/props/prop.tscn" id="5_2to4v"]
 [ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="5_wkan3"]
 [ext_resource type="Resource" uid="uid://c82w8ddyorkjf" path="res://data/props/home/commute_fence.tres" id="6_5ltfl"]
@@ -28,6 +30,10 @@ size = Vector2(75, 30)
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
 texture = ExtResource("2_ti07k")
+
+[node name="ItemPickup" parent="World/Background/Floor" index="0" unique_id=18191398 instance=ExtResource("3_eo1lo")]
+position = Vector2(108, 127)
+item = ExtResource("4_eo1lo")
 
 [node name="Walls" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="1" unique_id=892709214]
 texture = ExtResource("3_aocjp")
@@ -108,11 +114,5 @@ shape = SubResource("RectangleShape2D_8km0s")
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_gyfes")]
 position = Vector2(320, 180)
 
-[node name="PauseMenu" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="1" unique_id=175858098]
-visible = false
-
-[node name="PhoneNotification" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="2" unique_id=1297445684]
-visible = false
-
-[node name="DecisionPanel" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="3" unique_id=1405372292]
-visible = false
+[node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
+position = Vector2(29, 304)

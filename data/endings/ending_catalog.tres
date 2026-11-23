@@ -1,0 +1,83 @@
+[gd_resource type="Resource" script_class="EndingCatalog" format=3 uid="uid://ddglvyr5p8lu4"]
+
+[ext_resource type="Script" uid="uid://bwu8nu0rbdy3o" path="res://scripts/endings/ending_definition.gd" id="1_m55pj"]
+[ext_resource type="Texture2D" uid="uid://b5nnvxyi48iu2" path="res://assets/sprites/endings/ending_v01.png" id="2_udafc"]
+[ext_resource type="Texture2D" uid="uid://cgiopt86lh77x" path="res://assets/sprites/endings/ending_v02.png" id="3_hdyif"]
+[ext_resource type="Texture2D" uid="uid://cmukk7gwfmttf" path="res://assets/sprites/endings/ending_v03.png" id="4_l7jhc"]
+[ext_resource type="Texture2D" uid="uid://blx5y8qlk50eu" path="res://assets/sprites/endings/ending_v04.png" id="5_1mgrm"]
+[ext_resource type="Texture2D" uid="uid://c3x5rcdqhesk" path="res://assets/sprites/endings/ending_v05.png" id="6_ig5i4"]
+[ext_resource type="Texture2D" uid="uid://cjnokr0h4dt18" path="res://assets/sprites/endings/ending_d01.png" id="7_ntlge"]
+[ext_resource type="Texture2D" uid="uid://db4bmkxyfhewg" path="res://assets/sprites/endings/ending_d02.png" id="8_bn3a1"]
+[ext_resource type="Texture2D" uid="uid://ccmlx4tcjvmr3" path="res://assets/sprites/endings/ending_d03.png" id="9_5rhpq"]
+[ext_resource type="Texture2D" uid="uid://dx2uhq4frofpu" path="res://assets/sprites/endings/ending_d04.png" id="10_suny0"]
+[ext_resource type="Texture2D" uid="uid://b5bi3r2nsntml" path="res://assets/sprites/endings/ending_d05.png" id="11_j5aqi"]
+[ext_resource type="Script" uid="uid://cjc07jj02emsg" path="res://scripts/endings/ending_catalog.gd" id="12_q1mpi"]
+
+[sub_resource type="Resource" id="Resource_r6gfc"]
+script = ExtResource("1_m55pj")
+id = "V-01"
+is_victory = true
+text = "Llegas a casa con las piernas cansadas y el bolsillo justo, pero con algo para compartir. En la mesa, el olor del almuerzo y la voz de mamá: «Qué bueno que ya llegó». Hoy fue un día más, y valió la pena."
+image = ExtResource("2_udafc")
+
+[sub_resource type="Resource" id="Resource_naov4"]
+script = ExtResource("1_m55pj")
+id = "V-02"
+is_victory = true
+text = "Llegas arrastrando los pasos, sin plata y sin ganas, pero llegas. La puerta se abre y alguien dejó la luz prendida. Mañana será otro día más."
+image = ExtResource("3_hdyif")
+
+[sub_resource type="Resource" id="Resource_17m4s"]
+script = ExtResource("1_m55pj")
+id = "V-03"
+is_victory = true
+text = "Esa noche le cuentas a alguien cómo te fue y alguien más te escucha. Entre un favor devuelto y un plato compartido, el cansancio pesa menos. Nadie sale adelante solo."
+image = ExtResource("4_l7jhc")
+
+[sub_resource type="Resource" id="Resource_e0wm5"]
+script = ExtResource("1_m55pj")
+id = "V-04"
+is_victory = true
+text = "Entregaste justo a tiempo y por un momento el reloj fue tu aliado. Ya en casa recuerdas la cara de tu jefe al ver todo listo. Hoy te sentiste capaz."
+image = ExtResource("5_1mgrm")
+
+[sub_resource type="Resource" id="Resource_x1saf"]
+script = ExtResource("1_m55pj")
+id = "V-05"
+is_victory = true
+text = "Con lo que lograste ahorrar hoy, pasas por la panadería y compras pan para todos. La casa huele a chocolate caliente y alguien ya puso la mesa. Un detalle pequeño, un día mejor."
+image = ExtResource("6_ig5i4")
+
+[sub_resource type="Resource" id="Resource_a03ep"]
+script = ExtResource("1_m55pj")
+id = "D-01"
+text = "Hoy la plata no alcanzó. Entre pasajes, gastos e imprevistos, el bolsillo quedó vacío antes de terminar el camino. Tocó pedir fiado y volver a intentarlo mañana."
+image = ExtResource("7_ntlge")
+
+[sub_resource type="Resource" id="Resource_smbxw"]
+script = ExtResource("1_m55pj")
+id = "D-02"
+text = "El cuerpo dijo basta. Después de tantas filas, escaleras y esperas, las piernas ya no respondieron. Te sentaste un momento y el día siguió sin ti."
+image = ExtResource("8_bn3a1")
+
+[sub_resource type="Resource" id="Resource_cjoe3"]
+script = ExtResource("1_m55pj")
+id = "D-03"
+text = "El reloj ganó. Entre el trancón y los retrasos, el día se acabó antes de que llegaras. Mañana habrá que salir más temprano."
+image = ExtResource("9_5rhpq")
+
+[sub_resource type="Resource" id="Resource_5aaoc"]
+script = ExtResource("1_m55pj")
+id = "D-04"
+text = "Un descuido en la calle te dejó sin lo que traías. No fue culpa tuya: a veces el día se tuerce. Llegas con las manos vacías y el ánimo por el piso."
+image = ExtResource("10_suny0")
+
+[sub_resource type="Resource" id="Resource_8sbak"]
+script = ExtResource("1_m55pj")
+id = "D-05"
+text = "La alarma sonó y el reloj no perdonó. No alcanzaste a entregar a tiempo. Pero ya sabes cuánto cuesta cada minuto."
+image = ExtResource("11_j5aqi")
+
+[resource]
+script = ExtResource("12_q1mpi")
+endings = Array[ExtResource("1_m55pj")]([SubResource("Resource_r6gfc"), SubResource("Resource_naov4"), SubResource("Resource_17m4s"), SubResource("Resource_e0wm5"), SubResource("Resource_x1saf"), SubResource("Resource_a03ep"), SubResource("Resource_smbxw"), SubResource("Resource_cjoe3"), SubResource("Resource_5aaoc"), SubResource("Resource_8sbak")])

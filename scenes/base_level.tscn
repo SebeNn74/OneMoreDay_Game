@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://y8ps8llm22pt" path="res://scenes/global/decision_panel.tscn" id="8_b0lsh"]
 [ext_resource type="PackedScene" uid="uid://c5glikk8kgvjp" path="res://scenes/global/hud.tscn" id="8_earhg"]
 [ext_resource type="PackedScene" uid="uid://dq66ubm3220y2" path="res://scenes/global/phone_notification.tscn" id="9_u6ue0"]
-[ext_resource type="Script" uid="uid://b4lhjfvqtgnqc" path="res://scripts/dev/debug_level_grid.gd" id="10_fal5o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(40, 80)
@@ -69,9 +68,6 @@ position = Vector2(50, 180)
 
 [node name="DebugStatKeys" type="Node" parent="Debug" unique_id=1363448651]
 script = ExtResource("6_3aqo6")
-
-[node name="DebugLevelGrid" type="Node2D" parent="Debug" unique_id=1766457910]
-script = ExtResource("10_fal5o")
 
 [node name="DebugStatsOverlay" type="CanvasLayer" parent="Debug" unique_id=872636671]
 script = ExtResource("7_rlct4")

@@ -4,11 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="2_l6od5"]
 [ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="2_ltkmf"]
 [ext_resource type="Texture2D" uid="uid://c8p7et74s4q7k" path="res://assets/sprites/environment/street/bg_return_01_floor.png" id="2_mo05q"]
-[ext_resource type="Resource" uid="uid://c0pf2jarj8vjj" path="res://data/decisions/npc_05_empanada_vendor.tres" id="3_6u3cc"]
 [ext_resource type="Texture2D" uid="uid://diosohm6kv8sb" path="res://assets/sprites/environment/street/bg_return_01_walls.png" id="3_dtiab"]
+[ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="4_2lbv4"]
 [ext_resource type="Resource" uid="uid://dny2dt4h8f0vm" path="res://data/decisions/queue_bus_stop.tres" id="4_somk5"]
 [ext_resource type="Script" uid="uid://b1mnwbj34pvmo" path="res://scripts/levels/wall_rects.gd" id="4_ta8vv"]
 [ext_resource type="Script" uid="uid://b05o0sxre1j7y" path="res://scripts/simulation_bridges/queue_crowd.gd" id="5_pitcu"]
+[ext_resource type="Resource" uid="uid://cjv0l52gwv4g8" path="res://data/items/bill.tres" id="5_va7p2"]
 [ext_resource type="Resource" path="res://data/simulation/queue_bus_stop.tres" id="6_mo05q"]
 [ext_resource type="PackedScene" uid="uid://c3uq4ssnelswq" path="res://scenes/props/prop.tscn" id="10_ni0y6"]
 [ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="10_yqhkt"]
@@ -17,6 +18,10 @@
 [ext_resource type="Resource" uid="uid://bo2xim743thrm" path="res://data/hostiles/h_suspicious_figure.tres" id="12_2m2jl"]
 [ext_resource type="Resource" uid="uid://b3q8ydyd0ksu2" path="res://data/hostiles/h_fatigue.tres" id="13_ggsxo"]
 [ext_resource type="Resource" uid="uid://dqvx8kx41y5p" path="res://data/props/street/bus_stop_dusk.tres" id="15_2m2jl"]
+[ext_resource type="Resource" uid="uid://bxjtx5bdnmxaw" path="res://data/props/street/tree_dusk.tres" id="17_2lbv4"]
+[ext_resource type="Resource" uid="uid://cspwytw4yhpq5" path="res://data/props/street/lamppost_dusk.tres" id="18_va7p2"]
+[ext_resource type="Resource" uid="uid://nihljjmoynw2" path="res://data/props/street/planter_dusk.tres" id="19_7k4es"]
+[ext_resource type="Resource" uid="uid://ddgcd687ept5s" path="res://data/props/street/bollard_dusk.tres" id="20_a5nyx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ta8vv"]
 size = Vector2(30, 258)
@@ -35,46 +40,70 @@ script = ExtResource("4_ta8vv")
 rects = Array[Rect2i]([Rect2i(320, 47, 640, 94), Rect2i(320, 356, 640, 8)])
 metadata/_custom_type_script = "uid://b1mnwbj34pvmo"
 
-[node name="EmpanadaVendor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_ltkmf")]
-position = Vector2(480, 140)
-decision = ExtResource("3_6u3cc")
-sprite_animation = &"empanada_vendor"
+[node name="ItemPickup" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) index="0" unique_id=18191398 instance=ExtResource("4_2lbv4")]
+position = Vector2(144, 338)
+item = ExtResource("5_va7p2")
 
-[node name="BusStopNpc" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1280852267 instance=ExtResource("2_ltkmf")]
-position = Vector2(108, 128)
+[node name="BusStopNpc" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1280852267 instance=ExtResource("2_ltkmf")]
+position = Vector2(135, 128)
 decision = ExtResource("4_somk5")
 sprite_animation = &"bus_driver"
 action_text = "Ver la fila"
 
-[node name="BusStopCrowd" type="Node2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=327175573]
-position = Vector2(80, 132)
+[node name="BusStopCrowd" type="Node2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=327175573]
+position = Vector2(106, 132)
 script = ExtResource("5_pitcu")
 queue = ExtResource("6_mo05q")
 spacing = 30.0
 metadata/_custom_type_script = "uid://b05o0sxre1j7y"
 
-[node name="MotoRed" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=1444754772 instance=ExtResource("10_yqhkt")]
+[node name="MotoRed" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1444754772 instance=ExtResource("10_yqhkt")]
 position = Vector2(378, 194)
 definition = ExtResource("11_ggsxo")
 
-[node name="SuspiciousFigure" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=341271654 instance=ExtResource("10_yqhkt")]
+[node name="SuspiciousFigure" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=341271654 instance=ExtResource("10_yqhkt")]
 position = Vector2(289, 136)
 definition = ExtResource("12_2m2jl")
 
-[node name="Hostile" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=786879142 instance=ExtResource("10_yqhkt")]
+[node name="Hostile" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=786879142 instance=ExtResource("10_yqhkt")]
 position = Vector2(496, 330)
 definition = ExtResource("13_ggsxo")
 
-[node name="BusStop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=1608970549 instance=ExtResource("10_ni0y6")]
-position = Vector2(177, 143)
+[node name="BusStop" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=1608970549 instance=ExtResource("10_ni0y6")]
+position = Vector2(212, 139)
 definition = ExtResource("15_2m2jl")
 
-[node name="Fence" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=1828356507 instance=ExtResource("10_ni0y6")]
+[node name="Fence" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=1828356507 instance=ExtResource("10_ni0y6")]
 position = Vector2(960, 360)
 definition = ExtResource("11_msfqy")
 
+[node name="Tree1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=959698083 instance=ExtResource("10_ni0y6")]
+position = Vector2(144, 316)
+definition = ExtResource("17_2lbv4")
+
+[node name="Tree2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=825898687 instance=ExtResource("10_ni0y6")]
+texture_repeat = 3
+position = Vector2(464, 316)
+definition = ExtResource("17_2lbv4")
+
+[node name="LampPost" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=641392456 instance=ExtResource("10_ni0y6")]
+position = Vector2(434, 132)
+definition = ExtResource("18_va7p2")
+
+[node name="Planter" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=1678161666 instance=ExtResource("10_ni0y6")]
+position = Vector2(314, 337)
+definition = ExtResource("19_7k4es")
+
+[node name="Bollard1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="12" unique_id=903143852 instance=ExtResource("10_ni0y6")]
+position = Vector2(285, 140)
+definition = ExtResource("20_a5nyx")
+
+[node name="Bollard2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="13" unique_id=1419838946 instance=ExtResource("10_ni0y6")]
+position = Vector2(341, 140)
+definition = ExtResource("20_a5nyx")
+
 [node name="ExitZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="0" unique_id=1254900974]
-position = Vector2(625, 223)
+position = Vector2(15, 223)
 
 [node name="CollisionShape2D" parent="World/Triggers/ExitZone" index="0" unique_id=1434922719]
 shape = SubResource("RectangleShape2D_ta8vv")
@@ -82,11 +111,5 @@ shape = SubResource("RectangleShape2D_ta8vv")
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_l6od5")]
 position = Vector2(320, 180)
 
-[node name="PauseMenu" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="1" unique_id=175858098]
-visible = false
-
-[node name="PhoneNotification" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="2" unique_id=1297445684]
-visible = false
-
-[node name="DecisionPanel" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="3" unique_id=1405372292]
-visible = false
+[node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
+position = Vector2(589, 106)

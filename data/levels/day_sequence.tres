@@ -9,5 +9,5 @@ commute_scenes = Array[String](["uid://bkad0lb20nuyc", "uid://oe54rjtrgsti", "ui
 work_scenes = Array[String](["uid://dijhsvu5y87gm", "uid://dlskdepx5dyiw", "uid://jjxs1sgsgg4i"])
 return_scenes = Array[String](["uid://cpu3lh42gyyrx", "uid://c3e1k6dpol88t", "uid://b61mm23vjo7mm"])
 victory_scene = "uid://boc6on3r1ss0m"
-defeat_scene = "uid://dfod5mpesxiwq"
+defeat_scene = "uid://5e1vllttlrar"
 metadata/_custom_type_script = "uid://c8dgngmg0bvcj"

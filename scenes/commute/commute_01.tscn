@@ -29,6 +29,8 @@
 [ext_resource type="Resource" uid="uid://h41rcodpb3ul" path="res://data/props/street/bench.tres" id="17_je4im"]
 [ext_resource type="Resource" uid="uid://ce7tifd7e18gs" path="res://data/props/street/bus_stop.tres" id="18_6soeg"]
 [ext_resource type="Resource" uid="uid://bc5vygg6bgiaw" path="res://data/props/street/kiosk.tres" id="19_cp105"]
+[ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="29_cp105"]
+[ext_resource type="Resource" uid="uid://byib54agitfcg" path="res://data/items/coin.tres" id="30_42os6"]
 
 [sub_resource type="Resource" id="Resource_ypq5m"]
 script = ExtResource("9_mmf2o")
@@ -72,6 +74,10 @@ collision_mask = 0
 script = ExtResource("4_k8igx")
 rects = Array[Rect2i]([Rect2i(960, 47, 1920, 94), Rect2i(960, 356, 1920, 8)])
 metadata/_custom_type_script = "uid://b1mnwbj34pvmo"
+
+[node name="ItemPickup" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) index="0" unique_id=18191398 instance=ExtResource("29_cp105")]
+position = Vector2(1462, 314)
+item = ExtResource("30_42os6")
 
 [node name="CoffeeVendor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("2_tfu5p")]
 position = Vector2(647, 125)
@@ -206,4 +212,4 @@ position = Vector2(0, 123)
 shape = SubResource("RectangleShape2D_vf05k")
 
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_aqcfy")]
-position = Vector2(320, 180)
+position = Vector2(1030, 180)

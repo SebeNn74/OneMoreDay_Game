@@ -32,7 +32,6 @@ func _ready() -> void:
 	_exit_zone.locked = true
 	_exit_zone.blocked_entered.connect(_on_exit_blocked)
 	_delivery_point.enabled = false  # Unlocks with all the folders.
-	SceneManager.defeat_reason_override = config.fail_text
 	Simulation.set_time_cost_over(config.time_cost, config.duration_seconds)
 	_spawn_folders()
 
@@ -42,16 +41,13 @@ func _ready() -> void:
 	EventBus.decision_resolved.connect(_on_decision_resolved)
 	EventBus.challenge_progress_changed.emit(_folders_collected, config.folder_count)
 	EventBus.challenge_clock_changed.emit(_seconds_left)
+	EventBus.challenge_started.emit()
 
 	if SceneManager.is_transitioning():
 		# The level loads behind the fade: wait until it ends to show the intro.
 		EventBus.day_step_started.connect(_show_intro.unbind(1), CONNECT_ONE_SHOT)
 	else:
 		_show_intro()
-
-
-func _exit_tree() -> void:
-	SceneManager.defeat_reason_override = ""
 
 
 func _physics_process(delta: float) -> void:
@@ -137,7 +133,6 @@ func _on_decision_resolved(decision: DecisionDefinition, _chosen: DecisionOption
 func _succeed() -> void:
 	_is_finished = true
 	_is_clock_running = false
-	SceneManager.defeat_reason_override = ""
 	Simulation.apply_change(config.bonus_money, 0.0, 0.0)
 	_exit_zone.locked = false
 	EventBus.challenge_finished.emit(true, _seconds_left)
@@ -145,7 +140,7 @@ func _succeed() -> void:
 		config.display_name, _seconds_left, config.bonus_money])
 
 
-## Ending D-05. The text comes from defeat_reason_override.
+## Ending D-05: EndingResolver picks it from what RunLog recorded (clock failure or energy at 0).
 func _fail() -> void:
 	if _is_finished:
 		return

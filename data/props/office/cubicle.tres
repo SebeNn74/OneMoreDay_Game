@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource("1_si6jd")
 texture = ExtResource("2_jd2pa")
+display_scale = 2
 footprint = Rect2(-36, -18, 72, 16)

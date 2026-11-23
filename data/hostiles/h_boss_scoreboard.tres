@@ -11,4 +11,5 @@ display_name = "Jefe del marcador"
 behavior = ExtResource("1_behavior")
 sprite_frames = ExtResource("3_frames")
 sprite_animation = &"boss_scoreboard"
+sprite_scale = 2.0
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

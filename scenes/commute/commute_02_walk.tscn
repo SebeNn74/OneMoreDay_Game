@@ -21,6 +21,8 @@
 [ext_resource type="Resource" uid="uid://shaf4k45wdcn" path="res://data/hostiles/h_crowd_a.tres" id="13_jyur6"]
 [ext_resource type="Resource" uid="uid://u73j4inah6ue" path="res://data/props/street/trash_can.tres" id="14_ivcy6"]
 [ext_resource type="Resource" uid="uid://dupcwsmhi1ogi" path="res://data/hostiles/h_crowd_c.tres" id="14_x0u80"]
+[ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="15_5fau0"]
+[ext_resource type="Resource" uid="uid://byib54agitfcg" path="res://data/items/coin.tres" id="16_jyur6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jtc0"]
 size = Vector2(351, 32)
@@ -39,6 +41,10 @@ collision_mask = 0
 script = ExtResource("4_lev8e")
 rects = Array[Rect2i]([Rect2i(72, 288, 144, 575), Rect2i(568, 288, 144, 575), Rect2i(72, 1008, 144, 575), Rect2i(568, 1008, 144, 575), Rect2i(72, 1680, 144, 480), Rect2i(568, 1680, 144, 480)])
 metadata/_custom_type_script = "uid://b1mnwbj34pvmo"
+
+[node name="ItemPickup" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) index="0" unique_id=18191398 instance=ExtResource("15_5fau0")]
+position = Vector2(538, 1310)
+item = ExtResource("16_jyur6")
 
 [node name="Npc" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("4_u7eg6")]
 position = Vector2(606, 704)
@@ -166,12 +172,3 @@ rotation = 1.5707964
 
 [node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
 position = Vector2(179, 70)
-
-[node name="PauseMenu" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="1" unique_id=175858098]
-visible = false
-
-[node name="PhoneNotification" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="2" unique_id=1297445684]
-visible = false
-
-[node name="DecisionPanel" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="3" unique_id=1405372292]
-visible = false

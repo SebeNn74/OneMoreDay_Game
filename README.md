@@ -129,3 +129,14 @@ Project Settings > Layer Names > 2D Physics.
 - SceneManager.defeat_reason_override pone el texto D-05 mientras dura el encuentro (el paso 12 lo reemplaza).
 - EventBus: challenge_clock_changed, challenge_progress_changed, challenge_finished(is_success, seconds_left), queue_waited.
 - work_03: 960x544, muro con dos huecos (corto con más hostiles, largo con menos).
+
+## Finales
+- EndingResolver (pura) elige el final con las reglas de la pestaña 7: derrotas D-04, D-05, D-01, D-02, D-03;
+  victorias V-03, V-04, V-05, V-01, V-02. Prueba: godot --headless --path . -s res://tools/ending_self_test.gd
+- RunLog (Autoload, último de la lista) anota ayudas (V-03), El Marcador (V-04, D-05) y robos (D-04) y arma el RunSummary.
+- EndingCatalog (data/endings/ending_catalog.tres) guarda los 10 finales y los umbrales. Se genera desde la tabla de
+  tools/generate_ending_catalog.gd (sobrescribe el .tres): ahí se cambian textos, imágenes y umbrales.
+- EndingScreen (scenes/end_screens/ending_screen.tscn) sirve para victoria y derrota. El final se decide al abrirla.
+  Con F6 y Preview Ending Id se ve cualquier final sin jugar.
+- D-04: dinero a 0 justo después de EV-20 o del golpe de un hostil que quita dinero.
+  D-05: el reloj del Marcador llega a 0, o la energía a 0 durante el encuentro.

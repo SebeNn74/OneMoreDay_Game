@@ -86,3 +86,7 @@ signal challenge_progress_changed(collected: int, total: int)
 ## The challenge ended. [param seconds_left] is what remained on the clock (for the endings).
 @warning_ignore("unused_signal")
 signal challenge_finished(is_success: bool, seconds_left: float)
+
+## The challenge level is ready and its encounter begins (RunLog uses it for ending D-05).
+@warning_ignore("unused_signal")
+signal challenge_started
