@@ -1,5 +1,5 @@
 extends CanvasLayer
-## Debug-only readout of the stats and the fatigue factor.
+## Debug-only readout of the stats and the fatigue factor. F3 shows or hides it (e.g. to record).
 
 const DRAW_LAYER: int = 80
 const MARGIN: Vector2 = Vector2(4.0, 336.0)
@@ -18,6 +18,12 @@ func _ready() -> void:
 	_label.add_theme_constant_override("outline_size", OUTLINE_SIZE)
 	_label.add_theme_color_override("font_outline_color", Color.BLACK)
 	add_child(_label)
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	var key: InputEventKey = event as InputEventKey
+	if key != null and key.pressed and not key.echo and key.keycode == KEY_F3:
+		visible = not visible
 
 
 func _process(_delta: float) -> void:
