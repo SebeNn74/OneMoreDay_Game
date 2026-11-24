@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="DecisionDefinition" format=3]
+
+[ext_resource type="Script" uid="uid://dkrx6vx6tvj5q" path="res://scripts/decisions/decision_option.gd" id="1_f0d3u"]
+[ext_resource type="Resource" path="res://data/simulation/queue_bus_stop.tres" id="2_qb3d6"]
+[ext_resource type="Script" uid="uid://d4gtrfhv2pg5o" path="res://scripts/decisions/decision_definition.gd" id="2_uoa8d"]
+
+[sub_resource type="Resource" id="Resource_qb3d6"]
+script = ExtResource("1_f0d3u")
+text = "Hacer la fila y subir al bus"
+queue = ExtResource("2_qb3d6")
+next_scene = "uid://dfs8br753wh2d"
+metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
+
+[sub_resource type="Resource" id="Resource_qagn8"]
+script = ExtResource("1_f0d3u")
+text = "Caminar hasta la siguiente parada"
+energy = -5.0
+time = -2.0
+metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
+
+[sub_resource type="Resource" id="Resource_bcdb4"]
+script = ExtResource("1_f0d3u")
+text = "Pagar un taxi directo a la oficina"
+money = -12.0
+next_scene = "uid://y2eqnvnm2iue"
+metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
+
+[resource]
+script = ExtResource("2_uoa8d")
+id = "QUEUE-BUS-COMMUTE"
+speaker_name = "Paradero"
+prompt = "Hay gente esperando el bus. ¿Qué haces?"
+options = Array[ExtResource("1_f0d3u")]([SubResource("Resource_qb3d6"), SubResource("Resource_qagn8"), SubResource("Resource_bcdb4")])
+metadata/_custom_type_script = "uid://d4gtrfhv2pg5o"

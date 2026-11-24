@@ -27,6 +27,7 @@ func _ready() -> void:
 	_player.camera.set_level_bounds(level_size)
 	_bounds.build(Vector2(level_size))
 	_exit_zone.player_entered.connect(_on_exit_reached)
+	EventBus.decision_resolved.connect(_on_route_decision_resolved)
 	Simulation.flows_enabled = consumes_resources
 	Simulation.begin_level(_get_travel_distance())
 	_ensure_playing_state()
@@ -62,6 +63,14 @@ func _get_travel_distance() -> float:
 func _ensure_playing_state() -> void:
 	if GameManager.current_state == GameState.Type.MENU:
 		GameManager.change_state(GameState.Type.PLAYING)
+
+
+## A route option (bus, taxi) leaves the level right away, without walking to the exit.
+func _on_route_decision_resolved(_decision: DecisionDefinition, option: DecisionOption) -> void:
+	if option.next_scene.is_empty():
+		return
+	Simulation.end_level(name)
+	SceneManager.jump_to(option.next_scene)
 
 
 func _on_exit_reached() -> void:

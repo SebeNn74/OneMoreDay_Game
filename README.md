@@ -49,6 +49,7 @@ Project Settings > Layer Names > 2D Physics.
 - El orden de escenas se define en data/levels/day_sequence.tres (DaySequence).
 - SceneManager (Autoload): start_day(), finish_day(victory), get_current_step().
 - Cada nivel emite EventBus.level_completed desde su ExitZone.
+- Una opción de decisión con `next_scene` (DecisionOption) sale del nivel sin pasar por la ExitZone: SceneManager.jump_to() salta a ese paso si ya está en el día (taxi -> commute_03) o lo juega en lugar del siguiente (bus -> commute_02_bus).
 - Las escenas de nivel son heredadas de base_level.tscn. Se generan con
   tools/generate_level_scenes.gd (no sobrescribe las existentes).
 

@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://buln3f3cplqg2" path="res://assets/sprites/environment/street/bg_commute_01_walls.png" id="3_k8igx"]
 [ext_resource type="Resource" uid="uid://c1mx5h2n5j1bi" path="res://data/decisions/npc_01_coffee_vendor.tres" id="3_mcgbo"]
 [ext_resource type="Script" uid="uid://b1mnwbj34pvmo" path="res://scripts/levels/wall_rects.gd" id="4_k8igx"]
-[ext_resource type="Resource" uid="uid://dny2dt4h8f0vm" path="res://data/decisions/queue_bus_stop.tres" id="7_je4im"]
+[ext_resource type="Resource" path="res://data/decisions/queue_bus_stop_commute.tres" id="7_je4im"]
 [ext_resource type="PackedScene" uid="uid://c3uq4ssnelswq" path="res://scenes/props/prop.tscn" id="7_vf05k"]
 [ext_resource type="Script" uid="uid://b05o0sxre1j7y" path="res://scripts/simulation_bridges/queue_crowd.gd" id="8_6soeg"]
 [ext_resource type="Resource" uid="uid://c82w8ddyorkjf" path="res://data/props/home/commute_fence.tres" id="8_ynmvd"]
@@ -30,7 +30,7 @@
 [ext_resource type="Resource" uid="uid://ce7tifd7e18gs" path="res://data/props/street/bus_stop.tres" id="18_6soeg"]
 [ext_resource type="Resource" uid="uid://bc5vygg6bgiaw" path="res://data/props/street/kiosk.tres" id="19_cp105"]
 [ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="29_cp105"]
-[ext_resource type="Resource" uid="uid://byib54agitfcg" path="res://data/items/coin.tres" id="30_42os6"]
+[ext_resource type="Resource" uid="uid://cjv0l52gwv4g8" path="res://data/items/bill.tres" id="30_42os6"]
 
 [sub_resource type="Resource" id="Resource_ypq5m"]
 script = ExtResource("9_mmf2o")

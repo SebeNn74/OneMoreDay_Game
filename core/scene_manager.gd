@@ -62,6 +62,23 @@ func return_to_menu() -> void:
 	_change_scene(MAIN_MENU_SCENE)
 
 
+## Leaves the current level for [param path] instead of the next step (a decision picked a route).
+## A later step of the day is skipped to; any other scene is played in place of the next step.
+func jump_to(path: String) -> void:
+	if not is_day_active() or _is_changing_scene:
+		return
+	var target: String = ResourceUID.ensure_path(path)
+	for index: int in range(_current_index + 1, _steps.size()):
+		if ResourceUID.ensure_path(_steps[index].scene_path) == target:
+			_go_to_step(index)
+			return
+	var next_index: int = _current_index + 1
+	assert(next_index < _steps.size(), "SceneManager: no step left to replace with '%s'." % path)
+	var replaced: DayStep = _steps[next_index]
+	_steps[next_index] = DayStep.new(replaced.stage, path, replaced.number_in_stage)
+	_go_to_step(next_index)
+
+
 func is_day_active() -> bool:
 	return _current_index >= 0
 
