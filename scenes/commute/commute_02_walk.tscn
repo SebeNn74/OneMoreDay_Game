@@ -28,6 +28,7 @@
 size = Vector2(351, 32)
 
 [node name="Commute02Walk" unique_id=1642240116 instance=ExtResource("1_4aa7w")]
+objective = "Baja por la avenida. Mira antes de cruzar las calles"
 level_size = Vector2i(640, 1920)
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]

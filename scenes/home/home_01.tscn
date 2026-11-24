@@ -44,6 +44,7 @@ size = Vector2(43, 16)
 size = Vector2(60, 20)
 
 [node name="Home01" unique_id=1642240116 instance=ExtResource("1_dgfwj")]
+objective = "Revisa el celular y sal de la casa"
 script = ExtResource("2_lmuoo")
 blocked_exit_hint = "Antes de salir, revisa tu celular."
 consumes_resources = false

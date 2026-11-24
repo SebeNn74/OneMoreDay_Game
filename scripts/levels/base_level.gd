@@ -13,6 +13,8 @@ const MIN_TRAVEL_DISTANCE: float = 64.0
 @export var consumes_resources: bool = true
 @export var level_size: Vector2i = SCREEN_SIZE
 @export_range(0.0, 10000.0, 1.0, "suffix:px") var travel_distance: float = 0.0
+## What the player has to do here, shown when the level starts (player-visible, Spanish).
+@export_multiline var objective: String = "Llega a la salida"
 
 @onready var _bounds: LevelBounds = $Setup/LevelBounds
 @onready var _floor: Sprite2D = $World/Background/Floor
@@ -73,6 +75,14 @@ func _on_route_decision_resolved(_decision: DecisionDefinition, option: Decision
 		return
 	Simulation.end_level(name)
 	SceneManager.jump_to(option.next_scene)
+
+
+## Where the guide arrow points: the exit, or nothing while it is locked.
+## Levels with a locked exit override it to point at what unlocks it.
+func get_guide_target() -> Variant:
+	if _exit_zone.locked:
+		return null
+	return _exit_shape.global_position
 
 
 func _on_exit_reached() -> void:

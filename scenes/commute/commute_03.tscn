@@ -36,6 +36,7 @@ footprint = Rect2(-20, -20, 40, 20)
 size = Vector2(68, 24)
 
 [node name="Commute03" unique_id=1642240116 instance=ExtResource("1_1m617")]
+objective = "Llega a la puerta de la oficina"
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
 texture = ExtResource("2_2xr1c")

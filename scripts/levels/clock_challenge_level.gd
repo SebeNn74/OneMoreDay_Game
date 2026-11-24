@@ -78,6 +78,23 @@ func _spawn_folder(world_position: Vector2) -> void:
 	pickup.global_position = world_position
 
 
+## Nearest folder still lying around, then the delivery point, then the exit.
+func get_guide_target() -> Variant:
+	if not _exit_zone.locked:
+		return super()
+	if _delivery_point.enabled:
+		return _delivery_point.global_position
+	var player_position: Vector2 = _player.global_position
+	var nearest: Variant = null
+	for node: Node in _interactables.get_children():
+		var pickup: ItemPickup = node as ItemPickup
+		if pickup == null or not pickup.enabled or pickup.item != config.folder_item:
+			continue
+		if nearest == null or player_position.distance_to(pickup.global_position) < player_position.distance_to(nearest):
+			nearest = pickup.global_position
+	return nearest
+
+
 func _show_intro() -> void:
 	EventBus.notification_closed.connect(_start_clock, CONNECT_ONE_SHOT)
 	EventBus.notification_requested.emit(config.intro_text)

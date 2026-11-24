@@ -40,6 +40,7 @@
 size = Vector2(40, 98)
 
 [node name="Work03" unique_id=1642240116 instance=ExtResource("1_hqy8s")]
+objective = "Recoge las 3 carpetas y entrégalas antes de que el reloj llegue a 0"
 script = ExtResource("2_aqwhd")
 config = ExtResource("3_xtkkp")
 blocked_exit_hint = "Primero entrega las carpetas."

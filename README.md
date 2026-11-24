@@ -80,6 +80,13 @@ El panel de modelos (scripts/ui/model_feed.gd, en base_level) tiene una fila por
 cuando el modelo actúa (Simulation.model_used) y guarda lo último que hizo durante el día. La fila de
 dinámica muestra en vivo los flujos de energía y tiempo por segundo y el factor de velocidad.
 
+## Guía al jugador
+- LevelGuide (scripts/ui/level_guide.gd, en base_level): tarjeta "Cómo jugar" la primera vez que empieza un día
+  en la sesión; al entrar a cada nivel, un aviso con la etapa y BaseLevel.objective (texto por escena); y una flecha
+  amarilla hacia BaseLevel.get_guide_target() (la salida; la casa apunta al celular y El Marcador a la carpeta más
+  cercana o al punto de entrega mientras la salida está cerrada).
+- Los objetos muestran su efecto antes de tomarlos: "[E] Tomar un tinto (+10 energía, -$2.000)".
+
 ## Simulación (P2)
 - Autoload Simulation (core/simulation.gd): única entrada a los 5 modelos.
 - Modelos en scripts/simulation/, parámetros en data/simulation/ y data/events/.

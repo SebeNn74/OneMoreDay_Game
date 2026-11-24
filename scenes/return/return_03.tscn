@@ -27,6 +27,7 @@
 size = Vector2(75, 30)
 
 [node name="Return03" unique_id=1642240116 instance=ExtResource("1_rrhdf")]
+objective = "Llega a la puerta de tu casa"
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
 texture = ExtResource("2_ti07k")

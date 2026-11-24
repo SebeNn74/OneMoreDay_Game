@@ -61,6 +61,7 @@ footprint = Rect2(-20, -20, 40, 20)
 size = Vector2(40, 258)
 
 [node name="Commute01" unique_id=1642240116 instance=ExtResource("1_imccu")]
+objective = "Llega al paradero y decide cómo seguir: bus, a pie o taxi"
 level_size = Vector2i(1920, 360)
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]

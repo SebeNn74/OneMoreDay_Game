@@ -26,6 +26,7 @@
 size = Vector2(32, 259)
 
 [node name="Return02Bus" unique_id=1642240116 instance=ExtResource("1_d0hpi")]
+objective = "Atraviesa el bus hasta la puerta de salida"
 level_size = Vector2i(1360, 360)
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
