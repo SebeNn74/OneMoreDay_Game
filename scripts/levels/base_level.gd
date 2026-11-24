@@ -19,6 +19,8 @@ const MIN_TRAVEL_DISTANCE: float = 64.0
 @onready var _player: Player = $World/Entities/Player
 @onready var _spawn_point: Marker2D = $Setup/SpawnPoint
 @onready var _exit_zone: ExitZone = $World/Triggers/ExitZone
+## The trigger area itself: levels move this shape, not always the ExitZone node.
+@onready var _exit_shape: CollisionShape2D = $World/Triggers/ExitZone/CollisionShape2D
 
 
 func _ready() -> void:
@@ -36,7 +38,7 @@ func _ready() -> void:
 func _validate_layout() -> void:
 	var level_rect: Rect2 = Rect2(Vector2.ZERO, Vector2(level_size))
 	assert(level_rect.has_point(_spawn_point.global_position), "%s: SpawnPoint is outside level_size." % name)
-	assert(level_rect.has_point(_exit_zone.global_position), "%s: ExitZone is outside level_size." % name)
+	assert(level_rect.has_point(_exit_shape.global_position), "%s: ExitZone is outside level_size." % name)
 	_warn_if_floor_does_not_fit()
 	
 
@@ -55,7 +57,7 @@ func _warn_if_floor_does_not_fit() -> void:
 func _get_travel_distance() -> float:
 	var distance: float = travel_distance
 	if distance <= 0.0:
-		var offset: Vector2 = (_exit_zone.global_position - _spawn_point.global_position).abs()
+		var offset: Vector2 = (_exit_shape.global_position - _spawn_point.global_position).abs()
 		distance = offset.x + offset.y
 	return maxf(distance, MIN_TRAVEL_DISTANCE)
 
