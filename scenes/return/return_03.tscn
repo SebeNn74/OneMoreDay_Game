@@ -22,6 +22,9 @@
 [ext_resource type="Resource" uid="uid://d1ocqberdan5" path="res://data/props/street/hydrant_night.tres" id="12_gnr1q"]
 [ext_resource type="Resource" uid="uid://bjj5mhfp2pvqc" path="res://data/props/street/trash_can_night.tres" id="13_x761w"]
 [ext_resource type="Resource" uid="uid://bqfmlw4xqb2d7" path="res://data/props/street/stop_sign_night.tres" id="14_gnr1q"]
+[ext_resource type="Resource" uid="uid://c8mxd1prcbgf5" path="res://data/hostiles/h_dark_street_a.tres" id="92_dsa"]
+[ext_resource type="Resource" path="res://data/hostiles/h_dark_street_b.tres" id="93_dsb"]
+[ext_resource type="Resource" path="res://data/decisions/npc_07_street_vendor.tres" id="94_vnd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8km0s"]
 size = Vector2(75, 30)
@@ -119,3 +122,18 @@ position = Vector2(320, 180)
 
 [node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
 position = Vector2(29, 304)
+
+[node name="DarkStreetA" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) unique_id=203694312 instance=ExtResource("7_vhf5g")]
+position = Vector2(288, 320)
+definition = ExtResource("92_dsa")
+
+[node name="DarkStreetB" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) unique_id=255555737 instance=ExtResource("7_vhf5g")]
+position = Vector2(224, 128)
+definition = ExtResource("93_dsb")
+
+[node name="StreetVendor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) unique_id=454226307 instance=ExtResource("5_wkan3")]
+position = Vector2(498, 122)
+decision = ExtResource("94_vnd")
+sprite_animation = &"coffee_vendor"
+action_text = "Ver qué vende"
+

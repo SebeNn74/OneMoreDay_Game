@@ -31,6 +31,8 @@ func _initialize() -> void:
 	_check("reset restores E", settings.primary_key(&"interact") == KEY_E)
 	_check("reset restores Space", _has_key(&"interact", KEY_SPACE))
 	_check("gamepad A interacts", _has_joy_button(&"interact", JOY_BUTTON_A))
+	_check("model panel is an action on M", settings.primary_key(&"toggle_models") == KEY_M)
+	_check("model panel hint", settings.with_keys("[{models}]") == "[M]")
 
 	print("RESULT: %s" % ("all checks passed" if _failed == 0 else "%d checks FAILED" % _failed))
 	quit(_failed)

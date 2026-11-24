@@ -6,12 +6,21 @@ extends CanvasLayer
 
 const DRAW_LAYER: int = 20
 const NO_EFFECTS_TEXT: String = "Sin efecto"
+const MINIGAME_TAG: String = "(minijuego)"
 const UNAFFORDABLE_TEXT: String = "No te alcanza el dinero"
 const QUEUE_LENGTH_FORMAT: String = "%d en la fila ahora"
 const QUEUE_WAIT_FORMAT: String = "Wq teórico %.1f"
 const WAITED_FORMAT: String = "Esperaste %d de tiempo en la fila."
 const NO_WAIT_TEXT: String = "La fila andaba vacía: pasaste sin esperar."
 const HINT_TEXT: String = "[{up}/{down}] Elegir   [{interact}] Confirmar"
+## Model 3 on the card: chance, what goes wrong and what it costs.
+const RISK_FORMAT: String = "Riesgo %d %%: %s (%s)"
+## Bonus by state: stat name, threshold, why and what it gives.
+const BONUS_FORMAT: String = "Si tu %s está bajo %s: %s (%s)"
+## After choosing: the draw of the LCG against the chance.
+const RISK_HIT_FORMAT: String = "Monte Carlo: salió %.2f < %.2f. Mala suerte: %s (%s)."
+const RISK_MISS_FORMAT: String = "Monte Carlo: salió %.2f >= %.2f. Te salvaste: no %s."
+const BONUS_GIVEN_FORMAT: String = "%s (%s)."
 ## Order of the chips under an option.
 const STAT_ORDER: Array[StatDefinition.Type] = [
 	StatDefinition.Type.MONEY, StatDefinition.Type.ENERGY, StatDefinition.Type.TIME,
@@ -120,7 +129,20 @@ func _build_card(option: DecisionOption, is_affordable: bool) -> PanelContainer:
 	var title: Label = Label.new()
 	title.text = option.text
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	box.add_child(title)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if option.minigame == null:
+		box.add_child(title)
+	else:
+		var row: HBoxContainer = HBoxContainer.new()
+		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		row.add_child(title)
+		var tag: Label = Label.new()
+		tag.text = MINIGAME_TAG
+		tag.add_theme_color_override("font_color", ACCENT_COLOR)
+		tag.add_theme_font_size_override("font_size", EFFECTS_FONT_SIZE)
+		tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		row.add_child(tag)
+		box.add_child(row)
 
 	var chips: HBoxContainer = HBoxContainer.new()
 	chips.add_theme_constant_override("separation", CHIPS_SEPARATION)
@@ -134,7 +156,27 @@ func _build_card(option: DecisionOption, is_affordable: bool) -> PanelContainer:
 		_add_queue_chips(chips, option.queue)
 	if chips.get_child_count() == 0:
 		chips.add_child(_make_chip(null, NO_EFFECTS_TEXT, NEUTRAL_COLOR))
+	if option.has_risk():
+		box.add_child(_make_note(RISK_FORMAT % [
+			roundi(option.risk_chance * 100.0), option.risk_text,
+			StatFormatter.describe_changes(option.risk_money, option.risk_energy, option.risk_time)], LOSS_COLOR))
+	if option.has_bonus():
+		var definition: StatDefinition = StatsManager.get_definition(option.bonus_stat)
+		box.add_child(_make_note(BONUS_FORMAT % [
+			definition.display_name.to_lower(), StatFormatter.format_value(option.bonus_stat, option.bonus_below),
+			option.bonus_text, StatFormatter.describe_changes(option.bonus_money, option.bonus_energy, option.bonus_time)],
+			GAIN_COLOR if _bonus_applies(option) else NEUTRAL_COLOR))
 	return card
+
+
+func _make_note(text: String, color: Color) -> Label:
+	var note: Label = Label.new()
+	note.text = text
+	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	note.add_theme_color_override("font_color", color)
+	note.add_theme_font_size_override("font_size", EFFECTS_FONT_SIZE - 2)
+	note.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return note
 
 
 ## One chip per stat the option changes, in STAT_ORDER.
@@ -223,10 +265,12 @@ static func _make_card_style(background: Color, border: Color) -> StyleBoxFlat:
 	return style
 
 
-## Money is a payment: an option that would leave it depleted cannot be paid.
+## Money is a payment: an option that would leave it depleted cannot be paid, counting the worst
+## case of its risk (a haggle that goes wrong must not bankrupt the player at the door).
 ## Energy and time costs are a risk the player may take, so they never disable an option.
 func _is_affordable(option: DecisionOption) -> bool:
-	return StatsManager.can_afford(StatDefinition.Type.MONEY, option.money)
+	var worst_risk: float = minf(option.risk_money, 0.0) if option.has_risk() else 0.0
+	return StatsManager.can_afford(StatDefinition.Type.MONEY, option.money + worst_risk)
 
 
 ## Model 1: the player waits in the option's queue. Returns the message that tells how long
@@ -274,7 +318,11 @@ func _choose(index: int) -> void:
 		return
 	_is_resolved = true
 	var option: DecisionOption = _decision.options[index]
+	var bonus_given: bool = _bonus_applies(option)  # Judged before the option changes the stat.
 	Simulation.apply_change(option.money, option.energy, option.time)
+	var outcome: String = _apply_bonus_and_risk(option, bonus_given)
+	if not outcome.is_empty():
+		EventBus.toast_requested.emit(outcome)
 	if option.queue != null:
 		# Model 1: the player joins the line in QueueScreen, with the people shown in the panel.
 		var decision: DecisionDefinition = _decision
@@ -294,6 +342,33 @@ func _choose(index: int) -> void:
 	if (not wait_message.is_empty() and GameManager.current_state == GameState.Type.PLAYING
 			and not SceneManager.is_transitioning() and option.next_scene.is_empty()):
 		EventBus.notification_requested.emit(wait_message)
+
+
+func _bonus_applies(option: DecisionOption) -> bool:
+	return option.has_bonus() and StatsManager.get_value(option.bonus_stat) < option.bonus_below
+
+
+## Bonus by state, then model 3: one LCG draw against risk_chance decides the bad outcome.
+## Returns the message that tells the player what happened ("" when the option has neither).
+func _apply_bonus_and_risk(option: DecisionOption, bonus_given: bool) -> String:
+	var lines: PackedStringArray = []
+	if bonus_given:
+		Simulation.apply_change(option.bonus_money, option.bonus_energy, option.bonus_time)
+		lines.append(BONUS_GIVEN_FORMAT % [option.bonus_text.left(1).to_upper() + option.bonus_text.substr(1),
+			StatFormatter.describe_changes(option.bonus_money, option.bonus_energy, option.bonus_time)])
+	if option.has_risk():
+		var draw: float = Simulation.rng.next()
+		var happened: bool = draw < option.risk_chance
+		if happened:
+			Simulation.apply_change(option.risk_money, option.risk_energy, option.risk_time)
+			lines.append(RISK_HIT_FORMAT % [draw, option.risk_chance, option.risk_text,
+				StatFormatter.describe_changes(option.risk_money, option.risk_energy, option.risk_time)])
+		else:
+			lines.append(RISK_MISS_FORMAT % [draw, option.risk_chance, option.risk_text])
+		Simulation.report(Simulation.MODEL_MONTE_CARLO, "Riesgo '%s': U = %.2f %s p = %.2f -> %s" % [
+			option.text, draw, "<" if happened else ">=", option.risk_chance, "pasa" if happened else "no pasa"])
+		EventBus.risk_drawn.emit(option, happened, draw)
+	return "\n".join(lines)
 
 
 func _close() -> void:

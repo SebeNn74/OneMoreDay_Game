@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="DecisionDefinition" format=3]
+
+[ext_resource type="Script" uid="uid://dkrx6vx6tvj5q" path="res://scripts/decisions/decision_option.gd" id="1_opt"]
+[ext_resource type="Script" uid="uid://d4gtrfhv2pg5o" path="res://scripts/decisions/decision_definition.gd" id="2_def"]
+[ext_resource type="PackedScene" path="res://scenes/minigames/bandit_hunt.tscn" id="3_game"]
+
+[sub_resource type="Resource" id="Resource_listen"]
+script = ExtResource("1_opt")
+text = "Escucharlo y asomarte a su cabeza"
+minigame = ExtResource("3_game")
+
+[sub_resource type="Resource" id="Resource_sleep"]
+script = ExtResource("1_opt")
+text = "Hacerte el dormido el resto del viaje"
+energy = 3.0
+time = -2.0
+
+[sub_resource type="Resource" id="Resource_window"]
+script = ExtResource("1_opt")
+text = "Decirle «no, gracias» y mirar por la ventana"
+
+[resource]
+script = ExtResource("2_def")
+id = "NPC-08"
+speaker_name = "Abelardo"
+prompt = "«Buenos días, compatriota. ¿Usted también está cansado de los bandidos? Asómese a esta frente: aquí adentro no se escapa ninguno.»"
+options = Array[ExtResource("1_opt")]([SubResource("Resource_listen"), SubResource("Resource_sleep"), SubResource("Resource_window")])

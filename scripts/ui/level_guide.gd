@@ -37,7 +37,8 @@ const CARD_STATS: Dictionary = {
 const CARD_TIPS: PackedStringArray = [
 	"Carros y motos cruzan rápido: mira antes de cruzar. Algunos hostiles te persiguen: corre con {run}.",
 	"Habla con la gente y recoge objetos con [{interact}]. Cada decisión cuesta o da recursos.",
-	"La flecha amarilla te lleva al objetivo. [M] muestra u oculta los modelos de simulación. Teclas y volumen: Opciones, en la pausa ([{pause}]).",
+	"La plata cuenta: si llegas con más de lo que tenías, o te das un gusto en el camino, el final cambia.",
+	"La flecha amarilla te lleva al objetivo. [{models}] muestra u oculta los modelos de simulación. Teclas y volumen: Opciones, en la pausa ([{pause}]).",
 ]
 ## {interact}, {run}... are replaced with the current keys (Settings.with_keys).
 const CARD_HINT: String = "[{interact}] Empezar el día"

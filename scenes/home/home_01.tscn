@@ -24,6 +24,9 @@
 [ext_resource type="Texture2D" uid="uid://jod88ske6go8" path="res://assets/sprites/environment/home/bg_home_wall.png" id="20_w5drb"]
 [ext_resource type="Script" uid="uid://blaehmx8jxbga" path="res://scripts/props/prop_definition.gd" id="21_ywrmp"]
 [ext_resource type="Texture2D" uid="uid://bvcs6uxa1gayw" path="res://assets/sprites/environment/home/bg_home_wall_2.png" id="22_ejiy3"]
+[ext_resource type="Script" path="res://scripts/interactables/flavor_interactable.gd" id="90_flv"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/home/decoration/obj_calendar.png" id="91_cal"]
+[ext_resource type="Texture2D" path="res://assets/sprites/environment/home/decoration/obj_photos.png" id="92_pho"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5iys"]
 size = Vector2(31, 46)
@@ -172,3 +175,44 @@ shape = SubResource("RectangleShape2D_tqsx4")
 
 [node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
 position = Vector2(465, 289)
+
+[node name="Bed" type="Area2D" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) unique_id=1071477686]
+position = Vector2(478, 296)
+script = ExtResource("90_flv")
+action_text = "Mirar la cama"
+lines = PackedStringArray("Todavía está tibia... pero hoy no hay tiempo de volver a acostarse.", "La cama puede esperar hasta la noche. Ojalá llegues a ella.")
+
+[node name="Fridge" type="Area2D" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) unique_id=1959167398]
+position = Vector2(312, 128)
+script = ExtResource("90_flv")
+action_text = "Abrir la nevera"
+lines = PackedStringArray("Queda media arepa, un huevo y una bolsa de leche. Toca mercar el fin de semana.", "La nevera hace un ruido raro. Otra cuenta que se suma.")
+
+[node name="DeskPapers" type="Area2D" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) unique_id=1302102035]
+position = Vector2(487, 154)
+script = ExtResource("90_flv")
+action_text = "Revisar el escritorio"
+lines = PackedStringArray("Recibos de luz, agua y gas. Todos vencen esta semana.", "Una nota: «Pagar el arriendo el 5». Hoy no es el 5, respira.")
+
+[node name="TvRemote" type="Area2D" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) unique_id=1940099285]
+position = Vector2(478, 214)
+script = ExtResource("90_flv")
+action_text = "Prender la TV"
+lines = PackedStringArray("Noticias: trancón en la avenida principal y lluvia en la tarde. Qué novedad.", "El presentador dice que hoy será un gran día. Él no toma bus.")
+
+[node name="Calendar" type="Area2D" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) unique_id=1777652994]
+position = Vector2(420, 84)
+script = ExtResource("90_flv")
+action_text = "Mirar el calendario"
+lines = PackedStringArray("Día de pago: el 30, encerrado en rojo. Faltan cinco días.", "El domingo dice «almuerzo en familia». Vale la pena aguantar la semana.")
+texture = ExtResource("91_cal")
+sprite_offset = Vector2(0, -44)
+
+[node name="Photos" type="Area2D" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) unique_id=1099975904]
+position = Vector2(510, 84)
+script = ExtResource("90_flv")
+action_text = "Mirar las fotos"
+lines = PackedStringArray("Tu familia en el pueblo, todos sonriendo frente a la casa de la abuela.", "Tu mamá en su cumpleaños. Hace rato no la llamas: hoy, saliendo del trabajo.")
+texture = ExtResource("92_pho")
+sprite_offset = Vector2(0, -46)
+

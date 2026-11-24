@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="DecisionDefinition" format=3]
+
+[ext_resource type="Script" uid="uid://dkrx6vx6tvj5q" path="res://scripts/decisions/decision_option.gd" id="1_opt"]
+[ext_resource type="Script" uid="uid://d4gtrfhv2pg5o" path="res://scripts/decisions/decision_definition.gd" id="2_def"]
+
+[sub_resource type="Resource" id="Resource_buy"]
+script = ExtResource("1_opt")
+text = "Comprar el Gran Trancón VI"
+money = -25.0
+
+[sub_resource type="Resource" id="Resource_haggle"]
+script = ExtResource("1_opt")
+text = "Regatearle y comprarlo"
+money = -18.0
+risk_chance = 0.5
+risk_text = "no se deja y te toca pagar el precio completo"
+risk_money = -7.0
+
+[sub_resource type="Resource" id="Resource_pass"]
+script = ExtResource("1_opt")
+text = "Seguir de largo: esa plata es para la casa"
+
+[resource]
+script = ExtResource("2_def")
+id = "NPC-07"
+speaker_name = "Vendedor ambulante"
+prompt = "«¡Pilas, parcero! Gran Trancón VI, recién salido. Veinticinco mil y se lo lleva para la casa.»"
+options = Array[ExtResource("1_opt")]([SubResource("Resource_buy"), SubResource("Resource_haggle"), SubResource("Resource_pass")])

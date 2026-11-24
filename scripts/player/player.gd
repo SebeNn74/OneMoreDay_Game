@@ -14,6 +14,16 @@ const KNOCKBACK_DECAY: float = 1100.0
 const HIT_FLASH_COLOR: Color = Color(1.0, 0.3, 0.3)
 const HIT_FLASH_SECONDS: float = 0.35
 const HIT_SHAKE_PIXELS: float = 3.0
+## After a hit no hostile can hit again for this long (the player blinks), so two hostiles
+## cannot chain hits.
+const HIT_GRACE_SECONDS: float = 1.5
+## Buff / nerf: a resource went up or down by at least MIN_FLASH_CHANGE (events, decisions, items).
+const BUFF_FLASH_COLOR: Color = Color(0.5, 1.0, 0.5)
+const NERF_FLASH_COLOR: Color = Color(0.75, 0.55, 1.0)
+const STAT_FLASH_SECONDS: float = 0.5
+const MIN_FLASH_CHANGE: float = 1.0
+## Money counts this many times against energy and time (Excel, "Guía").
+const MONEY_POINTS: float = 3.0
 
 @export var movement_config: MovementConfig
 
@@ -24,6 +34,10 @@ var speed_multiplier: float = 1.0
 var is_resting: bool = false
 var _knockback: Vector2 = Vector2.ZERO
 var _flash_tween: Tween
+## Changes of one frame add up into one flash.
+var _pending_change: float = 0.0
+var _flash_queued: bool = false
+var _hit_frame: int = -1
 
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var animator: PlayerAnimator = $Animator
@@ -44,6 +58,7 @@ func _ready() -> void:
 	facing_changed.connect(interaction_detector.face)
 	interaction_detector.focus_changed.connect(interaction_prompt.on_focus_changed)
 	hurtbox.hit_received.connect(_on_hit_received)
+	EventBus.stat_changed.connect(_on_stat_changed)
 	interaction_detector.face(facing_direction)
 
 
@@ -126,6 +141,8 @@ func _update_facing_direction(direction: Vector2) -> void:
 
 
 func _on_hit_received(source: Node) -> void:
+	_hit_frame = Engine.get_process_frames()
+	hurtbox.grant_grace(HIT_GRACE_SECONDS)
 	stop_resting()
 	state_machine.request_one_shot(PlayerState.Type.HURT)
 	var strength: float = 1.0
@@ -140,11 +157,33 @@ func _on_hit_received(source: Node) -> void:
 			strength = hostile.definition.knockback_strength
 	_knockback = push * KNOCKBACK_SPEED * strength
 	camera.shake(HIT_SHAKE_PIXELS * strength)
+	_flash(HIT_FLASH_COLOR, HIT_FLASH_SECONDS)
+
+
+func _flash(color: Color, seconds: float) -> void:
 	if _flash_tween != null:
 		_flash_tween.kill()
-	animator.modulate = HIT_FLASH_COLOR
+	animator.modulate = color
 	_flash_tween = create_tween()
-	_flash_tween.tween_property(animator, "modulate", Color.WHITE, HIT_FLASH_SECONDS)
+	_flash_tween.tween_property(animator, "modulate", Color.WHITE, seconds)
+
+
+func _on_stat_changed(type: StatDefinition.Type, _new_value: float, change: float) -> void:
+	if absf(change) < MIN_FLASH_CHANGE:
+		return  # The per-frame flows of model 5.
+	_pending_change += change * (MONEY_POINTS if type == StatDefinition.Type.MONEY else 1.0)
+	if not _flash_queued:
+		_flash_queued = true
+		_flash_stat_change.call_deferred()
+
+
+func _flash_stat_change() -> void:
+	_flash_queued = false
+	var change: float = _pending_change
+	_pending_change = 0.0
+	if is_resting or _hit_frame == Engine.get_process_frames() or is_zero_approx(change):
+		return  # A hit already flashed red; resting keeps its tint.
+	_flash(BUFF_FLASH_COLOR if change > 0.0 else NERF_FLASH_COLOR, STAT_FLASH_SECONDS)
 
 
 func start_resting() -> void:

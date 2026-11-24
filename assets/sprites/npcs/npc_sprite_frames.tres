@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://d0ggjqe5ikdfo" path="res://assets/sprites/npcs/npc_supervisor.png" id="4_supervisor"]
 [ext_resource type="Texture2D" uid="uid://v164e0bfbu88" path="res://assets/sprites/npcs/npc_empanada_vendor.png" id="5_empanada"]
 [ext_resource type="Texture2D" uid="uid://bropclpo826no" path="res://assets/sprites/npcs/npc_neighbor.png" id="6_neighbor"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/npc_abelardo.png" id="7_abelardo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npcs/npc_boss_letter.png" id="8_boss_letter"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bus_0"]
 atlas = ExtResource("2_bus")
@@ -102,6 +104,22 @@ region = Rect2(108, 0, 12, 24)
 [sub_resource type="AtlasTexture" id="AtlasTexture_supervisor_10"]
 atlas = ExtResource("4_supervisor")
 region = Rect2(120, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abelardo_0"]
+atlas = ExtResource("7_abelardo")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abelardo_1"]
+atlas = ExtResource("7_abelardo")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_boss_letter_0"]
+atlas = ExtResource("8_boss_letter")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_boss_letter_1"]
+atlas = ExtResource("8_boss_letter")
+region = Rect2(16, 0, 16, 24)
 
 [resource]
 animations = [{
@@ -206,4 +224,26 @@ animations = [{
 "loop": 1,
 "name": &"supervisor",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abelardo_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abelardo_1")
+}],
+"loop": 1,
+"name": &"abelardo",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boss_letter_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boss_letter_1")
+}],
+"loop": 1,
+"name": &"boss_letter",
+"speed": 3.0
 }]

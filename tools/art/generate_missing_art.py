@@ -2141,6 +2141,43 @@ def ending_v05():
     return vignette(tinted(im, (1.06, 0.95, 0.82)), 0.35)
 
 
+def ending_v06():
+    """Bought "Gran Trancon VI" from the street vendor: game night at home with the kid."""
+    rng = random.Random(106)
+    im = new(320, 180, hexc("2a2440"))
+    wood_floor(im, 118, rng)
+    im = grade(im, (0.5, 0.48, 0.62))
+    # TV with the game on: a night city, a taxi and the title.
+    rect(im, 112, 40, 207, 100, hexc("1a1a22"))
+    rect(im, 116, 44, 203, 94, hexc("2c3a66"))
+    for x, h in ((120, 26), (134, 36), (150, 22), (166, 40), (184, 30)):
+        rect(im, x, 94 - h, x + 12, 94, hexc("1c2440"))
+        for wy in range(94 - h + 3, 92, 5):
+            rect(im, x + 3, wy, x + 4, wy + 1, hexc("f0d070"))
+    rect(im, 140, 86, 160, 91, hexc("e8c030"))
+    rect(im, 144, 83, 156, 86, hexc("e8c030"))
+    title = "GRAN TRANCON VI"
+    text(im, 160 - text_width(title) // 2, 48, title, hexc("ff6a9a"))
+    rect(im, 156, 100, 163, 110, hexc("1a1a22"))
+    rect(im, 140, 110, 179, 113, hexc("3a2e28"))
+    # TV glow on the floor and the room.
+    for y in range(100, 180):
+        spread = (y - 100) * 1.1
+        for x in range(int(116 - spread), int(204 + spread)):
+            blend(im, x, y, hexc("6a8ad0"), 0.22 * (1 - (y - 100) / 90))
+    # Sofa, the player and the kid playing.
+    rect(im, 96, 128, 223, 150, hexc("4a5a7a"))
+    rect(im, 96, 120, 223, 130, hexc("5a6a8a"))
+    place(im, player(1), 122, 92)
+    place(im, person_frame(KID, 1, 0), 166, 100)
+    rect(im, 136, 122, 141, 125, hexc("2a2a30"))
+    rect(im, 178, 126, 183, 129, hexc("2a2a30"))
+    # The box of the game on the floor.
+    rect(im, 238, 150, 257, 164, hexc("e04a6a"))
+    rect(im, 240, 152, 255, 155, hexc("f4e0a0"))
+    return vignette(im, 0.5)
+
+
 def ending_d01():
     im = new(320, 180)
     for y in range(180):
@@ -2239,7 +2276,7 @@ def main() -> None:
     # Scenarios now come from generate_scenery_x2.py (pixel x2); build_scenery() is the old 1 px version.
 
     print("Endings")
-    endings = {"v01": ending_v01, "v02": ending_v02, "v03": ending_v03, "v04": ending_v04, "v05": ending_v05,
+    endings = {"v01": ending_v01, "v02": ending_v02, "v03": ending_v03, "v04": ending_v04, "v05": ending_v05, "v06": ending_v06,
                "d01": ending_d01, "d02": ending_d02, "d03": ending_d03, "d04": ending_d04, "d05": ending_d05}
     for name, fn in endings.items():
         save(scale(fn(), 2), ENDINGS / f"ending_{name}.png")

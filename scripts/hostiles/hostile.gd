@@ -16,6 +16,8 @@ const HONK_DISTANCE: float = 420.0
 @export var definition: HostileDefinition
 ## Vehicles only: direction of the lane. Zero picks the longer free axis at the start position.
 @export var lane_direction: Vector2 = Vector2.ZERO
+## Multiplies the walking speed (a level can calm its hostiles down: El Marcador). Not for vehicles.
+var speed_scale: float = 1.0
 
 @onready var _hitbox: Area2D = $Hitbox
 @onready var _hitbox_shape: CollisionShape2D = $Hitbox/CollisionShape2D
@@ -106,12 +108,13 @@ func _physics_process(delta: float) -> void:
 		if _animated_sprite.visible:
 			_check_contact()
 		return
-	var step_speed: float = GridUtils.CELL_SIZE / definition.tick_seconds
+	var tick_seconds: float = definition.tick_seconds / speed_scale
+	var step_speed: float = GridUtils.CELL_SIZE / tick_seconds
 	global_position = global_position.move_toward(_target_position, step_speed * delta)
 
 	_tick_elapsed += delta
-	if _tick_elapsed >= definition.tick_seconds:
-		_tick_elapsed -= definition.tick_seconds
+	if _tick_elapsed >= tick_seconds:
+		_tick_elapsed -= tick_seconds
 		_tick()
 	_update_cooldown(delta)
 	_check_contact()

@@ -11,7 +11,7 @@ const IMAGES_DIR: String = "res://assets/sprites/endings/"
 
 # Thresholds of the conditions (tab "7 Finales").
 const CHALLENGE_SPARE_SECONDS: float = 15.0
-const RICH_MONEY: float = 25.0
+const RICH_MONEY: float = 40.0  # More than the 30 you start with: you earned it.
 const COMFORT_MONEY: float = 10.0
 const COMFORT_ENERGY: float = 20.0
 const COMFORT_TIME: float = 10.0
@@ -36,6 +36,10 @@ const ENDINGS: Array[Dictionary] = [
 	{
 		id = "V-05", victory = true, image = "ending_v05.png",
 		text = "Con lo que lograste ahorrar hoy, pasas por la panadería y compras pan para todos. La casa huele a chocolate caliente y alguien ya puso la mesa. Un detalle pequeño, un día mejor.",
+	},
+	{
+		id = "V-06", victory = true, image = "ending_v06.png",
+		text = "Llegas a casa con la caja del Gran Trancón VI bajo el brazo. Tu sobrino grita de la emoción y esa noche juegan hasta tarde: en la pantalla también hay trancón, pero allá sí se puede pitar. La plata se fue, la risa se quedó.",
 	},
 	{
 		id = "D-01", victory = false, image = "ending_d01.png",

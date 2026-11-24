@@ -11,7 +11,11 @@ signal finished(wait: float)
 
 const DRAW_LAYER: int = 30
 const SCREEN: Vector2 = Vector2(640.0, 360.0)
-const SECONDS_PER_UNIT: float = 0.8
+## Real seconds per minute of the model: slow enough to watch arrivals and services one by one.
+const SECONDS_PER_UNIT: float = 2.0
+## Floating notes ("llegó alguien", "atendido") rise this many px and last this long.
+const NOTE_SECONDS: float = 1.6
+const NOTE_RISE: float = 28.0
 const FAST_FORWARD: float = 4.0
 const CROWD_FRAMES: SpriteFrames = preload("res://assets/sprites/enemies/enemy_sprite_frames.tres")
 const PLAYER_FRAMES: SpriteFrames = preload("res://assets/sprites/player/player_sprite_frames.tres")
@@ -39,6 +43,12 @@ var _sample_left: float = 0.0
 var _history: Array[int] = []
 var _served: int = 0
 var _done: bool = false
+## After reaching the front the player is served too (an exponential service of rate μ).
+## The cost of the queue stays the wait in line (Wq); the service is shown so W = Wq + 1/μ is visible.
+var _being_served: bool = false
+var _my_service: float = 0.0
+var _service_total: float = 0.0  # Service time drawn for whoever is at the front now.
+var _notes: Array[Dictionary] = []  # {text, position, age}
 var _result_shown: bool = false
 var _rng: Lcg
 var _people: Array[AnimatedSprite2D] = []  # In line order: front first. The player is one of them.
@@ -60,8 +70,9 @@ static func open(parent: Node, config: QueueConfig, ahead: int) -> QueueScreen:
 func _ready() -> void:
 	layer = DRAW_LAYER
 	_rng = Simulation.rng
-	_is_bus = not _config.display_name.begins_with("Ventanilla")
+	_is_bus = _config.display_name.begins_with("Paradero")
 	_service_left = _rng.exponential(_config.service_rate)
+	_service_total = _service_left
 	_next_arrival = _rng.exponential(_config.arrival_rate)
 	if GameManager.current_state == GameState.Type.PLAYING:
 		GameManager.change_state(GameState.Type.DIALOG)
@@ -106,6 +117,9 @@ func _process(delta: float) -> void:
 	if not _done:
 		_step(dt)
 	_move_people(delta * speed)
+	for note: Dictionary in _notes:
+		note.age += delta
+	_notes = _notes.filter(func(note: Dictionary) -> bool: return note.age < NOTE_SECONDS)
 	_update_stats()
 	_canvas.queue_redraw()
 
@@ -121,25 +135,45 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## One slice of the M/M/1 process: arrivals behind, service at the front.
 func _step(dt: float) -> void:
-	_waited += dt
+	if _being_served:
+		_my_service += dt
+	else:
+		_waited += dt
 	_next_arrival -= dt
 	if _next_arrival <= 0.0:
 		_next_arrival += _rng.exponential(_config.arrival_rate)
 		_behind += 1
+		var last_slot: int = _people.size() + mini(_behind, MAX_VISIBLE_BEHIND) - 1
+		_add_note("+1 llegó (λ)", Vector2(maxf(_slot_x(last_slot), 40.0), FLOOR_Y - 70.0))
 	_service_left -= dt
 	if _service_left <= 0.0:
 		_service_left += _rng.exponential(_config.service_rate)
-		if _ahead > 0:
+		_service_total = _service_left
+		if _being_served:
+			_finish_my_service()
+		elif _ahead > 0:
+			_add_note("atendido (μ)", Vector2(FRONT_X, FLOOR_Y - 80.0))
 			_serve_front()
 	_sample_left -= dt
 	if _sample_left <= 0.0:
 		_sample_left += SAMPLE_UNITS
 		_record_sample()
-	if _ahead == 0 and not _done:
-		_done = true
+	if _ahead == 0 and not _being_served and not _done:
+		_being_served = true  # At the front: the service of the player starts now.
 		_big.text = "¡Te toca!"
 		AudioManager.play_sfx(&"go")
-		get_tree().create_timer(0.8).timeout.connect(_show_result)
+		get_tree().create_timer(0.8).timeout.connect(func() -> void: _big.text = "")
+
+
+func _finish_my_service() -> void:
+	_done = true
+	_add_note("atendido (μ)", Vector2(FRONT_X, FLOOR_Y - 80.0))
+	AudioManager.play_sfx(&"ui_confirm")
+	get_tree().create_timer(0.6).timeout.connect(_show_result)
+
+
+func _add_note(text: String, at: Vector2) -> void:
+	_notes.append({"text": text, "position": at, "age": 0.0})
 
 
 func _serve_front() -> void:
@@ -164,9 +198,14 @@ func _show_result() -> void:
 	_big.text = ""
 	Simulation.record_queue_wait(_config, _waited)
 	var panel: Label = _label(14)
-	panel.text = "Esperaste %.1f min  (Wq teórico %.1f min)\n%s\n[%s] Seguir" % [
-		_waited, QueueModel.mean_wait(_config),
-		"Menos que el promedio: buena suerte." if _waited < QueueModel.mean_wait(_config) else "Más que el promedio: así es la fila.",
+	var rho: float = QueueModel.utilization(_config)
+	var verdict: String = "Más que el promedio: así es la fila."
+	if _waited < 0.05:
+		verdict = "No había fila: eso pasa con probabilidad P(0) = 1 - ρ = %.2f." % (1.0 - rho)
+	elif _waited < QueueModel.mean_wait(_config):
+		verdict = "Menos que el promedio: buena suerte."
+	panel.text = "En la fila: %.1f min  (Wq teórico %.1f)\nAtención: %.1f min  (1/μ teórico %.1f)\n%s\n[%s] Seguir" % [
+		_waited, QueueModel.mean_wait(_config), _my_service, 1.0 / _config.service_rate, verdict,
 		Settings.key_name(InputActions.INTERACT)]
 	panel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	add_child(panel)
@@ -273,7 +312,24 @@ func _draw_scene() -> void:
 			if x > 8.0:
 				c.draw_rect(Rect2(x - 7.0, FLOOR_Y - 40.0, 14.0, 40.0), Color(0.2, 0.2, 0.25, 0.75))
 		c.draw_string(font, Vector2(8.0, FLOOR_Y + 22.0), "detrás de ti: %d" % _behind, HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color.WHITE)
+	_draw_service_bar(c, font)
+	for note: Dictionary in _notes:
+		var t: float = note.age / NOTE_SECONDS
+		c.draw_string(font, note.position + Vector2(-30.0, -NOTE_RISE * t), note.text, HORIZONTAL_ALIGNMENT_LEFT, -1,
+			13, Color(1.0, 1.0, 1.0, 1.0 - t))
 	_draw_plot(c, font)
+
+
+## Over the server: how much of the current service is done (the person at the front, or the player).
+func _draw_service_bar(c: Control, font: Font) -> void:
+	if _done or (_ahead == 0 and not _being_served):
+		return
+	var bar: Rect2 = Rect2(FRONT_X - 30.0, FLOOR_Y - 104.0, 60.0, 7.0)
+	var progress: float = 1.0 - clampf(_service_left / maxf(_service_total, 0.001), 0.0, 1.0)
+	c.draw_rect(bar.grow(1.0), Color(0.05, 0.08, 0.15, 0.9))
+	c.draw_rect(Rect2(bar.position, Vector2(bar.size.x * progress, bar.size.y)), QUEUE_COLOR)
+	var who: String = "atendiéndote" if _being_served else "atendiendo"
+	c.draw_string(font, bar.position + Vector2(0.0, -4.0), who, HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color.WHITE)
 
 
 ## N(t): people in the system over time, against the theoretical L = ρ / (1 - ρ).

@@ -137,10 +137,13 @@ func _show_result() -> void:
 	_big_label.text = ""
 	_cost = _result()
 	var effects: String = StatFormatter.describe_changes(_cost.money, _cost.energy, _cost.time)
+	var is_gain: bool = _cost.money * 3.0 + _cost.energy + _cost.time >= 0.0  # Money weighs 3 (Excel, "Guía").
 	_show_panel([
 		_make_label(title, ACCENT, 0, HORIZONTAL_ALIGNMENT_CENTER),
 		_make_label(_cost.summary, Color.WHITE, 0, HORIZONTAL_ALIGNMENT_CENTER),
-		_make_label(effects if not effects.is_empty() else "Sin costo extra", Color(1.0, 0.6, 0.55) if not effects.is_empty() else Color(0.6, 0.95, 0.6), SMALL_FONT, HORIZONTAL_ALIGNMENT_CENTER),
+		_make_label(effects if not effects.is_empty() else "Sin costo extra",
+			Color(0.6, 0.95, 0.6) if effects.is_empty() or is_gain else Color(1.0, 0.6, 0.55), SMALL_FONT,
+			HORIZONTAL_ALIGNMENT_CENTER),
 		_make_label(Settings.with_keys(CONTINUE_HINT), ACCENT, SMALL_FONT, HORIZONTAL_ALIGNMENT_RIGHT),
 	])
 

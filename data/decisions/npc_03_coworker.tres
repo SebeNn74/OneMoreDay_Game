@@ -22,6 +22,9 @@ time = -5.0
 [sub_resource type="Resource" id="Resource_lgb7u"]
 script = ExtResource("1_slddw")
 text = "Seguir de largo con lo tuyo"
+risk_chance = 0.3
+risk_text = "el jefe pregunta por el informe y te regaña"
+risk_energy = -6.0
 energy = -5.0
 time = 5.0
 

@@ -26,6 +26,11 @@
 [ext_resource type="Resource" uid="uid://c1162wu0qmgtb" path="res://data/props/office/office_desk.tres" id="21_hpa4d"]
 [ext_resource type="Resource" uid="uid://cse7dmern1t6d" path="res://data/props/office/office_chair.tres" id="22_guw0e"]
 [ext_resource type="Resource" uid="uid://dbif6yrkb80kf" path="res://data/props/office/coffee_station.tres" id="23_hpa4d"]
+[ext_resource type="Resource" path="res://data/decisions/queue_printer.tres" id="90_prq"]
+[ext_resource type="Resource" uid="uid://fhkxg11g30gc" path="res://data/props/office/printer.tres" id="91_prp"]
+[ext_resource type="Script" uid="uid://b05o0sxre1j7y" path="res://scripts/simulation_bridges/queue_crowd.gd" id="92_qcr"]
+[ext_resource type="Resource" path="res://data/simulation/queue_printer.tres" id="93_qcf"]
+[ext_resource type="Resource" path="res://data/decisions/npc_09_boss_letter.tres" id="96_bsl"]
 
 [sub_resource type="Resource" id="Resource_g487i"]
 script = ExtResource("15_o1ofe")
@@ -223,3 +228,27 @@ rotation = 1.5707964
 
 [node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
 position = Vector2(28, 190)
+
+[node name="Printer" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) unique_id=795425564 instance=ExtResource("10_goibj")]
+position = Vector2(560, 100)
+definition = ExtResource("91_prp")
+
+[node name="PrinterNpc" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) unique_id=423946139 instance=ExtResource("2_mmo4u")]
+position = Vector2(560, 118)
+decision = ExtResource("90_prq")
+action_text = "Usar la impresora"
+
+[node name="PrinterCrowd" type="Node2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) unique_id=947876999]
+position = Vector2(560, 150)
+script = ExtResource("92_qcr")
+queue = ExtResource("93_qcf")
+direction = Vector2(0, 1)
+spacing = 26.0
+facing_direction = Vector2(0, -1)
+
+[node name="BossLetter" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) unique_id=918235696 instance=ExtResource("2_mmo4u")]
+position = Vector2(76, 104)
+decision = ExtResource("96_bsl")
+sprite_animation = &"boss_letter"
+action_text = "Hablar con el jefe"
+

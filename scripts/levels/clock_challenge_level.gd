@@ -34,6 +34,8 @@ func _ready() -> void:
 	_delivery_point.enabled = false  # Unlocks with all the folders.
 	Simulation.set_time_cost_over(config.time_cost, config.duration_seconds)
 	_spawn_folders()
+	for hostile: Node in find_children("*", "Hostile", true, false):
+		(hostile as Hostile).speed_scale = config.hostile_speed_scale
 
 	EventBus.item_used.connect(_on_item_used)
 	EventBus.hostile_hit.connect(_on_hostile_hit)

@@ -19,7 +19,7 @@ const SFX_LABEL: String = "Efectos"
 const FULLSCREEN_LABEL: String = "Pantalla completa (F11)"
 const CONTROLS_TITLE: String = "CONTROLES  (clic en una tecla para cambiarla)"
 const WAITING_TEXT: String = "Pulsa una tecla..."
-const FIXED_KEYS_TEXT: String = "También funcionan las flechas, Espacio, P y el mando (cruceta o stick, A, RB, Start). [M] panel de modelos."
+const FIXED_KEYS_TEXT: String = "También funcionan las flechas, Espacio, P y el mando (cruceta o stick, A, RB, Start, Back)."
 const RESET_TEXT: String = "RESTAURAR TECLAS"
 const BACK_TEXT: String = "VOLVER"
 

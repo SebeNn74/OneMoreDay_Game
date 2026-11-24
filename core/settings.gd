@@ -9,11 +9,12 @@ const SFX_BUS: StringName = &"SFX"
 const DEFAULT_MUSIC_VOLUME: float = 0.8
 const DEFAULT_SFX_VOLUME: float = 0.8
 const FULLSCREEN_KEY: Key = KEY_F11
+const MODELS_KEY: Key = KEY_M
 
 ## Actions the player can rebind, in the order the options screen lists them.
 const REBINDABLE: Array[StringName] = [
 	InputActions.MOVE_UP, InputActions.MOVE_DOWN, InputActions.MOVE_LEFT, InputActions.MOVE_RIGHT,
-	InputActions.INTERACT, InputActions.RUN, InputActions.PAUSE,
+	InputActions.INTERACT, InputActions.RUN, InputActions.PAUSE, InputActions.TOGGLE_MODELS,
 ]
 ## Player-visible texts (Spanish).
 const ACTION_NAMES: Dictionary = {
@@ -24,6 +25,7 @@ const ACTION_NAMES: Dictionary = {
 	InputActions.INTERACT: "Interactuar",
 	InputActions.RUN: "Correr",
 	InputActions.PAUSE: "Pausa",
+	InputActions.TOGGLE_MODELS: "Panel de modelos",
 }
 const KEY_NAMES: Dictionary = {
 	"Space": "Espacio", "Escape": "Esc", "Enter": "Enter", "Up": "Flecha arriba",
@@ -33,14 +35,14 @@ const KEY_NAMES: Dictionary = {
 const KEY_TOKENS: Dictionary = {
 	"up": InputActions.MOVE_UP, "down": InputActions.MOVE_DOWN, "left": InputActions.MOVE_LEFT,
 	"right": InputActions.MOVE_RIGHT, "interact": InputActions.INTERACT, "run": InputActions.RUN,
-	"pause": InputActions.PAUSE,
+	"pause": InputActions.PAUSE, "models": InputActions.TOGGLE_MODELS,
 }
 ## Gamepad: d-pad and left stick move, A interacts, RB runs, Start pauses.
 const JOY_BUTTONS: Dictionary = {
 	InputActions.MOVE_UP: JOY_BUTTON_DPAD_UP, InputActions.MOVE_DOWN: JOY_BUTTON_DPAD_DOWN,
 	InputActions.MOVE_LEFT: JOY_BUTTON_DPAD_LEFT, InputActions.MOVE_RIGHT: JOY_BUTTON_DPAD_RIGHT,
 	InputActions.INTERACT: JOY_BUTTON_A, InputActions.RUN: JOY_BUTTON_RIGHT_SHOULDER,
-	InputActions.PAUSE: JOY_BUTTON_START,
+	InputActions.PAUSE: JOY_BUTTON_START, InputActions.TOGGLE_MODELS: JOY_BUTTON_BACK,
 }
 const JOY_AXES: Dictionary = {
 	InputActions.MOVE_UP: [JOY_AXIS_LEFT_Y, -1.0], InputActions.MOVE_DOWN: [JOY_AXIS_LEFT_Y, 1.0],
@@ -61,6 +63,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS  # F11 works in the pause menu too.
 	_ensure_bus(MUSIC_BUS)
 	_ensure_bus(SFX_BUS)
+	_add_models_action()
 	_add_gamepad_events()
 	for action: StringName in REBINDABLE:
 		_default_events[action] = InputMap.action_get_events(action)
@@ -112,7 +115,7 @@ func key_name(action: StringName) -> String:
 	return KEY_NAMES.get(label, label)
 
 
-## Replaces {interact}, {run}, {pause}, {up}, {down}, {left} and {right} with the current keys.
+## Replaces {interact}, {run}, {pause}, {models}, {up}, {down}, {left} and {right} with the current keys.
 func with_keys(text: String) -> String:
 	var names: Dictionary = {}
 	for token: String in KEY_TOKENS:
@@ -192,6 +195,16 @@ func _set_primary(action: StringName, physical: Key) -> void:
 		var key: InputEventKey = InputEventKey.new()
 		key.physical_keycode = physical
 		InputMap.action_add_event(action, key)
+
+
+## Not in project.godot (it was a fixed key): created here so it can be rebound like the others.
+func _add_models_action() -> void:
+	if InputMap.has_action(InputActions.TOGGLE_MODELS):
+		return
+	InputMap.add_action(InputActions.TOGGLE_MODELS)
+	var key: InputEventKey = InputEventKey.new()
+	key.physical_keycode = MODELS_KEY
+	InputMap.action_add_event(InputActions.TOGGLE_MODELS, key)
 
 
 func _add_gamepad_events() -> void:

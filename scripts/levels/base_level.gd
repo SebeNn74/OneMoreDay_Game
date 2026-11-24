@@ -50,6 +50,8 @@ func _ready() -> void:
 		_exit_zone.locked = true
 		_exit_zone.blocked_entered.connect(_on_required_exit_blocked)
 	Simulation.flows_enabled = consumes_resources
+	if consumes_resources:
+		add_child(FatigueOverlay.new())  # Model 5: low energy grays the screen.
 	Simulation.begin_level(_get_travel_distance())
 	_ensure_playing_state()
 

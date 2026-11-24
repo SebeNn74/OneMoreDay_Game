@@ -5,6 +5,22 @@ extends Node
 const DAY_SEQUENCE: DaySequence = preload("res://data/levels/day_sequence.tres")
 const TRANSITION_SCENE: PackedScene = preload("res://scenes/global/scene_transition.tscn")
 const MAIN_MENU_SCENE: String = "res://scenes/global/main_menu.tscn"
+## The black screen between levels holds its caption this long (design doc 10: level and day animations).
+const CAPTION_SECONDS: float = 1.1
+## Player-visible captions (Spanish).
+const DAY_CAPTION: String = "Un día más
+Lunes, 6:00 a. m."
+const LEVEL_CAPTION: String = "¡Tramo superado!"
+const STAGE_CAPTIONS: Dictionary = {
+	DayStep.Stage.COMMUTE: "¡A la calle!
+Ida al trabajo",
+	DayStep.Stage.WORK: "¡Llegaste a la oficina!
+Jornada de trabajo",
+	DayStep.Stage.RETURN: "¡Terminó la jornada!
+De vuelta a casa",
+}
+const VICTORY_CAPTION: String = "¡Llegaste a casa!"
+const DEFEAT_CAPTION: String = "No alcanzó el día..."
 
 ## Outcome of the last finished day. Null until a day finishes.
 var last_result: DayResult
@@ -34,6 +50,7 @@ func start_day() -> void:
 	Simulation.start_day()
 	_steps = DAY_SEQUENCE.build_steps()
 	GameManager.change_state(GameState.Type.PLAYING)
+	_current_index = -1  # A restart from the pause menu starts with the day caption too.
 	_go_to_step(0)
 
 
@@ -49,7 +66,16 @@ func finish_day(victory: bool, depleted_stat: StatDefinition = null, custom_reas
 	print("[SceneManager] Day finished. Victory: %s" % victory)
 	GameManager.change_state(GameState.Type.VICTORY if victory else GameState.Type.GAME_OVER)
 	EventBus.day_finished.emit(last_result)
-	_change_scene(DAY_SEQUENCE.victory_scene if victory else DAY_SEQUENCE.defeat_scene)
+	_change_scene(DAY_SEQUENCE.victory_scene if victory else DAY_SEQUENCE.defeat_scene,
+			VICTORY_CAPTION if victory else DEFEAT_CAPTION)
+
+
+## After the victory memory (MemoryLevel): the ending screen of the finished day.
+func show_ending() -> void:
+	if _is_changing_scene or last_result == null:
+		return
+	GameManager.change_state(GameState.Type.VICTORY if last_result.is_victory else GameState.Type.GAME_OVER)
+	_change_scene(DAY_SEQUENCE.defeat_scene)  # The ending screen serves victory and defeat.
 
 
 ## Abandons the current day and goes back to the main menu.
@@ -127,19 +153,26 @@ func _on_game_state_changed(new_state: GameState.Type, previous_state: GameState
 
 
 func _go_to_step(index: int) -> void:
+	var caption: String = DAY_CAPTION
+	if _current_index >= 0:
+		var previous: DayStep = _steps[_current_index]
+		caption = LEVEL_CAPTION if previous.stage == _steps[index].stage else STAGE_CAPTIONS[_steps[index].stage]
 	_current_index = index
 	var step: DayStep = _steps[index]
 	print("[SceneManager] Step %d/%d: %s %d -> %s" % [
 		index + 1, _steps.size(), DayStep.Stage.keys()[step.stage], step.number_in_stage, step.scene_path
 	])
-	await _change_scene(step.scene_path)
+	await _change_scene(step.scene_path, caption)
 	EventBus.day_step_started.emit(step)
 	_apply_pending_defeat()
 
 
-func _change_scene(path: String) -> void:
+func _change_scene(path: String, caption: String = "") -> void:
 	_is_changing_scene = true
+	_transition.set_caption(caption)
 	await _transition.fade_out()
+	if not caption.is_empty():
+		await get_tree().create_timer(CAPTION_SECONDS, true).timeout
 
 	var error: Error = get_tree().change_scene_to_file(path)
 	if error != OK:

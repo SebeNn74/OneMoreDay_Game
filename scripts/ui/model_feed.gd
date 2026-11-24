@@ -3,10 +3,9 @@ extends CanvasLayer
 ## On-screen panel with the five simulation models, one row each. A row lights up when its
 ## model acts (Simulation.model_used) and keeps the last thing it did. The dynamics row also
 ## shows the live flows (energy and time per second) and the fatigue speed factor.
-## M shows or hides it (the choice lasts across levels). Meant for the video and the exposition.
+## The toggle_models action (M by default) shows or hides it (the choice lasts across levels). Meant for the video and the exposition.
 
 const DRAW_LAYER: int = 15  # Above the HUD (10), below dialogs (20).
-const TOGGLE_KEY: Key = KEY_M
 const PANEL_WIDTH: float = 290.0
 const PANEL_TOP: float = 22.0  # Just below the HUD row.
 const MARGIN: float = 4.0
@@ -51,9 +50,8 @@ func _ready() -> void:
 	EventBus.stat_changed.connect(_on_stat_changed)
 
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	var key: InputEventKey = event as InputEventKey
-	if key != null and key.pressed and not key.echo and key.physical_keycode == TOGGLE_KEY:
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(InputActions.TOGGLE_MODELS):
 		shown = not shown
 		visible = shown
 		get_viewport().set_input_as_handled()

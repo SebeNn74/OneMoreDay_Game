@@ -17,9 +17,12 @@ energy = 6.0
 
 [sub_resource type="Resource" id="Resource_5dji6"]
 script = ExtResource("1_d0flo")
-text = "Colarte sin pagar (te regañan)"
-energy = -6.0
-time = -3.0
+text = "Colarte sin pagar"
+risk_chance = 0.4
+risk_text = "el conductor te pilla y te cobra el doble"
+risk_money = -6.0
+risk_time = -2.0
+energy = -2.0
 
 [resource]
 script = ExtResource("2_fijbg")

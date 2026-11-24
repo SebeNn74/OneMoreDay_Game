@@ -17,6 +17,9 @@ metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
 [sub_resource type="Resource" id="Resource_qagn8"]
 script = ExtResource("1_f0d3u")
 text = "Caminar hasta la siguiente parada"
+risk_chance = 0.25
+risk_text = "empieza a llover y llegas empapado"
+risk_energy = -5.0
 energy = -5.0
 time = -2.0
 metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
@@ -24,6 +27,9 @@ metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
 [sub_resource type="Resource" id="Resource_bcdb4"]
 script = ExtResource("1_f0d3u")
 text = "Pagar un taxi hasta el barrio"
+risk_chance = 0.2
+risk_text = "el taxista da la vuelta larga"
+risk_money = -3.0
 money = -8.0
 next_scene = "uid://b61mm23vjo7mm"
 minigame = ExtResource("4_taxi")

@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="17_jwsw2"]
 [ext_resource type="Resource" uid="uid://3nnvjetiwvcv" path="res://data/decisions/npc_02_bus_driver.tres" id="18_i8n86"]
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="19_opqka"]
+[ext_resource type="Resource" path="res://data/decisions/npc_08_abelardo.tres" id="95_abl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nvg7u"]
 size = Vector2(29.5, 259.25)
@@ -233,3 +234,10 @@ position = Vector2(700, 180)
 
 [node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
 position = Vector2(221, 105)
+
+[node name="Abelardo" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) unique_id=126367329 instance=ExtResource("17_jwsw2")]
+position = Vector2(592, 178)
+decision = ExtResource("95_abl")
+sprite_animation = &"abelardo"
+action_text = "Hablar con Abelardo"
+
