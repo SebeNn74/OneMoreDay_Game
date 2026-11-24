@@ -49,6 +49,7 @@ item = ExtResource("16_jyur6")
 [node name="Npc" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="1" unique_id=1407326683 instance=ExtResource("4_u7eg6")]
 position = Vector2(606, 704)
 decision = ExtResource("6_uda7l")
+sprite_animation = &"empanada_vendor"
 
 [node name="RestSpot" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=1703585282 instance=ExtResource("11_76oy8")]
 position = Vector2(97, 586)

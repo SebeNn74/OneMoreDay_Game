@@ -170,6 +170,3 @@ shape = SubResource("RectangleShape2D_tqsx4")
 
 [node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
 position = Vector2(465, 289)
-
-[node name="DebugLevelGrid" parent="Debug" parent_id_path=PackedInt32Array(59155718) index="1" unique_id=1766457910]
-visible = false
