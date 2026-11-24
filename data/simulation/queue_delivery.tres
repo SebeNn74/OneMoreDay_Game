@@ -7,13 +7,13 @@
 
 [sub_resource type="Resource" id="Resource_g487i"]
 script = ExtResource("1_y8ano")
-text = "Ventanilla A (la fila corta)"
+text = "Fila de la ventanilla A (atienden despacio)"
 queue = ExtResource("2_g487i")
 metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
 
 [sub_resource type="Resource" id="Resource_jktme"]
 script = ExtResource("1_y8ano")
-text = "Ventanilla B (la fila larga)"
+text = "Fila de la ventanilla B (atienden rápido)"
 queue = ExtResource("3_jktme")
 metadata/_custom_type_script = "uid://dkrx6vx6tvj5q"
 

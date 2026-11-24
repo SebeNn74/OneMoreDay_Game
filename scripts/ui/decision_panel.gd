@@ -7,8 +7,8 @@ extends CanvasLayer
 const DRAW_LAYER: int = 20
 const NO_EFFECTS_TEXT: String = "Sin efecto"
 const UNAFFORDABLE_TEXT: String = "No te alcanza el dinero"
-const QUEUE_LENGTH_FORMAT: String = "%d en la fila"
-const QUEUE_WAIT_FORMAT: String = "~%d espera"
+const QUEUE_LENGTH_FORMAT: String = "%d en la fila ahora"
+const QUEUE_WAIT_FORMAT: String = "Wq teórico %.1f"
 const WAITED_FORMAT: String = "Esperaste %d de tiempo en la fila."
 const NO_WAIT_TEXT: String = "La fila andaba vacía: pasaste sin esperar."
 ## Order of the chips under an option.
@@ -155,10 +155,21 @@ func _add_effect_chips(chips: HBoxContainer, option: DecisionOption) -> void:
 func _add_queue_chips(chips: HBoxContainer, queue: QueueConfig) -> void:
 	chips.add_child(_make_chip(
 		StatsManager.get_definition(StatDefinition.Type.TIME).icon,
-		QUEUE_WAIT_FORMAT % roundi(QueueModel.mean_wait(queue)),
+		QUEUE_WAIT_FORMAT % QueueModel.mean_wait(queue),
 		LOSS_COLOR,
 	))
-	chips.add_child(_make_chip(null, QUEUE_LENGTH_FORMAT % roundi(QueueModel.mean_queue_length(queue)), NEUTRAL_COLOR))
+	var crowd: QueueCrowd = _live_queue(queue)
+	var people: int = crowd.people_in_line() if crowd != null else roundi(QueueModel.mean_queue_length(queue))
+	chips.add_child(_make_chip(null, QUEUE_LENGTH_FORMAT % people, NEUTRAL_COLOR))
+
+
+## The QueueCrowd of the current level that simulates [param queue], if any.
+func _live_queue(queue: QueueConfig) -> QueueCrowd:
+	for node: Node in get_tree().get_nodes_in_group(QueueCrowd.GROUP):
+		var crowd: QueueCrowd = node as QueueCrowd
+		if crowd != null and crowd.queue == queue:
+			return crowd
+	return null
 
 
 func _make_chip(icon: Texture2D, text: String, color: Color) -> HBoxContainer:
@@ -246,6 +257,16 @@ func _choose(index: int) -> void:
 	_is_resolved = true
 	var option: DecisionOption = _decision.options[index]
 	Simulation.apply_change(option.money, option.energy, option.time)
+	var crowd: QueueCrowd = _live_queue(option.queue) if option.queue != null else null
+	if crowd != null:
+		# Model 1 live: the player joins the line on screen and waits for real.
+		var decision: DecisionDefinition = _decision
+		_close()
+		var player: Player = get_tree().get_first_node_in_group(Player.GROUP) as Player
+		var wait: float = await crowd.serve_player(player)
+		Simulation.record_queue_wait(option.queue, wait)
+		EventBus.decision_resolved.emit(decision, option)
+		return
 	var wait_message: String = _apply_queue_wait(option)
 	EventBus.decision_resolved.emit(_decision, option)
 	_close()

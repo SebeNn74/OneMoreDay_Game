@@ -56,7 +56,9 @@ action_text = "Ver la fila"
 position = Vector2(106, 132)
 script = ExtResource("5_pitcu")
 queue = ExtResource("6_mo05q")
+direction = Vector2(1, 0)
 spacing = 30.0
+facing_direction = Vector2(-1, 0)
 metadata/_custom_type_script = "uid://b05o0sxre1j7y"
 
 [node name="MotoRed" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1444754772 instance=ExtResource("10_yqhkt")]
