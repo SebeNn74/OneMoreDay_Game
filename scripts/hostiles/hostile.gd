@@ -153,8 +153,8 @@ func _hit(hurtbox: Hurtbox) -> void:
 	hurtbox.receive_hit(self)
 	Simulation.apply_change(definition.hit_money, definition.hit_energy, definition.hit_time)
 	EventBus.hostile_hit.emit(definition)
-	Simulation.report(Simulation.MODEL_AGENTS, "%s golpea al jugador (dinero %+.0f, energía %+.0f, tiempo %+.0f)" % [
-		definition.id, definition.hit_money, definition.hit_energy, definition.hit_time])
+	Simulation.report(Simulation.MODEL_AGENTS, "%s golpea: E %+.0f, T %+.0f, $ %+.0f" % [
+		definition.id, definition.hit_energy, definition.hit_time, definition.hit_money])
 
 
 func _find_player() -> Player:

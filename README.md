@@ -66,6 +66,20 @@ Project Settings > Layer Names > 2D Physics.
 - World/Triggers: ExitZone y EventZone.
 - Setup: LevelBounds y SpawnPoint. UI: HUD, pausa y notificaciones. Debug: solo en builds de depuración.
 
+## Controles
+| Acción | Tecla |
+|---|---|
+| Moverse | WASD / flechas |
+| Interactuar / confirmar | E / Espacio |
+| Correr | Shift |
+| Pausa | Esc / P |
+| Panel de modelos (mostrar/ocultar) | M |
+| Barra de depuración (solo en el editor) | F3 |
+
+El panel de modelos (scripts/ui/model_feed.gd, en base_level) tiene una fila por modelo: se ilumina
+cuando el modelo actúa (Simulation.model_used) y guarda lo último que hizo durante el día. La fila de
+dinámica muestra en vivo los flujos de energía y tiempo por segundo y el factor de velocidad.
+
 ## Simulación (P2)
 - Autoload Simulation (core/simulation.gd): única entrada a los 5 modelos.
 - Modelos en scripts/simulation/, parámetros en data/simulation/ y data/events/.

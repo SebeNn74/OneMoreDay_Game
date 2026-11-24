@@ -64,7 +64,7 @@ func start_day(seed_value: int = DEFAULT_SEED) -> void:
 func queue_wait(config: QueueConfig) -> float:
 	var wait: float = QueueModel.sample_player_wait(config, rng)
 	StatsManager.modify(StatDefinition.Type.TIME, -wait)
-	report(MODEL_QUEUE, "%s: espera %.2f (Wq teórico %.2f, ρ = %.2f)" % [
+	report(MODEL_QUEUE, "%s: espera %.2f · Wq teórico %.2f · ρ %.2f" % [
 		config.display_name, wait, QueueModel.mean_wait(config), QueueModel.utilization(config)])
 	EventBus.queue_waited.emit(config, wait)
 	return wait
