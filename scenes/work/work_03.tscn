@@ -92,151 +92,151 @@ definition = ExtResource("11_pn7bd")
 position = Vector2(581, 298)
 definition = ExtResource("18_4pesd")
 
-[node name="EmailY1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=1049361495 instance=ExtResource("10_l7o87")]
+[node name="EmailY1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=1049361495 instance=ExtResource("10_l7o87")]
 position = Vector2(860, 154)
 definition = ExtResource("19_p4dli")
 
-[node name="PaperPile" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=171971131 instance=ExtResource("10_l7o87")]
+[node name="PaperPile" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=171971131 instance=ExtResource("10_l7o87")]
 position = Vector2(148, 466)
 definition = ExtResource("12_ktx1e")
 
-[node name="PaperPile3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=2057429974 instance=ExtResource("10_l7o87")]
+[node name="PaperPile3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=2057429974 instance=ExtResource("10_l7o87")]
 position = Vector2(420, 139)
 definition = ExtResource("12_ktx1e")
 
-[node name="BOSS" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="12" unique_id=2066620514 instance=ExtResource("10_l7o87")]
+[node name="BOSS" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=2066620514 instance=ExtResource("10_l7o87")]
 position = Vector2(263, 148)
 definition = ExtResource("18_t1xob")
 
-[node name="DeliveryDesk" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="13" unique_id=1608970549 instance=ExtResource("20_v6ixd")]
+[node name="DeliveryDesk" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=1608970549 instance=ExtResource("20_v6ixd")]
 position = Vector2(845, 322)
 definition = ExtResource("23_6n655")
 
-[node name="CounterA" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="14" unique_id=973115931 instance=ExtResource("20_v6ixd")]
+[node name="CounterA" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=973115931 instance=ExtResource("20_v6ixd")]
 position = Vector2(698, 194)
 definition = ExtResource("24_t66lb")
 
-[node name="CounterB" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="15" unique_id=1403010120 instance=ExtResource("20_v6ixd")]
+[node name="CounterB" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="12" unique_id=1403010120 instance=ExtResource("20_v6ixd")]
 position = Vector2(695, 341)
 definition = ExtResource("25_a3k4r")
 
-[node name="Desk1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="16" unique_id=411606468 instance=ExtResource("20_v6ixd")]
+[node name="Desk1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="13" unique_id=411606468 instance=ExtResource("20_v6ixd")]
 position = Vector2(87, 320)
 definition = ExtResource("21_o3a0o")
 
-[node name="Desk2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="17" unique_id=607365935 instance=ExtResource("20_v6ixd")]
+[node name="Desk2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="14" unique_id=607365935 instance=ExtResource("20_v6ixd")]
 position = Vector2(226, 320)
 definition = ExtResource("21_o3a0o")
 
-[node name="Desk3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="18" unique_id=636542544 instance=ExtResource("20_v6ixd")]
+[node name="Desk3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="15" unique_id=636542544 instance=ExtResource("20_v6ixd")]
 position = Vector2(80, 485)
 definition = ExtResource("21_o3a0o")
 
-[node name="Desk4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="19" unique_id=502386122 instance=ExtResource("20_v6ixd")]
+[node name="Desk4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="16" unique_id=502386122 instance=ExtResource("20_v6ixd")]
 position = Vector2(227, 485)
 definition = ExtResource("21_o3a0o")
 
-[node name="Desk5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="20" unique_id=2056610064 instance=ExtResource("20_v6ixd")]
+[node name="Desk5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="17" unique_id=2056610064 instance=ExtResource("20_v6ixd")]
 position = Vector2(394, 482)
 definition = ExtResource("21_o3a0o")
 
-[node name="Desk6" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="21" unique_id=376075086 instance=ExtResource("20_v6ixd")]
+[node name="Desk6" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="18" unique_id=376075086 instance=ExtResource("20_v6ixd")]
 position = Vector2(541, 482)
 definition = ExtResource("21_o3a0o")
 
-[node name="Chair1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="22" unique_id=2068488042 instance=ExtResource("20_v6ixd")]
+[node name="Chair1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="19" unique_id=2068488042 instance=ExtResource("20_v6ixd")]
 position = Vector2(88, 346)
 definition = ExtResource("22_8m73u")
 
-[node name="Chair2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="23" unique_id=1896591539 instance=ExtResource("20_v6ixd")]
+[node name="Chair2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="20" unique_id=1896591539 instance=ExtResource("20_v6ixd")]
 position = Vector2(242, 342)
 definition = ExtResource("22_8m73u")
 
-[node name="Chair3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="24" unique_id=1795727777 instance=ExtResource("20_v6ixd")]
+[node name="Chair3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="21" unique_id=1795727777 instance=ExtResource("20_v6ixd")]
 position = Vector2(81, 515)
 definition = ExtResource("22_8m73u")
 
-[node name="Chair4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="25" unique_id=648387951 instance=ExtResource("20_v6ixd")]
+[node name="Chair4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="22" unique_id=648387951 instance=ExtResource("20_v6ixd")]
 position = Vector2(227, 502)
 definition = ExtResource("22_8m73u")
 
-[node name="Chair5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="26" unique_id=1022613480 instance=ExtResource("20_v6ixd")]
+[node name="Chair5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="23" unique_id=1022613480 instance=ExtResource("20_v6ixd")]
 position = Vector2(395, 512)
 definition = ExtResource("22_8m73u")
 
-[node name="Chair6" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="27" unique_id=14837270 instance=ExtResource("20_v6ixd")]
+[node name="Chair6" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="24" unique_id=14837270 instance=ExtResource("20_v6ixd")]
 position = Vector2(541, 499)
 definition = ExtResource("22_8m73u")
 
-[node name="Cubicle1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="28" unique_id=1004445429 instance=ExtResource("20_v6ixd")]
+[node name="Cubicle1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="25" unique_id=1004445429 instance=ExtResource("20_v6ixd")]
 position = Vector2(80, 240)
 definition = ExtResource("23_jioit")
 
-[node name="Cubicle2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="29" unique_id=543398146 instance=ExtResource("20_v6ixd")]
+[node name="Cubicle2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="26" unique_id=543398146 instance=ExtResource("20_v6ixd")]
 position = Vector2(224, 240)
 definition = ExtResource("23_jioit")
 
-[node name="Cubicle3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="30" unique_id=61256820 instance=ExtResource("20_v6ixd")]
+[node name="Cubicle3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="27" unique_id=61256820 instance=ExtResource("20_v6ixd")]
 position = Vector2(150, 419)
 definition = ExtResource("23_jioit")
 
-[node name="Cubicle4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="31" unique_id=2108021861 instance=ExtResource("20_v6ixd")]
+[node name="Cubicle4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="28" unique_id=2108021861 instance=ExtResource("20_v6ixd")]
 position = Vector2(468, 340)
 definition = ExtResource("23_jioit")
 
-[node name="Cubicle5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="32" unique_id=562647744 instance=ExtResource("20_v6ixd")]
+[node name="Cubicle5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="29" unique_id=562647744 instance=ExtResource("20_v6ixd")]
 position = Vector2(874, 450)
 definition = ExtResource("23_jioit")
 
-[node name="CoffeeStation" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="33" unique_id=215276358 instance=ExtResource("20_v6ixd")]
+[node name="CoffeeStation" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="30" unique_id=215276358 instance=ExtResource("20_v6ixd")]
 position = Vector2(103, 92)
 definition = ExtResource("24_4pesd")
 
-[node name="CoffeeStation2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="34" unique_id=503440988 instance=ExtResource("20_v6ixd")]
+[node name="CoffeeStation2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="31" unique_id=503440988 instance=ExtResource("20_v6ixd")]
 position = Vector2(866, 90)
 definition = ExtResource("24_4pesd")
 
-[node name="Plant1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="35" unique_id=378918426 instance=ExtResource("20_v6ixd")]
+[node name="Plant1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="32" unique_id=378918426 instance=ExtResource("20_v6ixd")]
 position = Vector2(25, 92)
 definition = ExtResource("25_p4dli")
 
-[node name="Plant2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="36" unique_id=1459973791 instance=ExtResource("20_v6ixd")]
+[node name="Plant2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="33" unique_id=1459973791 instance=ExtResource("20_v6ixd")]
 position = Vector2(930, 90)
 definition = ExtResource("25_p4dli")
 
-[node name="Bookshelf1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="37" unique_id=487235085 instance=ExtResource("20_v6ixd")]
+[node name="Bookshelf1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="34" unique_id=487235085 instance=ExtResource("20_v6ixd")]
 position = Vector2(439, 354)
 definition = ExtResource("26_6n655")
 
-[node name="Bookshelf2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="38" unique_id=261091726 instance=ExtResource("20_v6ixd")]
+[node name="Bookshelf2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="35" unique_id=261091726 instance=ExtResource("20_v6ixd")]
 position = Vector2(247, 86)
 definition = ExtResource("26_6n655")
 
-[node name="Bookshelf3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="39" unique_id=242974708 instance=ExtResource("20_v6ixd")]
+[node name="Bookshelf3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="36" unique_id=242974708 instance=ExtResource("20_v6ixd")]
 position = Vector2(496, 354)
 definition = ExtResource("26_6n655")
 
-[node name="Boxes1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="40" unique_id=392158891 instance=ExtResource("20_v6ixd")]
+[node name="Boxes1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="37" unique_id=392158891 instance=ExtResource("20_v6ixd")]
 position = Vector2(709, 85)
 definition = ExtResource("27_t66lb")
 
-[node name="Boxes2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="41" unique_id=1031683899 instance=ExtResource("20_v6ixd")]
+[node name="Boxes2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="38" unique_id=1031683899 instance=ExtResource("20_v6ixd")]
 position = Vector2(660, 85)
 definition = ExtResource("27_t66lb")
 
-[node name="Boxes3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="42" unique_id=559645046 instance=ExtResource("20_v6ixd")]
+[node name="Boxes3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="39" unique_id=559645046 instance=ExtResource("20_v6ixd")]
 position = Vector2(755, 85)
 definition = ExtResource("27_t66lb")
 
-[node name="BigPlant1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="43" unique_id=1296189026 instance=ExtResource("20_v6ixd")]
+[node name="BigPlant1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="40" unique_id=1296189026 instance=ExtResource("20_v6ixd")]
 position = Vector2(348, 87)
 definition = ExtResource("28_a3k4r")
 
-[node name="BigPlant2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="44" unique_id=1701006277 instance=ExtResource("20_v6ixd")]
+[node name="BigPlant2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="41" unique_id=1701006277 instance=ExtResource("20_v6ixd")]
 position = Vector2(454, 88)
 definition = ExtResource("28_a3k4r")
 
-[node name="BigPlant4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="45" unique_id=783043447 instance=ExtResource("20_v6ixd")]
+[node name="BigPlant4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="42" unique_id=783043447 instance=ExtResource("20_v6ixd")]
 position = Vector2(926, 528)
 definition = ExtResource("28_a3k4r")
 
@@ -275,12 +275,3 @@ position = Vector2(928, 121)
 position = Vector2(23, 284)
 
 [node name="ClockHud" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="1" unique_id=603068341 instance=ExtResource("17_t1xob")]
-
-[node name="PauseMenu" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="2" unique_id=175858098]
-visible = false
-
-[node name="PhoneNotification" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="3" unique_id=1297445684]
-visible = false
-
-[node name="DecisionPanel" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="4" unique_id=1405372292]
-visible = false
