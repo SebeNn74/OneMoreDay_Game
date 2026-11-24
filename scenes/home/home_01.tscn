@@ -147,17 +147,18 @@ position = Vector2(436, 340)
 definition = SubResource("Resource_cvsng")
 
 [node name="BathroomWall" type="StaticBody2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="18" unique_id=1387083187]
-position = Vector2(110, 177)
+position = Vector2(110, 218)
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Entities/BathroomWall" index="0" unique_id=272891484]
+position = Vector2(0, -41)
 texture = ExtResource("20_w5drb")
 
 [node name="CollisionLeft" type="CollisionShape2D" parent="World/Entities/BathroomWall" index="1" unique_id=656084946]
-position = Vector2(-37, 33)
+position = Vector2(-37, -8)
 shape = SubResource("RectangleShape2D_ojbw0")
 
 [node name="CollisionRight" type="CollisionShape2D" parent="World/Entities/BathroomWall" index="2" unique_id=1625444243]
-position = Vector2(54.5, 33)
+position = Vector2(54.5, -8)
 shape = SubResource("RectangleShape2D_l42ft")
 
 [node name="ExitZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="0" unique_id=1254900974]
