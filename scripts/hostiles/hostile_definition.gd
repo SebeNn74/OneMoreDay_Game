@@ -26,7 +26,17 @@ extends Resource
 @export var hit_time: float = 0.0
 ## Seconds after a hit before this hostile can hit again (it keeps moving meanwhile).
 @export_range(0.5, 30.0, 0.5, "suffix:s") var hit_cooldown_seconds: float = 3.0
+## How hard a hit pushes the player back (1 = a person, more for vehicles).
+@export_range(0.0, 4.0, 0.1) var knockback_strength: float = 1.0
 
 @export_group("Movement")
 ## Seconds per cell step. One tick = one cell (GridUtils.CELL_SIZE px).
 @export_range(0.05, 2.0, 0.05, "suffix:s") var tick_seconds: float = 0.25
+
+@export_group("Lane")
+## Vehicles drive straight along their road instead of walking cell by cell. Each one crosses,
+## leaves, and comes back after an exponential gap: the crossings form a Poisson process.
+@export var drives_in_lane: bool = false
+@export_range(30.0, 800.0, 10.0, "suffix:px/s") var lane_speed: float = 240.0
+## Mean seconds between two crossings of the same vehicle (1 / λ).
+@export_range(0.5, 30.0, 0.5, "suffix:s") var mean_gap_seconds: float = 3.0

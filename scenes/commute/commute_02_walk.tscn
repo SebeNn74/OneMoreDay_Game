@@ -65,6 +65,7 @@ definition = ExtResource("11_qw51f")
 
 [node name="Taxi1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=1669553344 instance=ExtResource("9_muyte")]
 position = Vector2(315, 1378)
+lane_direction = Vector2(1, 0)
 definition = ExtResource("12_5fau0")
 
 [node name="Taxi2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=644213408 instance=ExtResource("9_muyte")]
