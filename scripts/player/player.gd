@@ -7,6 +7,13 @@ signal facing_changed(new_direction: Vector2)
 ## Group the player joins, so other nodes (hostiles) can find it.
 const GROUP: StringName = &"player"
 const REST_TINT: Color = Color(0.7, 0.85, 1.0)
+## A hit pushes the player away from the hostile at this speed (times its knockback_strength),
+## slowing down at KNOCKBACK_DECAY px/s². The HURT state keeps the player still meanwhile.
+const KNOCKBACK_SPEED: float = 240.0
+const KNOCKBACK_DECAY: float = 1100.0
+const HIT_FLASH_COLOR: Color = Color(1.0, 0.3, 0.3)
+const HIT_FLASH_SECONDS: float = 0.35
+const HIT_SHAKE_PIXELS: float = 3.0
 
 @export var movement_config: MovementConfig
 
@@ -15,6 +22,8 @@ var facing_direction: Vector2 = Vector2.DOWN
 ## Scales the movement speed. Written by PlayerSimulationBridge.
 var speed_multiplier: float = 1.0
 var is_resting: bool = false
+var _knockback: Vector2 = Vector2.ZERO
+var _flash_tween: Tween
 
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var animator: PlayerAnimator = $Animator
@@ -38,7 +47,7 @@ func _ready() -> void:
 	interaction_detector.face(facing_direction)
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var input_direction: Vector2 = _read_input_direction()
 	if is_resting and not input_direction.is_zero_approx():
 		stop_resting()
@@ -47,7 +56,7 @@ func _physics_process(_delta: float) -> void:
 		not input_direction.is_zero_approx(),
 		_is_run_requested()
 	)
-	_move(input_direction)
+	_move(input_direction, delta)
 
 
 func is_controllable() -> bool:
@@ -81,9 +90,10 @@ func _is_run_requested() -> bool:
 	return is_controllable() and Input.is_action_pressed(InputActions.RUN)
 
 
-func _move(direction: Vector2) -> void:
-	velocity = direction * _get_current_speed()
+func _move(direction: Vector2, delta: float) -> void:
+	velocity = direction * _get_current_speed() + _knockback
 	move_and_slide()
+	_knockback = _knockback.move_toward(Vector2.ZERO, KNOCKBACK_DECAY * delta)
 
 
 ## The speed follows the state: IDLE and one-shot states have speed 0.
@@ -109,9 +119,26 @@ func _update_facing_direction(direction: Vector2) -> void:
 	facing_changed.emit(facing_direction)
 
 
-func _on_hit_received(_source: Node) -> void:
+func _on_hit_received(source: Node) -> void:
 	stop_resting()
 	state_machine.request_one_shot(PlayerState.Type.HURT)
+	var strength: float = 1.0
+	var push: Vector2 = -facing_direction
+	var source_2d: Node2D = source as Node2D
+	if source_2d != null:
+		var away: Vector2 = global_position - source_2d.global_position
+		if not away.is_zero_approx():
+			push = away.normalized()
+		var hostile: Hostile = source as Hostile
+		if hostile != null:
+			strength = hostile.definition.knockback_strength
+	_knockback = push * KNOCKBACK_SPEED * strength
+	camera.shake(HIT_SHAKE_PIXELS * strength)
+	if _flash_tween != null:
+		_flash_tween.kill()
+	animator.modulate = HIT_FLASH_COLOR
+	_flash_tween = create_tween()
+	_flash_tween.tween_property(animator, "modulate", Color.WHITE, HIT_FLASH_SECONDS)
 
 
 func start_resting() -> void:
