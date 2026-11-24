@@ -65,7 +65,7 @@ var _rng: Lcg
 
 func _init() -> void:
 	title = "Cuida la billetera"
-	instructions = "El bus va lleno y hay manos largas. Cuando una mano salga hacia tu bolsillo, dale un manotazo: A para la de la izquierda, D para la de la derecha. Cada mano que llegue te roba $1.000. Cada ladrón decide solo: si vigilas un lado, el otro aprovecha; si lo pillas, se asusta."
+	instructions = "El bus va lleno y hay manos largas. Cuando una mano salga hacia tu bolsillo, dale un manotazo: {left} para la de la izquierda, {right} para la de la derecha. Cada mano que llegue te roba $1.000. Cada ladrón decide solo: si vigilas un lado, el otro aprovecha; si lo pillas, se asusta."
 	model_name = "Basado en agentes"
 	duration_seconds = 12.0
 

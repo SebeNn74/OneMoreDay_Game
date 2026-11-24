@@ -164,9 +164,10 @@ func _show_result() -> void:
 	_big.text = ""
 	Simulation.record_queue_wait(_config, _waited)
 	var panel: Label = _label(14)
-	panel.text = "Esperaste %.1f min  (Wq teórico %.1f min)\n%s\n[E] Seguir" % [
+	panel.text = "Esperaste %.1f min  (Wq teórico %.1f min)\n%s\n[%s] Seguir" % [
 		_waited, QueueModel.mean_wait(_config),
-		"Menos que el promedio: buena suerte." if _waited < QueueModel.mean_wait(_config) else "Más que el promedio: así es la fila."]
+		"Menos que el promedio: buena suerte." if _waited < QueueModel.mean_wait(_config) else "Más que el promedio: así es la fila.",
+		Settings.key_name(InputActions.INTERACT)]
 	panel.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	add_child(panel)
 	panel.reset_size()
@@ -199,7 +200,7 @@ func _update_stats() -> void:
 	_stats.text = "Colas M/M/1 · %s\nλ = %.1f llegan/min   μ = %.1f atiende/min   ρ = λ/μ = %.2f\nTeórico: Lq = %.1f en fila   Wq = %.1f min de espera\nAhora: delante de ti %d   detrás %d   llevas %.1f min%s" % [
 		_config.display_name, _config.arrival_rate, _config.service_rate, rho,
 		QueueModel.mean_queue_length(_config), QueueModel.mean_wait(_config),
-		_ahead, _behind, _waited, "" if _done else "\n[E] mantener: adelantar el tiempo"]
+		_ahead, _behind, _waited, "" if _done else "\n[%s] mantener: adelantar el tiempo" % Settings.key_name(InputActions.INTERACT)]
 	_stats.reset_size()
 
 

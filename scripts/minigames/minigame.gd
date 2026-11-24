@@ -12,8 +12,8 @@ const DRAW_LAYER: int = 30  # Above every level UI, below pause (90) and transit
 const COUNTDOWN_SECONDS: float = 3.0
 const SCREEN: Vector2 = Vector2(640.0, 360.0)
 const ACCENT: Color = Color(1.0, 0.85, 0.3)
-const START_HINT: String = "[E] Empezar"
-const CONTINUE_HINT: String = "[E] Seguir"
+const START_HINT: String = "[{interact}] Empezar"
+const CONTINUE_HINT: String = "[{interact}] Seguir"
 const TIME_FORMAT: String = "%s - %.0f s"
 const SMALL_FONT: int = 12
 
@@ -81,8 +81,8 @@ func _ready() -> void:
 	_show_panel([
 		_make_label(title, ACCENT, 0, HORIZONTAL_ALIGNMENT_CENTER),
 		_make_label("Modelo: " + model_name, Color(0.6, 0.85, 1.0), SMALL_FONT, HORIZONTAL_ALIGNMENT_CENTER),
-		_make_label(instructions, Color.WHITE, SMALL_FONT),
-		_make_label(START_HINT, ACCENT, SMALL_FONT, HORIZONTAL_ALIGNMENT_RIGHT),
+		_make_label(Settings.with_keys(instructions), Color.WHITE, SMALL_FONT),
+		_make_label(Settings.with_keys(START_HINT), ACCENT, SMALL_FONT, HORIZONTAL_ALIGNMENT_RIGHT),
 	])
 
 
@@ -141,7 +141,7 @@ func _show_result() -> void:
 		_make_label(title, ACCENT, 0, HORIZONTAL_ALIGNMENT_CENTER),
 		_make_label(_cost.summary, Color.WHITE, 0, HORIZONTAL_ALIGNMENT_CENTER),
 		_make_label(effects if not effects.is_empty() else "Sin costo extra", Color(1.0, 0.6, 0.55) if not effects.is_empty() else Color(0.6, 0.95, 0.6), SMALL_FONT, HORIZONTAL_ALIGNMENT_CENTER),
-		_make_label(CONTINUE_HINT, ACCENT, SMALL_FONT, HORIZONTAL_ALIGNMENT_RIGHT),
+		_make_label(Settings.with_keys(CONTINUE_HINT), ACCENT, SMALL_FONT, HORIZONTAL_ALIGNMENT_RIGHT),
 	])
 
 

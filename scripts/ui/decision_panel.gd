@@ -11,6 +11,7 @@ const QUEUE_LENGTH_FORMAT: String = "%d en la fila ahora"
 const QUEUE_WAIT_FORMAT: String = "Wq teórico %.1f"
 const WAITED_FORMAT: String = "Esperaste %d de tiempo en la fila."
 const NO_WAIT_TEXT: String = "La fila andaba vacía: pasaste sin esperar."
+const HINT_TEXT: String = "[{up}/{down}] Elegir   [{interact}] Confirmar"
 ## Order of the chips under an option.
 const STAT_ORDER: Array[StatDefinition.Type] = [
 	StatDefinition.Type.MONEY, StatDefinition.Type.ENERGY, StatDefinition.Type.TIME,
@@ -33,6 +34,7 @@ const EFFECTS_FONT_SIZE: int = 14
 @onready var _speaker_label: Label = %SpeakerLabel
 @onready var _prompt_label: Label = %PromptLabel
 @onready var _options_box: VBoxContainer = %OptionsBox
+@onready var _hint_label: Label = $Content/CenterContainer/Panel/Padding/VBox/HintLabel
 
 var _decision: DecisionDefinition
 var _cards: Array[PanelContainer] = []
@@ -73,6 +75,7 @@ func _on_decision_requested(decision: DecisionDefinition) -> void:
 	_is_resolved = false
 	_speaker_label.text = decision.speaker_name
 	_prompt_label.text = decision.prompt
+	_hint_label.text = Settings.with_keys(HINT_TEXT)
 	_build_cards()
 	_select(_first_available_index())
 	_content.visible = true

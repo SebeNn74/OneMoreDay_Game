@@ -7,6 +7,8 @@ extends CanvasLayer
 
 const DRAW_LAYER: int = 20  # Above the HUD (10), below pause (90) and transitions (100).
 
+const HINT_TEXT: String = "[{interact}] Cerrar"
+
 @onready var _content: Control = %Content
 @onready var _message_label: Label = %MessageLabel
 
@@ -136,6 +138,7 @@ func _stop_toast() -> void:
 		_content.visible = false
 	_is_toast = false
 	_content.modulate.a = 1.0
+	_hint_label.text = Settings.with_keys(HINT_TEXT)
 	_hint_label.visible = true
 
 

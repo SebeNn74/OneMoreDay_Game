@@ -49,7 +49,7 @@ var _steps: Array[int] = [0, 0, 0]  # Random walk steps taken: left, stay, right
 
 func _init() -> void:
 	title = "Esquiva el trancón"
-	instructions = "El taxi va por la avenida. Cambia de carril con A y D para no chocar. Los carros y motos zigzaguean al azar (caminata aleatoria): miren su direccional amarilla antes de que se pasen de carril. Cada choque te quita tiempo y el taxímetro sigue corriendo."
+	instructions = "El taxi va por la avenida. Cambia de carril con {left} y {right} para no chocar. Los carros y motos zigzaguean al azar (caminata aleatoria): miren su direccional amarilla antes de que se pasen de carril. Cada choque te quita tiempo y el taxímetro sigue corriendo."
 	model_name = "Caminata aleatoria"
 	duration_seconds = 12.0
 

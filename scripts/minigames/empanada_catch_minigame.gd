@@ -40,7 +40,7 @@ var _landings: Array[float] = []
 
 func _init() -> void:
 	title = "Atrapa las empanadas"
-	instructions = "El vendedor te lanza las empanadas calientes. Muévete con A y D para atraparlas. El vendedor tiene sus lanzamientos favoritos: abajo se va armando el histograma de dónde caen (Monte Carlo). Úsalo para pararte donde más caen."
+	instructions = "El vendedor te lanza las empanadas calientes. Muévete con {left} y {right} para atraparlas. El vendedor tiene sus lanzamientos favoritos: abajo se va armando el histograma de dónde caen (Monte Carlo). Úsalo para pararte donde más caen."
 	model_name = "Monte Carlo"
 	duration_seconds = 12.0
 

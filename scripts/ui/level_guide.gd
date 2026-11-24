@@ -35,11 +35,12 @@ const CARD_STATS: Dictionary = {
 	StatDefinition.Type.TIME: "corre siempre. Golpes, filas y eventos te quitan más.",
 }
 const CARD_TIPS: PackedStringArray = [
-	"Carros y motos cruzan rápido: mira antes de cruzar. Algunos hostiles te persiguen: corre con Shift.",
-	"Habla con la gente y recoge objetos con [E]. Cada decisión cuesta o da recursos.",
-	"La flecha amarilla te lleva al objetivo. [M] muestra u oculta los modelos de simulación.",
+	"Carros y motos cruzan rápido: mira antes de cruzar. Algunos hostiles te persiguen: corre con {run}.",
+	"Habla con la gente y recoge objetos con [{interact}]. Cada decisión cuesta o da recursos.",
+	"La flecha amarilla te lleva al objetivo. [M] muestra u oculta los modelos de simulación. Teclas y volumen: Opciones, en la pausa ([{pause}]).",
 ]
-const CARD_HINT: String = "[E] Empezar el día"
+## {interact}, {run}... are replaced with the current keys (Settings.with_keys).
+const CARD_HINT: String = "[{interact}] Empezar el día"
 const SMALL_FONT: int = 12
 
 ## The card is shown once per game session.
@@ -157,8 +158,8 @@ func _show_card() -> void:
 		box.add_child(row)
 	box.add_child(HSeparator.new())
 	for tip: String in CARD_TIPS:
-		box.add_child(_label("• " + tip, Color(0.85, 0.85, 0.85), SMALL_FONT))
-	box.add_child(_label(CARD_HINT, ARROW_COLOR, SMALL_FONT, HORIZONTAL_ALIGNMENT_RIGHT))
+		box.add_child(_label("• " + Settings.with_keys(tip), Color(0.85, 0.85, 0.85), SMALL_FONT))
+	box.add_child(_label(Settings.with_keys(CARD_HINT), ARROW_COLOR, SMALL_FONT, HORIZONTAL_ALIGNMENT_RIGHT))
 	add_child(_card)
 
 

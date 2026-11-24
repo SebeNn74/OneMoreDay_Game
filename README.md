@@ -37,7 +37,7 @@ ida=commute, trabajo=work, vuelta=return
 - Celda de los agentes (hostiles): 32 px, igual que una casilla de arte mostrada x2 (GridUtils.CELL_SIZE).
 
 ## Autoloads (orden de carga)
-EventBus, StatsManager, GameManager, Simulation, SceneManager.
+EventBus, StatsManager, GameManager, Simulation, SceneManager, RunLog, Settings, AudioManager.
 
 ## Capas de física 2D
 1 world, 2 player, 3 npc, 4 enemy, 5 interactable, 6 decoration,
@@ -74,7 +74,23 @@ Project Settings > Layer Names > 2D Physics.
 | Correr | Shift |
 | Pausa | Esc / P |
 | Panel de modelos (mostrar/ocultar) | M |
+| Pantalla completa | F11 |
 | Barra de depuración (solo en el editor) | F3 |
+
+Mando: cruceta o stick izquierdo para moverse, A interactuar, RB correr, Start pausa.
+
+## Opciones
+- OptionsMenu (scripts/ui/options_menu.gd, se arma en código) se abre desde el menú principal y la pausa:
+  volumen de música y efectos, pantalla completa y reasignación de teclas (clic en la tecla y pulsar otra;
+  Esc cancela). Esc o la tecla de pausa cierran la pantalla.
+- Settings (Autoload, core/settings.gd) guarda todo en user://settings.cfg al cerrar Opciones y lo aplica al arrancar.
+  Crea los buses de audio Music y SFX (AudioManager toca por ellos) y agrega los eventos del mando.
+- Reasignar cambia la tecla principal (la primera del Input Map); flechas, Espacio y P siguen como alternas. Si la tecla
+  ya era la principal de otra acción, se intercambian; si era alterna de otra, se le quita. "Restaurar teclas" vuelve
+  a project.godot.
+- Los textos que nombran teclas usan Settings.key_name(acción) o Settings.with_keys("[{interact}] Seguir")
+  (tokens {up} {down} {left} {right} {interact} {run} {pause}); no escribir "[E]" a mano.
+- Prueba: godot --headless --path . -s res://tools/settings_self_test.gd
 
 El panel de modelos (scripts/ui/model_feed.gd, en base_level) tiene una fila por modelo: se ilumina
 cuando el modelo actúa (Simulation.model_used) y guarda lo último que hizo durante el día. La fila de

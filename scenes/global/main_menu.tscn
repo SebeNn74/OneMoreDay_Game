@@ -43,6 +43,13 @@ theme_override_colors/font_color = Color(0.96089906, 0.89367133, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "JUGAR"
 
+[node name="OptionsButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1488203611]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "OPCIONES"
+
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1037926816]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(140, 24)

@@ -35,7 +35,7 @@ var _canvas: Control
 
 func _init() -> void:
 	title = "Sirve el tinto"
-	instructions = "La vendedora te deja servir tu tinto. Mantén E para abrir el termo y suéltalo para cerrarlo; el chorro tarda en cortarse, así que suelta un poco antes de la raya. Tres pocillos: bien servido te da más energía."
+	instructions = "La vendedora te deja servir tu tinto. Mantén {interact} para abrir el termo y suéltalo para cerrarlo; el chorro tarda en cortarse, así que suelta un poco antes de la raya. Tres pocillos: bien servido te da más energía."
 	model_name = "Dinámica de sistemas"
 	duration_seconds = 18.0
 
@@ -145,4 +145,4 @@ func _draw_scene() -> void:
 		return
 	var font: Font = c.get_theme_default_font()
 	c.draw_string(font, Vector2(20.0, 340.0), "Pocillo %d de %d   ·   bien servidos: %d" % [mini(_cup + 1, CUPS), CUPS, _good], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color.BLACK)
-	c.draw_string(font, Vector2(CUP_RECT.end.x + 20.0, CUP_RECT.position.y + 40.0), "Mantén E", HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color.BLACK)
+	c.draw_string(font, Vector2(CUP_RECT.end.x + 20.0, CUP_RECT.position.y + 40.0), "Mantén " + Settings.key_name(InputActions.INTERACT), HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color.BLACK)

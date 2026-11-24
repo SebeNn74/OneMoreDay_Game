@@ -57,10 +57,10 @@ func _ready() -> void:
 	for stream: AudioStreamWAV in MUSIC.values():
 		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
 		stream.loop_end = int(stream.get_length() * stream.mix_rate)
-	_music_a = _make_player(MUSIC_DB)
-	_music_b = _make_player(SILENT_DB)
+	_music_a = _make_player(MUSIC_DB, Settings.MUSIC_BUS)
+	_music_b = _make_player(SILENT_DB, Settings.MUSIC_BUS)
 	for i: int in SFX_VOICES:
-		_sfx_players.append(_make_player(SFX_DB))
+		_sfx_players.append(_make_player(SFX_DB, Settings.SFX_BUS))
 
 	EventBus.day_step_started.connect(_on_day_step_started)
 	EventBus.challenge_started.connect(play_music.bind(&"boss"))
@@ -77,9 +77,10 @@ func _ready() -> void:
 	play_music(&"home")  # The game boots in the main menu.
 
 
-func _make_player(volume_db: float) -> AudioStreamPlayer:
+func _make_player(volume_db: float, bus: StringName) -> AudioStreamPlayer:
 	var player: AudioStreamPlayer = AudioStreamPlayer.new()
 	player.volume_db = volume_db
+	player.bus = bus  # Settings sets the volume of each bus.
 	add_child(player)
 	return player
 

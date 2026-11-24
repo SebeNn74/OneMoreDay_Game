@@ -10,6 +10,7 @@ const TITLE_VICTORY: String = "¡Llegaste a casa!"
 const TITLE_DEFEAT: String = "No lograste completar el día."
 const VICTORY_COLOR: Color = Color(0.55, 0.9, 0.55)
 const DEFEAT_COLOR: Color = Color(0.95, 0.5, 0.45)
+const HINT_TEXT: String = "[{interact}] Volver a empezar   [{pause}] Menú principal"
 ## The text appears letter by letter: pause before it starts, seconds per character and a cap.
 const REVEAL_DELAY_SECONDS: float = 0.4
 const REVEAL_SECONDS_PER_CHARACTER: float = 0.03
@@ -23,6 +24,7 @@ const INPUT_DELAY_SECONDS: float = 0.6
 @onready var _illustration: TextureRect = %Illustration
 @onready var _title_label: Label = %TitleLabel
 @onready var _text_label: Label = %TextLabel
+@onready var _hint_label: Label = $Backdrop/Margin/VBox/HintLabel
 
 var _reveal_tween: Tween
 var _opened_at_ms: int = 0
@@ -36,6 +38,7 @@ func _ready() -> void:
 	_title_label.text = TITLE_VICTORY if ending.is_victory else TITLE_DEFEAT
 	_title_label.add_theme_color_override("font_color", VICTORY_COLOR if ending.is_victory else DEFEAT_COLOR)
 	_text_label.text = ending.text
+	_hint_label.text = Settings.with_keys(HINT_TEXT)
 	_start_reveal(ending.text.length())
 
 

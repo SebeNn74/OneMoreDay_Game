@@ -9,7 +9,6 @@ extends Minigame
 const NPC_FRAMES: SpriteFrames = preload("res://assets/sprites/npcs/npc_sprite_frames.tres")
 const ITEM_FRAMES: SpriteFrames = preload("res://assets/sprites/items/items_sprite_frames.tres")
 const KEYS: Array[StringName] = [&"move_up", &"move_left", &"move_down", &"move_right"]
-const KEY_LABELS: PackedStringArray = ["W", "A", "S", "D"]
 const START_LENGTH: int = 4
 const MAX_LENGTH: int = 7
 const MONEY_PER_PAGE: float = 1.0
@@ -20,7 +19,7 @@ const LETTER_SIZE: int = 40
 const LETTER_GAP: float = 56.0
 const ROW_Y: float = 250.0
 const VISIBLE_AHEAD: int = 2
-## P(next | current), rows and columns in KEY_LABELS order (W A S D). Each row sums 1.
+## P(next | current), rows and columns in KEYS order (up, left, down, right). Each row sums 1.
 const TRANSITIONS: Array = [
 	[0.05, 0.60, 0.05, 0.30],
 	[0.10, 0.05, 0.75, 0.10],
@@ -41,7 +40,7 @@ var _last_key: int = -1
 
 func _init() -> void:
 	title = "Ordena el informe"
-	instructions = "Ayúdale a tu compañero a ordenar el informe: repite cada secuencia de teclas (W A S D o las flechas). Solo ves las próximas 2; el resto se adivina con la tabla de probabilidades (cadena de Markov). Cada hoja te paga más; cada error te cansa."
+	instructions = "Ayúdale a tu compañero a ordenar el informe: repite cada secuencia de teclas ({up} {left} {down} {right} o las flechas). Solo ves las próximas 2; el resto se adivina con la tabla de probabilidades (cadena de Markov). Cada hoja te paga más; cada error te cansa."
 	model_name = "Cadena de Markov"
 	duration_seconds = 12.0
 
@@ -114,6 +113,11 @@ func _play(delta: float) -> void:
 	_canvas.queue_redraw()
 
 
+## Current key of the action KEYS[k] (the player may have rebound it in Options).
+func _key_label(k: int) -> String:
+	return Settings.key_name(KEYS[k])
+
+
 ## The row the player needs: it predicts the first hidden key.
 func _predicting_key() -> int:
 	return _sequence[mini(_typed + VISIBLE_AHEAD - 1, _sequence.size() - 1)]
@@ -123,8 +127,8 @@ func _model_text() -> String:
 	var row: Array = TRANSITIONS[_predicting_key()]
 	var parts: PackedStringArray = []
 	for k: int in row.size():
-		parts.append("%s %d%%" % [KEY_LABELS[k], roundi(row[k] * 100.0)])
-	return "Después de %s viene: %s" % [KEY_LABELS[_predicting_key()], "  ".join(parts)]
+		parts.append("%s %d%%" % [_key_label(k), roundi(row[k] * 100.0)])
+	return "Después de %s viene: %s" % [_key_label(_predicting_key()), "  ".join(parts)]
 
 
 func _result() -> Dictionary:
@@ -165,7 +169,7 @@ func _draw_scene() -> void:
 		var hidden: bool = i >= _typed + VISIBLE_AHEAD
 		var x: float = start_x + i * LETTER_GAP
 		c.draw_rect(Rect2(x - 22.0, ROW_Y - 40.0, 44.0, 50.0), Color(0.0, 0.0, 0.0, 0.6))
-		c.draw_string(font, Vector2(x - 12.0, ROW_Y), "?" if hidden else KEY_LABELS[_sequence[i]], HORIZONTAL_ALIGNMENT_LEFT, -1, LETTER_SIZE, Color(0.6, 0.6, 0.6) if hidden else color)
+		c.draw_string(font, Vector2(x - 12.0, ROW_Y), "?" if hidden else _key_label(_sequence[i]), HORIZONTAL_ALIGNMENT_LEFT, -1, LETTER_SIZE, Color(0.6, 0.6, 0.6) if hidden else color)
 	_draw_matrix(c, font)
 	c.draw_string(font, Vector2(20.0, 340.0), "Hojas: %d   Errores: %d" % [_pages, _mistakes], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color.WHITE)
 
@@ -176,12 +180,12 @@ func _draw_matrix(c: Control, font: Font) -> void:
 	var cell: Vector2 = Vector2(40.0, 15.0)
 	c.draw_rect(Rect2(origin - Vector2(30.0, 18.0), Vector2(cell.x * 4.0 + 36.0, cell.y * 5.0 + 8.0)), Color(0.0, 0.0, 0.0, 0.65))
 	for k: int in 4:
-		c.draw_string(font, origin + Vector2(k * cell.x + 8.0, -5.0), KEY_LABELS[k], HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0.6, 0.85, 1.0))
+		c.draw_string(font, origin + Vector2(k * cell.x + 8.0, -5.0), _key_label(k), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0.6, 0.85, 1.0))
 	var current: int = _predicting_key()
 	for i: int in 4:
 		var y: float = origin.y + i * cell.y + 10.0
 		if i == current:
 			c.draw_rect(Rect2(origin.x - 26.0, y - 11.0, cell.x * 4.0 + 28.0, cell.y), Color(1.0, 0.85, 0.3, 0.3))
-		c.draw_string(font, Vector2(origin.x - 22.0, y), KEY_LABELS[i], HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0.6, 0.85, 1.0))
+		c.draw_string(font, Vector2(origin.x - 22.0, y), _key_label(i), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0.6, 0.85, 1.0))
 		for k: int in 4:
 			c.draw_string(font, Vector2(origin.x + k * cell.x, y), "%.2f" % TRANSITIONS[i][k], HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color.WHITE)
