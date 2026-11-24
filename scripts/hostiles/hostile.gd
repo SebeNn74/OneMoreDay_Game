@@ -9,6 +9,7 @@ const COOLDOWN_TINT: Color = Color(0.6, 0.6, 0.6)
 ## only touches the edge of the cell does not block it.
 const CELL_PROBE_SIZE: float = GridUtils.CELL_SIZE - 4.0
 const DEBUG_VISION_COLOR: Color = Color(1.0, 0.3, 0.3, 0.6)
+const GROUP: StringName = &"hostiles"
 ## Vehicles honk when they enter the road this close to the player.
 const HONK_DISTANCE: float = 420.0
 
@@ -61,6 +62,7 @@ func _ready() -> void:
 			name, definition.sprite_animation
 		]
 	)
+	add_to_group(GROUP)
 	_hitbox.collision_layer = PhysicsLayers.HITBOX
 	_hitbox.collision_mask = PhysicsLayers.HURTBOX
 	_animated_sprite.sprite_frames = definition.sprite_frames
@@ -271,9 +273,9 @@ func _on_brain_state_changed(new_state: HostileBrain.State) -> void:
 		Simulation.report(Simulation.MODEL_AGENTS, "%s detecta al jugador y lo persigue" % definition.id)
 
 
-## Debug builds only: the vision area of chasers (a diamond, because the radius is Manhattan).
+## Only with the debug bar (F3): the vision area of chasers (a diamond, because the radius is Manhattan).
 func _draw() -> void:
-	if not OS.is_debug_build() or definition == null or not definition.behavior.chases:
+	if not DebugStatsOverlay.shown or definition == null or not definition.behavior.chases:
 		return
 	var reach: float = (definition.behavior.vision_radius + 0.5) * GridUtils.CELL_SIZE
 	var corners: PackedVector2Array = [

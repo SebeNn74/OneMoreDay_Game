@@ -46,6 +46,7 @@ var _selected_style: StyleBoxFlat = _make_card_style(CARD_SELECTED_COLOR, ACCENT
 
 func _ready() -> void:
 	layer = DRAW_LAYER
+	$Content/CenterContainer/Panel.add_theme_stylebox_override("panel", StatFormatter.panel_style())
 	_content.visible = false
 	EventBus.decision_requested.connect(_on_decision_requested)
 

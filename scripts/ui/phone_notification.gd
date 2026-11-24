@@ -22,6 +22,7 @@ const TOAST_FADE_SECONDS: float = 0.6
 func _ready() -> void:
 	layer = DRAW_LAYER
 	_content.visible = false
+	$Content/Margin/Panel.add_theme_stylebox_override("panel", StatFormatter.panel_style())
 	EventBus.notification_requested.connect(_on_notification_requested)
 	EventBus.toast_requested.connect(_on_toast_requested)
 

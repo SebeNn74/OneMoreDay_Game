@@ -35,6 +35,17 @@ static func describe_changes(money: float, energy: float, time: float) -> String
 	return ", ".join(parts)
 
 
+## Shared look of the game's message boxes (phone, decisions): dark, rounded, accent border.
+static func panel_style() -> StyleBoxFlat:
+	var style: StyleBoxFlat = StyleBoxFlat.new()
+	style.bg_color = Color(0.08, 0.09, 0.13, 0.94)
+	style.border_color = Color(1.0, 0.85, 0.3, 0.8)
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(4)
+	style.set_content_margin_all(2.0)
+	return style
+
+
 static func _format_pesos(money_units: float) -> String:
 	var pesos: int = roundi(money_units * PESOS_PER_MONEY_UNIT)
 	var digits: String = str(absi(pesos))

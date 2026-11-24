@@ -1,9 +1,13 @@
+class_name DebugStatsOverlay
 extends CanvasLayer
 ## Debug-only readout of the stats and the fatigue factor. F3 shows or hides it (e.g. to record).
 
 const DRAW_LAYER: int = 80
 const MARGIN: Vector2 = Vector2(4.0, 336.0)
 const OUTLINE_SIZE: int = 2
+
+## Off by default; F3 shows it (also the hostiles' vision areas). Shared by every level.
+static var shown: bool = false
 
 var _label: Label
 
@@ -13,6 +17,7 @@ func _ready() -> void:
 		queue_free()
 		return
 	layer = DRAW_LAYER
+	visible = shown
 	_label = Label.new()
 	_label.position = MARGIN
 	_label.add_theme_constant_override("outline_size", OUTLINE_SIZE)
@@ -23,7 +28,9 @@ func _ready() -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	var key: InputEventKey = event as InputEventKey
 	if key != null and key.pressed and not key.echo and key.keycode == KEY_F3:
-		visible = not visible
+		shown = not shown
+		visible = shown
+		get_tree().call_group(Hostile.GROUP, "queue_redraw")
 
 
 func _process(_delta: float) -> void:

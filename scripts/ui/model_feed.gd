@@ -27,7 +27,7 @@ const FLOW_FORMAT: String = "E %+.2f/s · T %+.2f/s · velocidad x%.2f"
 const NO_FLOW_TEXT: String = "quieto: sin flujos · velocidad x%.2f"
 
 ## Shared by every level, so hiding the panel once keeps it hidden.
-static var shown: bool = true
+static var shown: bool = false
 ## Last report of each model, so a new level keeps showing what already happened today.
 static var last_details: Dictionary = {}
 
