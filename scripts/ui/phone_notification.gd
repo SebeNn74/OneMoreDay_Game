@@ -17,7 +17,7 @@ var _toast_tween: Tween
 const TOAST_SECONDS: float = 4.0
 const EVENT_TOAST_SECONDS: float = 5.5
 const TOAST_FADE_SECONDS: float = 0.6
-const EVENT_TITLE: String = "Evento al azar (Monte Carlo)"
+const EVENT_TITLE: String = "Evento al azar (Markov-Monte Carlo)"
 const GAIN_COLOR: Color = Color(0.45, 0.85, 0.45)
 const LOSS_COLOR: Color = Color(0.95, 0.45, 0.40)
 const ACCENT: Color = Color(1.0, 0.85, 0.3)
