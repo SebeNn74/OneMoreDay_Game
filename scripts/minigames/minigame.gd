@@ -69,7 +69,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not event.is_action_pressed(InputActions.INTERACT):
+	if not event.is_action_pressed(InputActions.INTERACT) or _phase == Phase.PLAY:
 		_on_input(event)
 		return
 	get_viewport().set_input_as_handled()
@@ -171,6 +171,25 @@ func _make_label(text: String, color: Color, font_size: int, align: HorizontalAl
 		label.add_theme_font_size_override("font_size", font_size)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return label
+
+
+## Ends the play phase now (a minigame whose rounds are all done).
+func end_early() -> void:
+	if _phase == Phase.PLAY:
+		_time_left = 0.0
+
+
+## Sprite with its origin at the feet and [param height] pixels tall.
+func _sprite(frames: SpriteFrames, animation: StringName, feet: Vector2, height: float) -> AnimatedSprite2D:
+	var sprite: AnimatedSprite2D = AnimatedSprite2D.new()
+	sprite.sprite_frames = frames
+	sprite.animation = animation
+	var frame_height: float = frames.get_frame_texture(animation, 0).get_height()
+	sprite.offset = Vector2(0.0, -frame_height / 2.0)
+	sprite.scale = Vector2.ONE * (height / frame_height)
+	sprite.position = feet
+	sprite.play()
+	return sprite
 
 
 ## True while the player is actually playing (not reading or counting down).

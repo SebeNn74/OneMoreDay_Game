@@ -187,5 +187,5 @@ func _draw_meter(front: Control) -> void:
 	front.draw_rect(Rect2(center - half * SAFE_LEAN, METER_Y, METER_WIDTH * SAFE_LEAN, 12.0), Color("3fae5a"))
 	var needle: float = center + _lean * half
 	front.draw_rect(Rect2(needle - 2.0, METER_Y - 5.0, 4.0, 22.0), Color.WHITE)
-	front.draw_string(ThemeDB.fallback_font, Vector2(left, METER_Y - 6.0), "A", HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
-	front.draw_string(ThemeDB.fallback_font, Vector2(left + METER_WIDTH - 8.0, METER_Y - 6.0), "D", HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
+	front.draw_string(front.get_theme_default_font(), Vector2(left, METER_Y - 6.0), "A", HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
+	front.draw_string(front.get_theme_default_font(), Vector2(left + METER_WIDTH - 8.0, METER_Y - 6.0), "D", HORIZONTAL_ALIGNMENT_LEFT, -1, 12)

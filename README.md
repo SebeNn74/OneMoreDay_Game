@@ -146,6 +146,12 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
 - Taxi · "Esquiva el trancón" (taxi_traffic): carros y motos con llegadas de Poisson (λ = 1,5/s), nunca en los
   tres carriles a la vez. A/D cambian de carril; cada choque: -3 tiempo y -$1.000 (máximo 4 cobrados).
 - Ambos reportan al terminar en la fila de Monte Carlo del panel de modelos.
+- En charlas con NPC (la primera opción de cada uno; el minijuego suma o resta sobre el efecto de la opción):
+  - Vendedora de tinto · "Sirve el tinto" (tinto_timing): 3 rondas de presionar E en la zona; -3 a +6 energía.
+  - Compañero · "Ordena el informe" (report_sequence): repetir secuencias W A S D; +$1.000 por hoja (máx. 4),
+    -1 energía por error (máx. 5).
+  - Vendedor de empanadas · "Atrapa las empanadas" (empanada_catch): lanzamientos con llegadas de Poisson
+    (λ = 1,6/s); +1,5 energía por empanada (máx. 8).
 
 ## Colas, descanso y objetos
 - Fila (modelo 1): una DecisionOption con queue (QueueConfig). El botón muestra "N en la fila, espera estimada W de tiempo"

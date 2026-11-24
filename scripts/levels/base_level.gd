@@ -74,15 +74,16 @@ func _ensure_playing_state() -> void:
 		GameManager.change_state(GameState.Type.PLAYING)
 
 
-## A route option (bus, taxi) leaves the level right away, without walking to the exit.
+## An option with a minigame plays it (its result adds to the option's effects); a route option
+## (bus, taxi) then leaves the level right away, without walking to the exit.
 func _on_route_decision_resolved(_decision: DecisionDefinition, option: DecisionOption) -> void:
-	if option.next_scene.is_empty():
-		return
 	if option.minigame != null:
 		await get_tree().process_frame  # Let the decision panel close first.
-		var ride: Minigame = option.minigame.instantiate() as Minigame
-		add_child(ride)
-		await ride.finished
+		var game: Minigame = option.minigame.instantiate() as Minigame
+		add_child(game)
+		await game.finished
+	if option.next_scene.is_empty():
+		return
 	Simulation.end_level(name)
 	SceneManager.jump_to(option.next_scene)
 
