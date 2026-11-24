@@ -13,5 +13,6 @@ sprite_frames = ExtResource("3_frames")
 sprite_animation = &"dark_street_b"
 hit_money = -3.0
 hit_time = -2.0
+hit_cooldown_seconds = 6.0
 tick_seconds = 0.3
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

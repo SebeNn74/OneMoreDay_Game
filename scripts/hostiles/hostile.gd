@@ -22,6 +22,7 @@ var _tick_elapsed: float = 0.0
 var _player: Player
 var _probe: RectangleShape2D
 var _has_reported_walk: bool = false
+var _cooldown_left: float = 0.0
 
 
 func _ready() -> void:
@@ -82,7 +83,17 @@ func _physics_process(delta: float) -> void:
 	if _tick_elapsed >= definition.tick_seconds:
 		_tick_elapsed -= definition.tick_seconds
 		_tick()
+	_update_cooldown(delta)
 	_check_contact()
+
+
+## The brain stays in COOLDOWN until this timer ends; then it patrols (and can hit) again.
+func _update_cooldown(delta: float) -> void:
+	if _cooldown_left <= 0.0:
+		return
+	_cooldown_left -= delta
+	if _cooldown_left <= 0.0:
+		_brain.reset()
 
 
 func _can_act() -> bool:
@@ -138,6 +149,7 @@ func _check_contact() -> void:
 
 
 func _hit(hurtbox: Hurtbox) -> void:
+	_cooldown_left = definition.hit_cooldown_seconds
 	hurtbox.receive_hit(self)
 	Simulation.apply_change(definition.hit_money, definition.hit_energy, definition.hit_time)
 	EventBus.hostile_hit.emit(definition)

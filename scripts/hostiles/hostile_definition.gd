@@ -24,6 +24,8 @@ extends Resource
 @export var hit_money: float = 0.0
 @export var hit_energy: float = 0.0
 @export var hit_time: float = 0.0
+## Seconds after a hit before this hostile can hit again (it keeps moving meanwhile).
+@export_range(0.5, 30.0, 0.5, "suffix:s") var hit_cooldown_seconds: float = 3.0
 
 @export_group("Movement")
 ## Seconds per cell step. One tick = one cell (GridUtils.CELL_SIZE px).

@@ -14,5 +14,6 @@ sprite_animation = &"moto_red"
 sprite_scale = 2.0
 hit_energy = -6.0
 hit_time = -2.0
+hit_cooldown_seconds = 4.0
 tick_seconds = 0.15
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

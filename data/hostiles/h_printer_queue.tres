@@ -13,5 +13,6 @@ sprite_frames = ExtResource("3_frames")
 sprite_animation = &"printer_queue_queue"
 hit_energy = -2.0
 hit_time = -6.0
+hit_cooldown_seconds = 2.5
 tick_seconds = 0.6
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

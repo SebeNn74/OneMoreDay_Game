@@ -3,7 +3,9 @@ extends RefCounted
 ## Agent rules of a hostile. Port of update_hostile() and chase_step() in
 ## simulation_standalone/jimenez_poveda_modelo4_agentes.py.
 ## State machine: PATROL -> CHASE (player within vision) -> COOLDOWN (after hitting).
-## A hostile hits at most once per scenario, as in the balance (tab 8).
+## Here COOLDOWN only ends with reset(). In the game, Hostile calls reset() after
+## HostileDefinition.hit_cooldown_seconds, so a hostile can hit again (the standalone
+## model keeps one hit per scenario, as in the balance, tab 8).
 
 signal state_changed(new_state: State)
 
@@ -33,7 +35,7 @@ func next_cell(cell: Vector2i, player_cell: Vector2i, rng: Lcg, is_free: Callabl
 	return RandomWalk.next_cell(cell, config.patrol, rng, is_free)
 
 
-## True when this contact is a hit (first contact of the scenario); then the hostile cools down.
+## True when this contact is a hit (not cooling down); then the hostile cools down until reset().
 func register_contact() -> bool:
 	if state == State.COOLDOWN:
 		return false
