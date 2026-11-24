@@ -141,8 +141,9 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
   Los paraderos de commute_01 y return_01 lo usan en el bus y en el taxi.
 - Minigame (scripts/minigames/minigame.gd): instrucciones, cuenta 3-2-1, juego, resultado con lo que costó;
   el juego queda en DIALOG mientras tanto.
-- Bus · "Aguanta el viaje" (bus_balance): péndulo inestable empujado por frenazos con llegadas de Poisson
-  (λ = 0,9/s). A/D corrigen; llegar al borde es una caída: -4 energía (máximo 3 caídas cobradas).
+- Bus · "Cuida la billetera" (bus_pickpocket): manos que salen hacia tu bolsillo con llegadas de Poisson
+  (λ = 1,1/s). A/D dan manotazo al lado correspondiente; cada mano que llega roba $1.000 (máximo 4); un manotazo
+  al aire bloquea ese lado 0,45 s.
 - Taxi · "Esquiva el trancón" (taxi_traffic): carros y motos con llegadas de Poisson (λ = 1,5/s), nunca en los
   tres carriles a la vez. A/D cambian de carril; cada choque: -3 tiempo y -$1.000 (máximo 4 cobrados).
 - Ambos reportan al terminar en la fila de Monte Carlo del panel de modelos.
@@ -154,9 +155,13 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
     (λ = 1,6/s); +1,5 energía por empanada (máx. 8).
 
 ## Colas, descanso y objetos
-- Fila (modelo 1): una DecisionOption con queue (QueueConfig). El botón muestra "N en la fila, espera estimada W de tiempo"
-  (Lq y Wq de QueueModel). La espera real se sortea al elegir (Simulation.queue_wait) y se avisa con una notificación.
-- Punto de fila: un Npc (scenes/npcs/npc.tscn) con una Decision de fila y su Action Text. QueueCrowd dibuja la gente (Lq).
+- Fila (modelo 1) en vivo: QueueCrowd (scripts/simulation_bridges/queue_crowd.gd) simula una M/M/1 en pantalla:
+  arranca con n ~ P(n) = (1 - ρ) ρ^n, llegan personas con tiempos exponenciales (λ) y el primero es atendido un tiempo
+  exponencial (μ) y se va. Un letrero muestra λ, μ, ρ y la fila. 1 unidad de tiempo = seconds_per_unit segundos.
+- Al elegir una DecisionOption con queue, si el nivel tiene un QueueCrowd con esa QueueConfig, el jugador se pone al
+  final y avanza con la fila; la espera es la que pasó (Simulation.record_queue_wait). El botón muestra Wq teórico y
+  cuántos hay ahora. Sin QueueCrowd se usa el sorteo directo (Simulation.queue_wait).
+- Punto de fila: un Npc (scenes/npcs/npc.tscn) con una Decision de fila; su QueueCrowd crece hacia `direction`.
 - Descanso (modelo 5): RestSpot (scenes/objects/rest_spot.tscn) pone Player.is_resting. PlayerSimulationBridge reporta REST;
   moverse o un golpe lo levanta, y termina solo cerca de la energía máxima.
 - Objetos: ItemDefinition (data/items/) + ItemPickup (scenes/objects/item_pickup.tscn), de un solo uso.
