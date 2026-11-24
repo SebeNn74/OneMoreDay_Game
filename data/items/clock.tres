@@ -7,6 +7,6 @@ script = ExtResource("1_d0oas")
 id = "ITEM-CLOCK"
 display_name = "Tiempo"
 action_text = "Ganar tiempo"
-time = 5.0
+time = 10.0
 sprite_animation = &"clock"
 metadata/_custom_type_script = "uid://cap1inobl0yu0"
