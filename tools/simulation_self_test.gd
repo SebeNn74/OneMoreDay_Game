@@ -33,9 +33,9 @@ const CHASER_STATES: Array[HostileBrain.State] = [
 	HostileBrain.State.CHASE, HostileBrain.State.CHASE, HostileBrain.State.CHASE, HostileBrain.State.CHASE,
 ]
 # Python model 5: (seconds, energy spent, time spent) walking across one scenario at dt = 1/60.
-const CROSSINGS: Dictionary = {100.0: [4.266666666666657, 5.0, 6.0], 25.0: [5.949999999999984, 6.97265625, 8.3671875]}
+const CROSSINGS: Dictionary = {100.0: [4.266666666666657, 5.0, 4.5], 25.0: [5.949999999999984, 6.97265625, 6.275390625]}
 const DRAIN: float = 1.171875
-const CLOCK: float = 1.40625
+const CLOCK: float = 1.0546875
 const CRITICAL_ENERGY: float = 17.320508075688775
 
 # Grids of the Python models 2 (platform) and 4 (street).
