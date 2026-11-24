@@ -45,6 +45,10 @@ signal notification_requested(text: String)
 @warning_ignore("unused_signal")
 signal notification_closed
 
+## Short phone message that does not stop the game and hides on its own (random events).
+@warning_ignore("unused_signal")
+signal toast_requested(text: String)
+
 # --- Decisions ---
 
 ## Asks the UI to show a decision and wait until the player picks an option.

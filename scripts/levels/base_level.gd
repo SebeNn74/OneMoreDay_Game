@@ -6,6 +6,8 @@ extends Node2D
 
 ## Size of one screen in pixels.
 const SCREEN_SIZE: Vector2i = Vector2i(640, 360)
+## Hits are ignored this long after the level starts, so nothing hits the player on arrival.
+const SPAWN_GRACE_SECONDS: float = 2.5
 ## Smallest travel distance accepted, so a badly placed exit cannot make the flows explode.
 const MIN_TRAVEL_DISTANCE: float = 64.0
 
@@ -13,6 +15,8 @@ const MIN_TRAVEL_DISTANCE: float = 64.0
 @export var consumes_resources: bool = true
 @export var level_size: Vector2i = SCREEN_SIZE
 @export_range(0.0, 10000.0, 1.0, "suffix:px") var travel_distance: float = 0.0
+## Where the level happens, for random events: "bus", "street", "office", "home".
+@export var place: String = ""
 ## What the player has to do here, shown when the level starts (player-visible, Spanish).
 @export_multiline var objective: String = "Llega a la salida"
 
@@ -28,6 +32,7 @@ const MIN_TRAVEL_DISTANCE: float = 64.0
 func _ready() -> void:
 	_validate_layout()
 	_player.global_position = _spawn_point.global_position
+	_player.hurtbox.grant_grace(SPAWN_GRACE_SECONDS)
 	_player.camera.set_level_bounds(level_size)
 	_bounds.build(Vector2(level_size))
 	_exit_zone.player_entered.connect(_on_exit_reached)

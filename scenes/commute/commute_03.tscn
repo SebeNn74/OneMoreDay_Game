@@ -36,6 +36,7 @@ footprint = Rect2(-20, -20, 40, 20)
 size = Vector2(68, 24)
 
 [node name="Commute03" unique_id=1642240116 instance=ExtResource("1_1m617")]
+place = "street"
 objective = "Llega a la puerta de la oficina"
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
@@ -110,3 +111,6 @@ shape = SubResource("RectangleShape2D_2xr1c")
 
 [node name="EventZone" parent="World/Triggers" parent_id_path=PackedInt32Array(1612492775) index="1" unique_id=512565548 instance=ExtResource("2_ukkwm")]
 position = Vector2(320, 180)
+
+[node name="SpawnPoint" parent="Setup" parent_id_path=PackedInt32Array(2066900773) index="1" unique_id=415891508]
+position = Vector2(50, 128)

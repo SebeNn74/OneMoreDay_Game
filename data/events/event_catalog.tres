@@ -43,6 +43,7 @@ weight = 2
 [sub_resource type="Resource" id="EV_06"]
 script = ExtResource("2_event")
 id = "EV-06"
+places = PackedStringArray("bus")
 stage = 1
 text = "Trancón en la avenida: el bus avanza más lento que a pie."
 time = -10.0
@@ -51,6 +52,7 @@ weight = 3
 [sub_resource type="Resource" id="EV_07"]
 script = ExtResource("2_event")
 id = "EV-07"
+places = PackedStringArray("bus")
 stage = 1
 text = "El bus va repleto. Todo el trayecto de pie y apretado."
 energy = -10.0
@@ -59,6 +61,7 @@ weight = 3
 [sub_resource type="Resource" id="EV_08"]
 script = ExtResource("2_event")
 id = "EV-08"
+places = PackedStringArray("street")
 stage = 1
 text = "Ves a alguien sospechoso en la parada y das la vuelta para evitarlo."
 energy = -5.0
@@ -76,6 +79,7 @@ weight = 2
 [sub_resource type="Resource" id="EV_10"]
 script = ExtResource("2_event")
 id = "EV-10"
+places = PackedStringArray("street")
 stage = 1
 text = "Un vecino te adelanta en moto: llegas rápido, pero le das para gasolina."
 money = -2.0
@@ -85,6 +89,7 @@ weight = 2
 [sub_resource type="Resource" id="EV_11"]
 script = ExtResource("2_event")
 id = "EV-11"
+places = PackedStringArray("bus")
 stage = 1
 text = "Un señor te cede el puesto en la buseta. Llegas descansado."
 energy = 10.0
@@ -156,6 +161,7 @@ weight = 2
 [sub_resource type="Resource" id="EV_19"]
 script = ExtResource("2_event")
 id = "EV-19"
+places = PackedStringArray("street")
 stage = 3
 text = "Paro de transporte: toca buscar otra ruta para volver."
 energy = -5.0
@@ -165,6 +171,7 @@ weight = 2
 [sub_resource type="Resource" id="EV_20"]
 script = ExtResource("2_event")
 id = "EV-20"
+places = PackedStringArray("bus")
 stage = 3
 text = "En el bus alguien te hurta parte del dinero del bolsillo."
 money = -5.0
@@ -181,6 +188,7 @@ weight = 3
 [sub_resource type="Resource" id="EV_22"]
 script = ExtResource("2_event")
 id = "EV-22"
+places = PackedStringArray("street")
 stage = 3
 text = "Aguacero fuerte: pagas un taxi compartido para no empaparte."
 money = -5.0

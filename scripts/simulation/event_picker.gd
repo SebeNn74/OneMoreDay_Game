@@ -22,20 +22,25 @@ func reset_day() -> void:
 		_pools[stage] = _catalog.of_stage(stage)
 
 
-## Draws and removes one event of [param stage]. Returns null when the stage has no events left.
-func draw(stage: GameEvent.Stage, rng: Lcg) -> GameEvent:
+## Draws and removes one event of [param stage] that can happen at [param place] (empty = any).
+## The weights are renormalized over those candidates. Returns null when none is left.
+func draw(stage: GameEvent.Stage, rng: Lcg, place: String = "") -> GameEvent:
 	var pool: Array[GameEvent] = _pools[stage]
-	if pool.is_empty():
+	var candidates: Array[int] = []
+	for i: int in pool.size():
+		if place.is_empty() or pool[i].places.is_empty() or place in pool[i].places:
+			candidates.append(i)
+	if candidates.is_empty():
 		return null
 	var weights: Array[float] = []
-	for event: GameEvent in pool:
-		weights.append(float(event.weight))
+	for i: int in candidates:
+		weights.append(float(pool[i].weight))
 	var index: int
 	if _catalog.mcmc_steps > 0:
 		index = MetropolisSampler.sample(weights, _catalog.mcmc_steps, rng)
 	else:
 		index = _direct_index(weights, rng)
-	return pool.pop_at(index)
+	return pool.pop_at(candidates[index])
 
 
 ## Inverse transform over the cumulative weights (classic Monte Carlo).

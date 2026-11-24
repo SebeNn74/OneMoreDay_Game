@@ -59,6 +59,12 @@ func _physics_process(delta: float) -> void:
 	_move(input_direction, delta)
 
 
+## Blinks while hits are ignored (level start), so the player knows it is safe for a moment.
+func _process(_delta: float) -> void:
+	var grace: float = hurtbox.grace_left()
+	animator.visible = grace <= 0.0 or int(grace * 10.0) % 2 == 0
+
+
 func is_controllable() -> bool:
 	return GameManager.current_state == GameState.Type.PLAYING and not SceneManager.is_transitioning()
 

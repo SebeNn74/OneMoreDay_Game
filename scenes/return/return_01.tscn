@@ -27,6 +27,7 @@
 size = Vector2(30, 258)
 
 [node name="Return01" unique_id=1642240116 instance=ExtResource("1_ymvnk")]
+place = "street"
 objective = "Llega al paradero y decide cómo volver"
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]

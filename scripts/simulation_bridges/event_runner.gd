@@ -1,14 +1,16 @@
 class_name EventRunner
 extends RefCounted
-## Runs one random event: draws it, shows its text and applies its effects.
+## Runs one random event: draws one that fits where the player is (BaseLevel.place), shows it as a
+## phone toast that does not stop the game, and applies its effects.
 
 
-## Returns the event that ran, or null if the stage has no events left today.
+## Returns the event that ran, or null if no event fits today.
 static func trigger(stage: GameEvent.Stage) -> GameEvent:
-	var event: GameEvent = Simulation.draw_event(stage)
+	var level: BaseLevel = (Engine.get_main_loop() as SceneTree).current_scene as BaseLevel
+	var event: GameEvent = Simulation.draw_event(stage, level.place if level != null else "")
 	if event == null:
 		return null
-	EventBus.notification_requested.emit(event.text)
+	EventBus.toast_requested.emit(event.text)
 	Simulation.apply_event(event)
 	EventBus.game_event_triggered.emit(event)
 	return event

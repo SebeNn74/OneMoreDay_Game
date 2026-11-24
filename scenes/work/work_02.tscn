@@ -27,6 +27,7 @@
 size = Vector2(35, 90)
 
 [node name="Work02" unique_id=1642240116 instance=ExtResource("1_7hn6c")]
+place = "office"
 objective = "Atraviesa la oficina. Las llamadas urgentes te persiguen"
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]

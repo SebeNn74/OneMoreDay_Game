@@ -37,6 +37,7 @@ metadata/_custom_type_script = "uid://blaehmx8jxbga"
 size = Vector2(42.5, 90)
 
 [node name="Work01" unique_id=1642240116 instance=ExtResource("1_320kb")]
+place = "office"
 objective = "Cruza la recepción hasta tu puesto"
 level_size = Vector2i(800, 600)
 

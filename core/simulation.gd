@@ -71,8 +71,8 @@ func queue_wait(config: QueueConfig) -> float:
 
 
 ## Model 3. Draws an event of [param stage] that has not happened today (null if none is left).
-func draw_event(stage: GameEvent.Stage) -> GameEvent:
-	var event: GameEvent = _event_picker.draw(stage, rng)
+func draw_event(stage: GameEvent.Stage, place: String = "") -> GameEvent:
+	var event: GameEvent = _event_picker.draw(stage, rng, place)
 	if event != null:
 		var sampler: String = ("MCMC Metropolis, %d pasos" % EVENT_CATALOG.mcmc_steps
 			if EVENT_CATALOG.mcmc_steps > 0 else "sorteo directo")

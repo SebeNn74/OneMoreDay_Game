@@ -174,7 +174,7 @@ func _is_cell_free(cell: Vector2i) -> bool:
 func _check_contact() -> void:
 	for area: Area2D in _hitbox.get_overlapping_areas():
 		var hurtbox: Hurtbox = area as Hurtbox
-		if hurtbox != null and _brain.register_contact():
+		if hurtbox != null and hurtbox.is_vulnerable() and _brain.register_contact():
 			_hit(hurtbox)
 			return
 
