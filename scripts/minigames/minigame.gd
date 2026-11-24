@@ -4,6 +4,7 @@ extends CanvasLayer
 ## while it runs, so hostiles and resource flows stop.
 ## Flow: intro (title + how to play) -> 3, 2, 1 -> play for duration_seconds -> result -> finished.
 ## Subclasses draw in _build(stage), update in _play(delta) and say what it cost in _result().
+## Each one implements a simulation model (model_name); a box shows it live (_model_text()).
 
 signal finished
 
@@ -19,6 +20,8 @@ const SMALL_FONT: int = 12
 @export var title: String = ""
 @export_multiline var instructions: String = ""
 @export_range(3.0, 60.0, 1.0, "suffix:s") var duration_seconds: float = 12.0
+## Simulation model this minigame runs (shown in the intro and in the live box).
+@export var model_name: String = ""
 
 enum Phase { INTRO, COUNTDOWN, PLAY, RESULT }
 
@@ -33,6 +36,7 @@ var _panel: PanelContainer
 var _panel_holder: CenterContainer
 var _panel_box: VBoxContainer
 var _big_label: Label
+var _model_box: Label
 
 
 func _ready() -> void:
@@ -61,8 +65,22 @@ func _ready() -> void:
 	_big_label.add_theme_color_override("font_outline_color", Color.BLACK)
 	add_child(_big_label)
 
+	_model_box = _make_label("", Color.WHITE, SMALL_FONT)
+	_model_box.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_model_box.position = Vector2(6.0, 24.0)
+	var box_style: StyleBoxFlat = StyleBoxFlat.new()
+	box_style.bg_color = Color(0.05, 0.08, 0.15, 0.82)
+	box_style.border_color = ACCENT
+	box_style.set_border_width_all(1)
+	box_style.set_corner_radius_all(3)
+	box_style.set_content_margin_all(4.0)
+	_model_box.add_theme_stylebox_override("normal", box_style)
+	_model_box.visible = false
+	add_child(_model_box)
+
 	_show_panel([
 		_make_label(title, ACCENT, 0, HORIZONTAL_ALIGNMENT_CENTER),
+		_make_label("Modelo: " + model_name, Color(0.6, 0.85, 1.0), SMALL_FONT, HORIZONTAL_ALIGNMENT_CENTER),
 		_make_label(instructions, Color.WHITE, SMALL_FONT),
 		_make_label(START_HINT, ACCENT, SMALL_FONT, HORIZONTAL_ALIGNMENT_RIGHT),
 	])
@@ -99,6 +117,11 @@ func _process(delta: float) -> void:
 			_time_left -= delta
 			_top_label.text = TIME_FORMAT % [title, maxf(_time_left, 0.0)]
 			_play(delta)
+			var model_text: String = _model_text()
+			_model_box.visible = not model_text.is_empty()
+			_model_box.text = "Modelo: %s
+%s" % [model_name, model_text]
+			_model_box.reset_size()
 			if _time_left <= 0.0:
 				AudioManager.play_sfx(&"go")
 				_show_result()
@@ -205,6 +228,11 @@ func _build(_stage_control: Control) -> void:
 ## Override: one frame of play.
 func _play(_delta: float) -> void:
 	pass
+
+
+## Override: live lines of the model box (empty = no box).
+func _model_text() -> String:
+	return ""
 
 
 ## Override: other input while playing (e.g. a lane change on a key press).

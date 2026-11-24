@@ -1,8 +1,11 @@
 class_name TaxiTrafficMinigame
 extends Minigame
 ## "Esquiva el trancón": the taxi drives up a three-lane avenue. Slower cars and motos appear ahead
-## as a Poisson process (exponential gaps, λ = SPAWN_RATE). A/D change lanes. Each crash costs
-## time and the meter keeps running (money).
+## (exponential gaps, λ = SPAWN_RATE). A/D change lanes. Each crash costs time and the meter keeps
+## running (money).
+## Model: random walk. Every WALK_TICK each vehicle takes one step of a random walk over the lanes:
+## left with P_LEFT, right with P_RIGHT, stays otherwise (a step into the curb is not taken). It turns
+## on the blinker BLINK_SECONDS before moving, so the player can react to the weaving traffic.
 
 const VEHICLE_FRAMES: SpriteFrames = preload("res://assets/sprites/enemies/enemy_sprite_frames.tres")
 const LANE_X: Array[float] = [200.0, 320.0, 440.0]
@@ -12,7 +15,7 @@ const TAXI_Y: float = 296.0
 const ROAD_SPEED: float = 280.0  # How fast the street scrolls under the taxi.
 const LANE_CHANGE_SPEED: float = 900.0
 ## Traffic: Poisson arrivals; each vehicle drives slower than the taxi, so it comes down the screen.
-const SPAWN_RATE: float = 1.5
+const SPAWN_RATE: float = 1.3
 const MIN_RELATIVE_SPEED: float = 150.0
 const MAX_RELATIVE_SPEED: float = 230.0
 ## Never close every lane: at most this many lanes hold a vehicle near the top at once.
@@ -23,10 +26,16 @@ const TIME_PER_CRASH: float = -3.0
 const MONEY_PER_CRASH: float = -1.0
 const MAX_CRASHES_CHARGED: int = 4
 const TYPES: Array[StringName] = [&"car_red_up", &"moto_blue_up", &"moto_red_up"]
+## Random walk over the lanes.
+const WALK_TICK: float = 0.8
+const P_LEFT: float = 0.2
+const P_RIGHT: float = 0.2
+const BLINK_SECONDS: float = 0.4
+const VEHICLE_LANE_SPEED: float = 260.0
 
 var _lane: int = 1
 var _taxi: AnimatedSprite2D
-var _vehicles: Array[Dictionary] = []  # {sprite, lane, speed, half}
+var _vehicles: Array[Dictionary] = []  # {sprite, lane, speed, half, tick, next_lane, blink}
 var _next_spawn: float = 0.6
 var _spawned: int = 0
 var _crashes: int = 0
@@ -35,11 +44,13 @@ var _scroll: float = 0.0
 var _canvas: Control
 var _traffic: Node2D
 var _rng: Lcg
+var _steps: Array[int] = [0, 0, 0]  # Random walk steps taken: left, stay, right.
 
 
 func _init() -> void:
 	title = "Esquiva el trancón"
-	instructions = "El taxi va por la avenida. Cambia de carril con A y D para no chocar con los carros y motos. Cada choque te quita tiempo y el taxímetro sigue corriendo."
+	instructions = "El taxi va por la avenida. Cambia de carril con A y D para no chocar. Los carros y motos zigzaguean al azar (caminata aleatoria): miren su direccional amarilla antes de que se pasen de carril. Cada choque te quita tiempo y el taxímetro sigue corriendo."
+	model_name = "Caminata aleatoria"
 	duration_seconds = 12.0
 
 
@@ -94,6 +105,8 @@ func _play(delta: float) -> void:
 		var vehicle: Dictionary = _vehicles[i]
 		var sprite: AnimatedSprite2D = vehicle.sprite
 		sprite.position.y += vehicle.speed * delta
+		_walk(vehicle, delta)
+		sprite.position.x = move_toward(sprite.position.x, LANE_X[vehicle.lane], VEHICLE_LANE_SPEED * delta)
 		var gap: Vector2 = (sprite.position - _taxi.position).abs()
 		var reach: Vector2 = (taxi_half + vehicle.half) * Vector2(0.7, 0.75)
 		if _invulnerable <= 0.0 and gap.x < reach.x and gap.y < reach.y:
@@ -125,8 +138,36 @@ func _spawn() -> void:
 	_vehicles.append({
 		"sprite": sprite, "lane": lane, "half": half,
 		"speed": MIN_RELATIVE_SPEED + _rng.next() * (MAX_RELATIVE_SPEED - MIN_RELATIVE_SPEED),
+		"tick": WALK_TICK * _rng.next(), "next_lane": lane, "blink": 0.0,
 	})
 	_spawned += 1
+
+
+## One step of the random walk: decide (and blink), then change lane after BLINK_SECONDS.
+func _walk(vehicle: Dictionary, delta: float) -> void:
+	if vehicle.blink > 0.0:
+		vehicle.blink -= delta
+		if vehicle.blink <= 0.0:
+			vehicle.lane = vehicle.next_lane
+		return
+	vehicle.tick -= delta
+	if vehicle.tick > 0.0:
+		return
+	vehicle.tick += WALK_TICK
+	var u: float = _rng.next()
+	var step: int = -1 if u < P_LEFT else (1 if u < P_LEFT + P_RIGHT else 0)
+	_steps[step + 1] += 1
+	var target: int = vehicle.lane + step
+	if step != 0 and target >= 0 and target < LANE_X.size():
+		vehicle.next_lane = target
+		vehicle.blink = BLINK_SECONDS
+
+
+func _model_text() -> String:
+	var total: int = maxi(_steps[0] + _steps[1] + _steps[2], 1)
+	return "Cada %.1f s: P(izq) = %.2f  P(der) = %.2f  P(seguir) = %.2f\nPasos observados: izq %.2f  seguir %.2f  der %.2f" % [
+		WALK_TICK, P_LEFT, P_RIGHT, 1.0 - P_LEFT - P_RIGHT,
+		float(_steps[0]) / total, float(_steps[1]) / total, float(_steps[2]) / total]
 
 
 func _half_size(sprite: AnimatedSprite2D) -> Vector2:
@@ -143,8 +184,9 @@ func _crash() -> void:
 
 
 func _result() -> Dictionary:
-	Simulation.report(Simulation.MODEL_MONTE_CARLO, "Taxi: %d vehículos (llegadas de Poisson, λ = %.1f/s), %d choques" % [
-		_spawned, SPAWN_RATE, _crashes])
+	var total: int = maxi(_steps[0] + _steps[1] + _steps[2], 1)
+	Simulation.report(Simulation.MODEL_RANDOM_WALK, "Taxi: %d pasos de caminata en %d vehículos (izq %.2f / der %.2f, teórico %.2f), %d choques" % [
+		total, _spawned, float(_steps[0]) / total, float(_steps[2]) / total, P_LEFT, _crashes])
 	var charged: int = mini(_crashes, MAX_CRASHES_CHARGED)
 	var summary: String = "¡Viaje limpio, sin choques!" if _crashes == 0 else (
 		"Chocaste 1 vez" if _crashes == 1 else "Chocaste %d veces" % _crashes)
@@ -169,3 +211,9 @@ func _draw_street() -> void:
 		while y < SCREEN.y:
 			c.draw_rect(Rect2(x - 2.0, y, 4.0, 30.0), Color("e8e4d8"))
 			y += 64.0
+	for vehicle: Dictionary in _vehicles:  # Blinkers of the vehicles about to change lane.
+		if vehicle.blink > 0.0 and int(vehicle.blink * 10.0) % 2 == 0:
+			var sprite: AnimatedSprite2D = vehicle.sprite
+			var side: float = signf(vehicle.next_lane - vehicle.lane)
+			var corner: Vector2 = sprite.position + Vector2(side * vehicle.half.x * 0.8, vehicle.half.y * 0.5)
+			c.draw_rect(Rect2(corner - Vector2(5.0, 5.0), Vector2(10.0, 10.0)), Color(1.0, 0.8, 0.1))

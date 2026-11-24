@@ -136,23 +136,25 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
 - Un hostil queda inmóvil fuera del estado PLAYING (diálogo, pausa, transiciones).
 - EventBus.hostile_hit(definition) es para logs y finales.
 
-## Minijuegos de viaje
-- DecisionOption.minigame: escena (Minigame) que se juega al elegir esa ruta, antes de cambiar de nivel.
-  Los paraderos de commute_01 y return_01 lo usan en el bus y en el taxi.
-- Minigame (scripts/minigames/minigame.gd): instrucciones, cuenta 3-2-1, juego, resultado con lo que costó;
-  el juego queda en DIALOG mientras tanto.
-- Bus · "Cuida la billetera" (bus_pickpocket): manos que salen hacia tu bolsillo con llegadas de Poisson
-  (λ = 1,1/s). A/D dan manotazo al lado correspondiente; cada mano que llega roba $1.000 (máximo 4); un manotazo
-  al aire bloquea ese lado 0,45 s.
-- Taxi · "Esquiva el trancón" (taxi_traffic): carros y motos con llegadas de Poisson (λ = 1,5/s), nunca en los
-  tres carriles a la vez. A/D cambian de carril; cada choque: -3 tiempo y -$1.000 (máximo 4 cobrados).
-- Ambos reportan al terminar en la fila de Monte Carlo del panel de modelos.
-- En charlas con NPC (la primera opción de cada uno; el minijuego suma o resta sobre el efecto de la opción):
-  - Vendedora de tinto · "Sirve el tinto" (tinto_timing): 3 rondas de presionar E en la zona; -3 a +6 energía.
-  - Compañero · "Ordena el informe" (report_sequence): repetir secuencias W A S D; +$1.000 por hoja (máx. 4),
-    -1 energía por error (máx. 5).
-  - Vendedor de empanadas · "Atrapa las empanadas" (empanada_catch): lanzamientos con llegadas de Poisson
-    (λ = 1,6/s); +1,5 energía por empanada (máx. 8).
+## Minijuegos (cada uno implementa un modelo)
+- DecisionOption.minigame: escena (Minigame) que se juega al elegir la opción; su resultado suma o resta sobre el
+  efecto de la opción. Con next_scene (bus, taxi) el cambio de nivel ocurre al terminar.
+- Minigame (scripts/minigames/minigame.gd): instrucciones con el nombre del modelo, cuenta 3-2-1, juego con un
+  recuadro que muestra el modelo en vivo (_model_text), resultado con lo que costó. El juego queda en DIALOG.
+- Bus · "Cuida la billetera" (bus_pickpocket) — Basado en agentes: cada ladrón es un agente
+  (observa → tantea → roba → huye) con audacia propia; intenta con probabilidad tasa·audacia·(1 − tu atención en su
+  lado). Pillarlo lo asusta (y al otro lo vuelve cauto); robar lo envalentona. A/D manotazo; robo = -$1.000 (máx. 4).
+- Taxi · "Esquiva el trancón" (taxi_traffic) — Caminata aleatoria: cada 0,8 s cada vehículo da un paso
+  (izquierda 0,2 / derecha 0,2 / seguir 0,6) con direccional antes de cambiarse. A/D cambian de carril;
+  choque = -3 tiempo y -$1.000 (máx. 4).
+- Tinto · "Sirve el tinto" (tinto_timing) — Dinámica de sistemas: el nivel L es el acumulado del caudal q
+  (dL/dt = q); mantener E abre la llave (q sube) y al soltar q decae con c = 4, así que sigue cayendo café.
+  Tres pocillos a su raya; -3 a +6 energía.
+- Compañero · "Ordena el informe" (report_sequence) — Cadena de Markov: cada tecla sale de la fila de la matriz de
+  transición de la anterior; solo se ven 2 teclas, el resto se anticipa con la matriz en pantalla.
+  +$1.000 por hoja (máx. 4), -1 energía por error (máx. 5).
+- Empanadas · "Atrapa las empanadas" (empanada_catch) — Monte Carlo: los puntos de caída son muestras de una
+  mezcla de dos normales (Box-Muller); el histograma de caídas estima la distribución. +1,5 energía por empanada (máx. 8).
 
 ## Colas, descanso y objetos
 - Fila (modelo 1) en vivo: QueueCrowd (scripts/simulation_bridges/queue_crowd.gd) simula una M/M/1 en pantalla:

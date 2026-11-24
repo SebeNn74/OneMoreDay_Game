@@ -1,6 +1,9 @@
 class_name ReportSequenceMinigame
 extends Minigame
 ## "Ordena el informe": repeat key sequences (W A S D or the arrows) as fast as you can.
+## Model: Markov chain. Each next key is drawn from the row of TRANSITIONS of the current key, so
+## the sequences have habits (W tends to A, A to S...). Only the next VISIBLE_AHEAD keys are shown;
+## the rest are "?", and the matrix on screen lets the player anticipate them.
 ## Each finished sequence is a page; each wrong key restarts the sequence and tires you.
 
 const NPC_FRAMES: SpriteFrames = preload("res://assets/sprites/npcs/npc_sprite_frames.tres")
@@ -16,6 +19,14 @@ const MAX_MISTAKES_CHARGED: int = 5
 const LETTER_SIZE: int = 40
 const LETTER_GAP: float = 56.0
 const ROW_Y: float = 250.0
+const VISIBLE_AHEAD: int = 2
+## P(next | current), rows and columns in KEY_LABELS order (W A S D). Each row sums 1.
+const TRANSITIONS: Array = [
+	[0.05, 0.60, 0.05, 0.30],
+	[0.10, 0.05, 0.75, 0.10],
+	[0.15, 0.05, 0.05, 0.75],
+	[0.70, 0.10, 0.10, 0.10],
+]
 
 var _sequence: Array[int] = []
 var _typed: int = 0
@@ -24,11 +35,14 @@ var _mistakes: int = 0
 var _flash: float = 0.0
 var _canvas: Control
 var _rng: Lcg
+var _counts: Array = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+var _last_key: int = -1
 
 
 func _init() -> void:
 	title = "Ordena el informe"
-	instructions = "Ayúdale a tu compañero a ordenar el informe: repite cada secuencia de teclas (W A S D o las flechas). Cada hoja terminada te paga más; cada error te cansa."
+	instructions = "Ayúdale a tu compañero a ordenar el informe: repite cada secuencia de teclas (W A S D o las flechas). Solo ves las próximas 2; el resto se adivina con la tabla de probabilidades (cadena de Markov). Cada hoja te paga más; cada error te cansa."
+	model_name = "Cadena de Markov"
 	duration_seconds = 12.0
 
 
@@ -49,9 +63,27 @@ func _build(stage: Control) -> void:
 
 func _new_sequence() -> void:
 	_sequence.clear()
+	var key: int = _last_key if _last_key >= 0 else _rng.index(KEYS.size())
 	for i: int in mini(START_LENGTH + _pages, MAX_LENGTH):
-		_sequence.append(_rng.index(KEYS.size()))
+		if i > 0 or _last_key >= 0:
+			key = _next_key(key)
+		_sequence.append(key)
+	_last_key = key
 	_typed = 0
+
+
+## One step of the chain: inverse transform over the row of [param current].
+func _next_key(current: int) -> int:
+	var row: Array = TRANSITIONS[current]
+	var target: float = _rng.next()
+	var accumulated: float = 0.0
+	for k: int in row.size():
+		accumulated += row[k]
+		if target < accumulated:
+			_counts[current][k] += 1
+			return k
+	_counts[current][row.size() - 1] += 1
+	return row.size() - 1
 
 
 func _on_input(event: InputEvent) -> void:
@@ -82,7 +114,31 @@ func _play(delta: float) -> void:
 	_canvas.queue_redraw()
 
 
+## The row the player needs: it predicts the first hidden key.
+func _predicting_key() -> int:
+	return _sequence[mini(_typed + VISIBLE_AHEAD - 1, _sequence.size() - 1)]
+
+
+func _model_text() -> String:
+	var row: Array = TRANSITIONS[_predicting_key()]
+	var parts: PackedStringArray = []
+	for k: int in row.size():
+		parts.append("%s %d%%" % [KEY_LABELS[k], roundi(row[k] * 100.0)])
+	return "Después de %s viene: %s" % [KEY_LABELS[_predicting_key()], "  ".join(parts)]
+
+
 func _result() -> Dictionary:
+	var total: int = 0
+	var w_to_a: int = 0
+	var from_w: int = 0
+	for i: int in 4:
+		for k: int in 4:
+			total += _counts[i][k]
+	for k: int in 4:
+		from_w += _counts[0][k]
+	w_to_a = _counts[0][1]
+	Simulation.report(Simulation.MODEL_MONTE_CARLO, "Informe (cadena de Markov): %d transiciones, P(A|W) observada %.2f vs 0.60" % [
+		total, float(w_to_a) / maxf(from_w, 1.0)])
 	var paid: int = mini(_pages, MAX_PAGES_PAID)
 	var charged: int = mini(_mistakes, MAX_MISTAKES_CHARGED)
 	var summary: String = "Ordenaste %d %s (%d %s)" % [
@@ -106,7 +162,26 @@ func _draw_scene() -> void:
 		var color: Color = Color("3fae5a") if i < _typed else Color.WHITE
 		if _flash > 0.0:
 			color = Color("e74c3c")
+		var hidden: bool = i >= _typed + VISIBLE_AHEAD
 		var x: float = start_x + i * LETTER_GAP
 		c.draw_rect(Rect2(x - 22.0, ROW_Y - 40.0, 44.0, 50.0), Color(0.0, 0.0, 0.0, 0.6))
-		c.draw_string(font, Vector2(x - 12.0, ROW_Y), KEY_LABELS[_sequence[i]], HORIZONTAL_ALIGNMENT_LEFT, -1, LETTER_SIZE, color)
+		c.draw_string(font, Vector2(x - 12.0, ROW_Y), "?" if hidden else KEY_LABELS[_sequence[i]], HORIZONTAL_ALIGNMENT_LEFT, -1, LETTER_SIZE, Color(0.6, 0.6, 0.6) if hidden else color)
+	_draw_matrix(c, font)
 	c.draw_string(font, Vector2(20.0, 340.0), "Hojas: %d   Errores: %d" % [_pages, _mistakes], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color.WHITE)
+
+
+## Transition matrix in the corner; the row that predicts the first hidden key is highlighted.
+func _draw_matrix(c: Control, font: Font) -> void:
+	var origin: Vector2 = Vector2(456.0, 272.0)
+	var cell: Vector2 = Vector2(40.0, 15.0)
+	c.draw_rect(Rect2(origin - Vector2(30.0, 18.0), Vector2(cell.x * 4.0 + 36.0, cell.y * 5.0 + 8.0)), Color(0.0, 0.0, 0.0, 0.65))
+	for k: int in 4:
+		c.draw_string(font, origin + Vector2(k * cell.x + 8.0, -5.0), KEY_LABELS[k], HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0.6, 0.85, 1.0))
+	var current: int = _predicting_key()
+	for i: int in 4:
+		var y: float = origin.y + i * cell.y + 10.0
+		if i == current:
+			c.draw_rect(Rect2(origin.x - 26.0, y - 11.0, cell.x * 4.0 + 28.0, cell.y), Color(1.0, 0.85, 0.3, 0.3))
+		c.draw_string(font, Vector2(origin.x - 22.0, y), KEY_LABELS[i], HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0.6, 0.85, 1.0))
+		for k: int in 4:
+			c.draw_string(font, Vector2(origin.x + k * cell.x, y), "%.2f" % TRANSITIONS[i][k], HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color.WHITE)
