@@ -136,6 +136,8 @@ func _half_size(sprite: AnimatedSprite2D) -> Vector2:
 func _crash() -> void:
 	_crashes += 1
 	_invulnerable = INVULNERABLE_SECONDS
+	AudioManager.play_sfx(&"crash")
+	AudioManager.play_sfx(&"honk", 1.1)
 	_big_label.text = "¡Choque!"
 	_phase_time = 0.0
 

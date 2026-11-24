@@ -39,6 +39,7 @@ func _ready() -> void:
 	layer = DRAW_LAYER
 	if GameManager.current_state == GameState.Type.PLAYING:
 		GameManager.change_state(GameState.Type.DIALOG)
+	AudioManager.play_temporary_music(&"minigame")
 	_stage = Control.new()
 	_stage.size = SCREEN
 	_stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -85,7 +86,10 @@ func _process(delta: float) -> void:
 	match _phase:
 		Phase.COUNTDOWN:
 			var left: int = ceili(COUNTDOWN_SECONDS - _phase_time)
-			_big_label.text = str(left) if left > 0 else "¡Ya!"
+			var text: String = str(left) if left > 0 else "¡Ya!"
+			if text != _big_label.text:
+				AudioManager.play_sfx(&"countdown" if left > 0 else &"go")
+			_big_label.text = text
 			if _phase_time >= COUNTDOWN_SECONDS:
 				_time_left = duration_seconds
 				_set_phase(Phase.PLAY)
@@ -96,6 +100,7 @@ func _process(delta: float) -> void:
 			_top_label.text = TIME_FORMAT % [title, maxf(_time_left, 0.0)]
 			_play(delta)
 			if _time_left <= 0.0:
+				AudioManager.play_sfx(&"go")
 				_show_result()
 
 
@@ -118,6 +123,7 @@ func _show_result() -> void:
 
 
 func _finish() -> void:
+	AudioManager.resume_stage_music()
 	if GameManager.current_state == GameState.Type.DIALOG:
 		GameManager.change_state(GameState.Type.PLAYING)
 	# After leaving DIALOG, so a depleted stat ends the day right away.

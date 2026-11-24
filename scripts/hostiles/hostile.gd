@@ -9,6 +9,8 @@ const COOLDOWN_TINT: Color = Color(0.6, 0.6, 0.6)
 ## only touches the edge of the cell does not block it.
 const CELL_PROBE_SIZE: float = GridUtils.CELL_SIZE - 4.0
 const DEBUG_VISION_COLOR: Color = Color(1.0, 0.3, 0.3, 0.6)
+## Vehicles honk when they enter the road this close to the player.
+const HONK_DISTANCE: float = 420.0
 
 @export var definition: HostileDefinition
 ## Vehicles only: direction of the lane. Zero picks the longer free axis at the start position.
@@ -198,6 +200,7 @@ func _drive(delta: float) -> void:
 		if _lane_wait <= 0.0:
 			global_position = _lane_from
 			_animated_sprite.visible = true
+			_honk_if_near()
 			Simulation.report(Simulation.MODEL_MONTE_CARLO, "%s cruza (llegadas de Poisson, λ = %.2f/s)" % [
 				definition.id, 1.0 / definition.mean_gap_seconds])
 		return
@@ -205,6 +208,13 @@ func _drive(delta: float) -> void:
 	if global_position.is_equal_approx(_lane_to):
 		_animated_sprite.visible = false
 		_lane_wait = Simulation.rng.exponential(1.0 / definition.mean_gap_seconds)
+
+
+## A vehicle entering near the player honks, so it can be heard before it is seen.
+func _honk_if_near() -> void:
+	var player: Player = _find_player()
+	if player != null and player.global_position.distance_to(global_position) < HONK_DISTANCE:
+		AudioManager.play_sfx(&"honk", randf_range(0.9, 1.15))
 
 
 ## Runs once physics is ready: finds how far the road goes both ways from the placed position.

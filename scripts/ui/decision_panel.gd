@@ -235,6 +235,7 @@ func _move_selection(step: int) -> void:
 		var index: int = posmod(_selected + step * offset, count)
 		if _enabled[index]:
 			_select(index)
+			AudioManager.play_sfx(&"ui_move")
 			return
 
 

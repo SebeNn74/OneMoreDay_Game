@@ -108,6 +108,7 @@ func _play(delta: float) -> void:
 		_lean_speed += push
 		_city_speed = CRUISE_SPEED * (0.3 if push > 0.0 else 1.6)  # Leaning forward = braking.
 		_next_jolt = _rng.exponential(JOLT_RATE)
+		AudioManager.play_sfx(&"jolt", 0.8 + absf(push) * 0.15)
 		if absf(push) > 1.7:
 			_big_label.text = "¡Frenazo!" if push > 0.0 else "¡Arrancón!"
 			_phase_time = 0.0
@@ -137,6 +138,7 @@ func _fall() -> void:
 	_lean = 0.0
 	_lean_speed = 0.0
 	_player.play(&"fall")
+	AudioManager.play_sfx(&"fall")
 	_big_label.text = "¡Te caíste!"
 	_phase_time = 0.0
 
