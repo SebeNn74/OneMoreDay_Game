@@ -70,6 +70,7 @@ texture = ExtResource("10_h2j5q")
 unique_name_in_owner = true
 position = Vector2(846, 286)
 decision = ExtResource("3_re031")
+sprite_animation = &"supervisor"
 action_text = "Ver las ventanillas"
 
 [node name="WindowACrowd" type="Node2D" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=327013748]
