@@ -14,5 +14,5 @@ sprite_animation = &"suspicious_brown"
 hit_money = -3.0
 hit_time = -1.0
 hit_cooldown_seconds = 6.0
-tick_seconds = 0.3
+tick_seconds = 0.24
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

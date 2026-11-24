@@ -126,7 +126,10 @@ func _test_events() -> void:
 
 func _test_hostile() -> void:
 	var config: HostileConfig = load("res://data/simulation/hostile_chaser.tres").duplicate()
+	# Pin the Python reference parameters: the game's own tuning lives in the same file.
 	config.vision_radius = 3
+	config.chase_probability = 0.6
+	config.lose_margin = 2
 	var brain: HostileBrain = HostileBrain.new(config)
 	var rng: Lcg = Lcg.new(SEED)
 	var is_free: Callable = _grid_checker(STREET_SIZE, STREET_BLOCKED)

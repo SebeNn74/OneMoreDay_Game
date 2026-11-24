@@ -14,5 +14,5 @@ sprite_animation = &"call_white"
 hit_energy = -2.0
 hit_time = -3.0
 hit_cooldown_seconds = 4.0
-tick_seconds = 0.25
+tick_seconds = 0.22
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

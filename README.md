@@ -116,13 +116,18 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
 
 ## Hostiles
 - Datos: HostileDefinition (data/hostiles/): id, comportamiento (HostileConfig de P2), efecto del golpe, tick y color.
-- Hostile (scenes/hostiles/hostile.tscn, en World/Entities): se mueve celda a celda (GridUtils.CELL_SIZE = 32 px),
-  decide con HostileBrain (caminata + persecución) y golpea una sola vez por escenario al tocar el Hurtbox del jugador.
-- Una celda está libre si una consulta de física no choca con world ni decoration (paredes, LevelBounds, muebles).
+- Hostile (scenes/hostiles/hostile.tscn, en World/Entities): se mueve celda a celda (GridUtils.CELL_SIZE = 32 px)
+  y decide con HostileBrain (caminata + persecución). Tras golpear espera hit_cooldown_seconds y puede volver a golpear.
+- Una celda está libre si una consulta de física del tamaño del cuerpo no choca con world ni decoration y el sprite
+  queda dentro del nivel (los hostiles grandes no se montan en paredes ni salen del mapa).
+- Persiguen (HostileConfig.chases): visión de 4 casillas, avanzan el 75 % de los turnos y renuncian 3 casillas
+  más allá de la visión. Para escapar hay que correr (gasta más energía: modelo 5).
+- Vehículos (HostileDefinition.drives_in_lane): van en línea recta por su calle y vuelven tras esperas exponenciales
+  (llegadas de Poisson, λ = 1/mean_gap_seconds; se reporta como Monte Carlo). El carril se elige solo (el eje libre
+  más largo desde donde se puso) o con Hostile.lane_direction.
+- Un golpe empuja al jugador (knockback_strength), lo pinta de rojo y sacude la cámara.
 - Un hostil queda inmóvil fuera del estado PLAYING (diálogo, pausa, transiciones).
-- Player: grupo "player", hijo Hurtbox y animación hurt al recibir un golpe.
 - EventBus.hostile_hit(definition) es para logs y finales.
-- Daño por defecto (Guía): -5 energía y -2 tiempo. Los hostiles de dinero (H-I3, H-V3) quitan -2 de dinero.
 
 ## Colas, descanso y objetos
 - Fila (modelo 1): una DecisionOption con queue (QueueConfig). El botón muestra "N en la fila, espera estimada W de tiempo"
