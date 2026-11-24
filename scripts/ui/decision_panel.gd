@@ -40,6 +40,8 @@ var _enabled: Array[bool] = []
 var _selected: int = 0
 var _opened_frame: int = -1
 var _is_resolved: bool = true
+## Lines drawn for queues that have no QueueCrowd on the map (see _people_in).
+var _drawn_lines: Dictionary = {}
 var _card_style: StyleBoxFlat = _make_card_style(CARD_COLOR, Color.TRANSPARENT)
 var _selected_style: StyleBoxFlat = _make_card_style(CARD_SELECTED_COLOR, ACCENT_COLOR)
 
@@ -150,17 +152,30 @@ func _add_effect_chips(chips: HBoxContainer, option: DecisionOption) -> void:
 		))
 
 
-## Model 1: a queue option shows the visible line and the estimated wait.
-## The real wait is random and only known once chosen.
+## Model 1: a queue option shows the theoretical wait and how many people are in that line now
+## (the same line QueueScreen starts with). The real wait is only known once in line.
 func _add_queue_chips(chips: HBoxContainer, queue: QueueConfig) -> void:
 	chips.add_child(_make_chip(
 		StatsManager.get_definition(StatDefinition.Type.TIME).icon,
 		QUEUE_WAIT_FORMAT % QueueModel.mean_wait(queue),
 		LOSS_COLOR,
 	))
+	chips.add_child(_make_chip(null, QUEUE_LENGTH_FORMAT % _people_in(queue), NEUTRAL_COLOR))
+
+
+## People in the line of [param queue]: the one on the map, or a draw from P(n) = (1 - ρ) ρ^n
+## (remembered, so the panel and the queue screen agree) when the level has no line on the map.
+func _people_in(queue: QueueConfig) -> int:
 	var crowd: QueueCrowd = _live_queue(queue)
-	var people: int = crowd.people_in_line() if crowd != null else roundi(QueueModel.mean_queue_length(queue))
-	chips.add_child(_make_chip(null, QUEUE_LENGTH_FORMAT % people, NEUTRAL_COLOR))
+	if crowd != null:
+		return crowd.people_in_line()
+	if not _drawn_lines.has(queue):
+		var rho: float = QueueModel.utilization(queue)
+		var people: int = 0
+		while Simulation.rng.next() < rho and people < QueueCrowd.MAX_PEOPLE - 1:
+			people += 1
+		_drawn_lines[queue] = people
+	return _drawn_lines[queue]
 
 
 ## The QueueCrowd of the current level that simulates [param queue], if any.
@@ -257,14 +272,17 @@ func _choose(index: int) -> void:
 	_is_resolved = true
 	var option: DecisionOption = _decision.options[index]
 	Simulation.apply_change(option.money, option.energy, option.time)
-	var crowd: QueueCrowd = _live_queue(option.queue) if option.queue != null else null
-	if crowd != null:
-		# Model 1 live: the player joins the line on screen and waits for real.
+	if option.queue != null:
+		# Model 1: the player joins the line in QueueScreen, with the people shown in the panel.
 		var decision: DecisionDefinition = _decision
+		var crowd: QueueCrowd = _live_queue(option.queue)
+		var ahead: int = _people_in(option.queue)
+		_drawn_lines.erase(option.queue)
 		_close()
-		var player: Player = get_tree().get_first_node_in_group(Player.GROUP) as Player
-		var wait: float = await crowd.serve_player(player)
-		Simulation.record_queue_wait(option.queue, wait)
+		var screen: QueueScreen = QueueScreen.open(get_tree().current_scene, option.queue, ahead)
+		await screen.finished
+		if crowd != null:
+			crowd.set_people(screen.people_left())
 		EventBus.decision_resolved.emit(decision, option)
 		return
 	var wait_message: String = _apply_queue_wait(option)

@@ -159,12 +159,14 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
   mezcla de dos normales (Box-Muller); el histograma de caídas estima la distribución. +1,5 energía por empanada (máx. 8).
 
 ## Colas, descanso y objetos
-- Fila (modelo 1) en vivo: QueueCrowd (scripts/simulation_bridges/queue_crowd.gd) simula una M/M/1 en pantalla:
-  arranca con n ~ P(n) = (1 - ρ) ρ^n, llegan personas con tiempos exponenciales (λ) y el primero es atendido un tiempo
-  exponencial (μ) y se va. Un letrero muestra λ, μ, ρ y la fila. 1 unidad de tiempo = seconds_per_unit segundos.
-- Al elegir una DecisionOption con queue, si el nivel tiene un QueueCrowd con esa QueueConfig, el jugador se pone al
-  final y avanza con la fila; la espera es la que pasó (Simulation.record_queue_wait). El botón muestra Wq teórico y
-  cuántos hay ahora. Sin QueueCrowd se usa el sorteo directo (Simulation.queue_wait).
+- Fila (modelo 1): QueueCrowd (scripts/simulation_bridges/queue_crowd.gd) es la fila del mapa: arranca con
+  n ~ P(n) = (1 - ρ) ρ^n, llegan personas con tiempos exponenciales (λ) y el primero es atendido un tiempo exponencial
+  (μ). Se congela durante los diálogos, así que el número del panel de decisión es el que se va a encontrar.
+- Al elegir una opción con queue se abre QueueScreen (scripts/ui/queue_screen.gd): escena del paradero (bus al frente)
+  o de la ventanilla, el jugador al final de la misma fila, panel con λ, μ, ρ, Lq y Wq teóricos y el estado en vivo
+  (delante, detrás, minutos esperados) y la gráfica N(t) contra L = ρ/(1 - ρ). Mantener E adelanta el tiempo.
+  La espera es el tiempo hasta llegar al frente (Simulation.record_queue_wait); al volver, la fila del mapa queda
+  con la gente que llegó detrás.
 - Punto de fila: un Npc (scenes/npcs/npc.tscn) con una Decision de fila; su QueueCrowd crece hacia `direction`.
 - Descanso (modelo 5): RestSpot (scenes/objects/rest_spot.tscn) pone Player.is_resting. PlayerSimulationBridge reporta REST;
   moverse o un golpe lo levanta, y termina solo cerca de la energía máxima.
