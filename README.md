@@ -136,6 +136,17 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
 - Un hostil queda inmóvil fuera del estado PLAYING (diálogo, pausa, transiciones).
 - EventBus.hostile_hit(definition) es para logs y finales.
 
+## Minijuegos de viaje
+- DecisionOption.minigame: escena (Minigame) que se juega al elegir esa ruta, antes de cambiar de nivel.
+  Los paraderos de commute_01 y return_01 lo usan en el bus y en el taxi.
+- Minigame (scripts/minigames/minigame.gd): instrucciones, cuenta 3-2-1, juego, resultado con lo que costó;
+  el juego queda en DIALOG mientras tanto.
+- Bus · "Aguanta el viaje" (bus_balance): péndulo inestable empujado por frenazos con llegadas de Poisson
+  (λ = 0,9/s). A/D corrigen; llegar al borde es una caída: -4 energía (máximo 3 caídas cobradas).
+- Taxi · "Esquiva el trancón" (taxi_traffic): carros y motos con llegadas de Poisson (λ = 1,5/s), nunca en los
+  tres carriles a la vez. A/D cambian de carril; cada choque: -3 tiempo y -$1.000 (máximo 4 cobrados).
+- Ambos reportan al terminar en la fila de Monte Carlo del panel de modelos.
+
 ## Colas, descanso y objetos
 - Fila (modelo 1): una DecisionOption con queue (QueueConfig). El botón muestra "N en la fila, espera estimada W de tiempo"
   (Lq y Wq de QueueModel). La espera real se sortea al elegir (Simulation.queue_wait) y se avisa con una notificación.

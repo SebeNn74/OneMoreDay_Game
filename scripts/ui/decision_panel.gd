@@ -248,7 +248,7 @@ func _choose(index: int) -> void:
 	EventBus.decision_resolved.emit(_decision, option)
 	_close()
 	if (not wait_message.is_empty() and GameManager.current_state == GameState.Type.PLAYING
-			and not SceneManager.is_transitioning()):
+			and not SceneManager.is_transitioning() and option.next_scene.is_empty()):
 		EventBus.notification_requested.emit(wait_message)
 
 

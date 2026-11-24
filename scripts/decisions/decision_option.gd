@@ -11,3 +11,5 @@ extends Resource
 ## Route choice: picking this option leaves the level for this scene instead of the exit.
 ## A later step of the day is skipped to (taxi); any other scene replaces the next step (bus).
 @export_file("*.tscn") var next_scene: String = ""
+## Played on the way to next_scene (a Minigame scene: the bus or taxi ride). Its cost adds up.
+@export var minigame: PackedScene
