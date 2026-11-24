@@ -81,6 +81,8 @@ cuando el modelo actúa (Simulation.model_used) y guarda lo último que hizo dur
 dinámica muestra en vivo los flujos de energía y tiempo por segundo y el factor de velocidad.
 
 ## Guía al jugador
+- BaseLevel.required_npc: la salida queda cerrada hasta decidir con ese NPC (paraderos, conductor del bus,
+  compañero, supervisora, vecina); la flecha apunta al NPC y tocar la salida avisa con quién hablar.
 - LevelGuide (scripts/ui/level_guide.gd, en base_level): tarjeta "Cómo jugar" la primera vez que empieza un día
   en la sesión; al entrar a cada nivel, un aviso con la etapa y BaseLevel.objective (texto por escena); y una flecha
   amarilla hacia BaseLevel.get_guide_target() (la salida; la casa apunta al celular y El Marcador a la carpeta más

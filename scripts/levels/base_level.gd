@@ -17,6 +17,11 @@ const MIN_TRAVEL_DISTANCE: float = 64.0
 @export_range(0.0, 10000.0, 1.0, "suffix:px") var travel_distance: float = 0.0
 ## Where the level happens, for random events: "bus", "street", "office", "home".
 @export var place: String = ""
+## The exit stays closed until the player decides with this NPC (the key interaction of the level).
+## The guide arrow points at it meanwhile. Empty = the exit is open.
+@export var required_npc: NodePath
+## Shown when touching the closed exit (player-visible, Spanish). %s = the NPC's name.
+const REQUIRED_HINT: String = "Primero habla con: %s."
 ## What the player has to do here, shown when the level starts (player-visible, Spanish).
 @export_multiline var objective: String = "Llega a la salida"
 
@@ -28,6 +33,8 @@ const MIN_TRAVEL_DISTANCE: float = 64.0
 ## The trigger area itself: levels move this shape, not always the ExitZone node.
 @onready var _exit_shape: CollisionShape2D = $World/Triggers/ExitZone/CollisionShape2D
 
+var _required: Npc
+
 
 func _ready() -> void:
 	_validate_layout()
@@ -37,6 +44,11 @@ func _ready() -> void:
 	_bounds.build(Vector2(level_size))
 	_exit_zone.player_entered.connect(_on_exit_reached)
 	EventBus.decision_resolved.connect(_on_route_decision_resolved)
+	if not required_npc.is_empty():
+		_required = get_node(required_npc) as Npc
+		assert(_required != null, "%s: required_npc is not an Npc." % name)
+		_exit_zone.locked = true
+		_exit_zone.blocked_entered.connect(_on_required_exit_blocked)
 	Simulation.flows_enabled = consumes_resources
 	Simulation.begin_level(_get_travel_distance())
 	_ensure_playing_state()
@@ -76,7 +88,9 @@ func _ensure_playing_state() -> void:
 
 ## An option with a minigame plays it (its result adds to the option's effects); a route option
 ## (bus, taxi) then leaves the level right away, without walking to the exit.
-func _on_route_decision_resolved(_decision: DecisionDefinition, option: DecisionOption) -> void:
+func _on_route_decision_resolved(decision: DecisionDefinition, option: DecisionOption) -> void:
+	if _required != null and decision == _required.decision:
+		_exit_zone.locked = false
 	if option.minigame != null:
 		await get_tree().process_frame  # Let the decision panel close first.
 		var game: Minigame = option.minigame.instantiate() as Minigame
@@ -91,9 +105,16 @@ func _on_route_decision_resolved(_decision: DecisionDefinition, option: Decision
 ## Where the guide arrow points: the exit, or nothing while it is locked.
 ## Levels with a locked exit override it to point at what unlocks it.
 func get_guide_target() -> Variant:
+	if _required != null and _required.enabled and _exit_zone.locked:
+		return _required.global_position
 	if _exit_zone.locked:
 		return null
 	return _exit_shape.global_position
+
+
+func _on_required_exit_blocked() -> void:
+	if _required != null and _exit_zone.locked:
+		EventBus.toast_requested.emit(REQUIRED_HINT % _required.decision.speaker_name)
 
 
 func _on_exit_reached() -> void:

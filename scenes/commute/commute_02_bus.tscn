@@ -27,7 +27,8 @@ size = Vector2(29.5, 259.25)
 
 [node name="Commute2Bus" unique_id=1642240116 instance=ExtResource("1_qe204")]
 place = "bus"
-objective = "Atraviesa el bus hasta la puerta de salida"
+objective = "Paga el pasaje al conductor y baja por la puerta de salida"
+required_npc = NodePath("World/Entities/BusDriver")
 level_size = Vector2i(1360, 360)
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
