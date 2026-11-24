@@ -60,10 +60,6 @@ definition = ExtResource("7_664hs")
 position = Vector2(841, 206)
 definition = ExtResource("8_vug7e")
 
-[node name="Suspicious2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=453856315 instance=ExtResource("4_uppmg")]
-position = Vector2(595, 215)
-definition = ExtResource("8_vug7e")
-
 [node name="Vendor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=713762227 instance=ExtResource("4_uppmg")]
 position = Vector2(1188, 199)
 definition = ExtResource("9_p6s1o")

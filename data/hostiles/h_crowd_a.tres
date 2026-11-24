@@ -11,4 +11,7 @@ display_name = "Multitud hostil A"
 behavior = ExtResource("1_behavior")
 sprite_frames = ExtResource("3_frames")
 sprite_animation = &"crowd_a"
+hit_energy = -2.0
+hit_time = -5.0
+tick_seconds = 0.35
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

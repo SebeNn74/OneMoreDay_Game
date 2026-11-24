@@ -13,4 +13,5 @@ sprite_frames = ExtResource("2_frames")
 sprite_animation = &"papers_manila"
 hit_energy = -5.0
 hit_time = -2.0
+tick_seconds = 0.4
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

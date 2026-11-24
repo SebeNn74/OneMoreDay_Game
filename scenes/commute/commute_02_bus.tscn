@@ -17,7 +17,7 @@
 [ext_resource type="Resource" uid="uid://b0f8w0oiaiw7k" path="res://data/hostiles/h_vendor_green.tres" id="10_i8n86"]
 [ext_resource type="PackedScene" uid="uid://bvbh266ej608l" path="res://scenes/objects/rest_spot.tscn" id="11_nidfx"]
 [ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="14_i8n86"]
-[ext_resource type="Resource" uid="uid://cjv0l52gwv4g8" path="res://data/items/bill.tres" id="15_opqka"]
+[ext_resource type="Resource" uid="uid://cpjkks2gh3t3a" path="res://data/items/clock.tres" id="15_opqka"]
 [ext_resource type="PackedScene" uid="uid://cxdanv0fpm05n" path="res://scenes/npcs/npc.tscn" id="17_jwsw2"]
 [ext_resource type="Resource" uid="uid://3nnvjetiwvcv" path="res://data/decisions/npc_02_bus_driver.tres" id="18_i8n86"]
 [ext_resource type="PackedScene" uid="uid://dt1f5xao6p4bi" path="res://scenes/global/event_zone.tscn" id="19_opqka"]
@@ -58,10 +58,6 @@ definition = ExtResource("8_5oy83")
 
 [node name="Suspicious1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=1771171913 instance=ExtResource("5_i07ds")]
 position = Vector2(841, 206)
-definition = ExtResource("9_jwsw2")
-
-[node name="Suspicious2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=2080197127 instance=ExtResource("5_i07ds")]
-position = Vector2(595, 215)
 definition = ExtResource("9_jwsw2")
 
 [node name="Vendor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=1650295163 instance=ExtResource("5_i07ds")]

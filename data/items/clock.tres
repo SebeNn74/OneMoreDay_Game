@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_d0oas")
-id = "ITEM-BILL"
+id = "ITEM-CLOCK"
 display_name = "Tiempo"
 action_text = "Ganar tiempo"
 time = 5.0

@@ -20,6 +20,8 @@
 [ext_resource type="Resource" uid="uid://c7dn0pbnhrcbd" path="res://data/props/office/plant.tres" id="16_a1dpk"]
 [ext_resource type="Resource" uid="uid://s7v8jbyrdwq7" path="res://data/props/office/bookshelf.tres" id="17_bnbcv"]
 [ext_resource type="Resource" uid="uid://cjpfyvmbhjjj7" path="res://data/props/office/boxes.tres" id="18_65gdx"]
+[ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="90_item"]
+[ext_resource type="Resource" uid="uid://cpjkks2gh3t3a" path="res://data/items/clock.tres" id="91_clock"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmjpm"]
 size = Vector2(35, 90)
@@ -53,10 +55,6 @@ definition = ExtResource("6_rg7im")
 
 [node name="UrgentCallW1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=654723191 instance=ExtResource("4_2lqwf")]
 position = Vector2(192, 151)
-definition = ExtResource("10_rc87u")
-
-[node name="UrgentCallW2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=1030538693 instance=ExtResource("4_2lqwf")]
-position = Vector2(319, 312)
 definition = ExtResource("10_rc87u")
 
 [node name="Email" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=1166517888 instance=ExtResource("4_2lqwf")]
@@ -159,3 +157,7 @@ visible = false
 
 [node name="DecisionPanel" parent="UI" parent_id_path=PackedInt32Array(1547102398) index="3" unique_id=1405372292]
 visible = false
+
+[node name="ItemPickup" parent="World/Interactables" parent_id_path=PackedInt32Array(1886078809) unique_id=1739204561 instance=ExtResource("90_item")]
+position = Vector2(319, 312)
+item = ExtResource("91_clock")

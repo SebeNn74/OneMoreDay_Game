@@ -92,24 +92,12 @@ definition = ExtResource("11_pn7bd")
 position = Vector2(581, 298)
 definition = ExtResource("18_4pesd")
 
-[node name="EmailW2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=744890655 instance=ExtResource("10_l7o87")]
-position = Vector2(584, 152)
-definition = ExtResource("18_4pesd")
-
 [node name="EmailY1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=1049361495 instance=ExtResource("10_l7o87")]
 position = Vector2(860, 154)
 definition = ExtResource("19_p4dli")
 
-[node name="EmailY2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=1523490499 instance=ExtResource("10_l7o87")]
-position = Vector2(758, 508)
-definition = ExtResource("19_p4dli")
-
 [node name="PaperPile" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=171971131 instance=ExtResource("10_l7o87")]
 position = Vector2(148, 466)
-definition = ExtResource("12_ktx1e")
-
-[node name="PaperPile2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=1657564817 instance=ExtResource("10_l7o87")]
-position = Vector2(303, 423)
 definition = ExtResource("12_ktx1e")
 
 [node name="PaperPile3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=2057429974 instance=ExtResource("10_l7o87")]

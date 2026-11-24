@@ -50,17 +50,9 @@ item = ExtResource("6_ium42")
 position = Vector2(72, 1369)
 definition = ExtResource("5_5ts00")
 
-[node name="Suspicious2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="2" unique_id=51611154 instance=ExtResource("4_r3cox")]
-position = Vector2(73, 1315)
-definition = ExtResource("5_5ts00")
-
 [node name="Crowd1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=291523386 instance=ExtResource("4_r3cox")]
 position = Vector2(455, 386)
 definition = ExtResource("6_33m4o")
-
-[node name="Crowd2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=1124192939 instance=ExtResource("4_r3cox")]
-position = Vector2(88, 749)
-definition = ExtResource("7_j54i3")
 
 [node name="Crowd3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=1269023026 instance=ExtResource("4_r3cox")]
 position = Vector2(558, 738)
@@ -76,10 +68,6 @@ definition = ExtResource("9_gtjmv")
 
 [node name="Rain1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=1975246913 instance=ExtResource("4_r3cox")]
 position = Vector2(322, 1585)
-definition = ExtResource("10_f4jtv")
-
-[node name="Rain2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=1431479240 instance=ExtResource("4_r3cox")]
-position = Vector2(332, 685)
 definition = ExtResource("10_f4jtv")
 
 [node name="Rain3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=329027466 instance=ExtResource("4_r3cox")]

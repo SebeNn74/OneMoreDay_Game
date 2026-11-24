@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://cfb1cuju2d5ke" path="res://data/hostiles/h_paper_pile.tres" id="6_0kcv3"]
 [ext_resource type="PackedScene" uid="uid://c3uq4ssnelswq" path="res://scenes/props/prop.tscn" id="10_goibj"]
 [ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="10_kprdb"]
-[ext_resource type="Resource" uid="uid://cpjkks2gh3t3a" path="res://data/items/clock.tres" id="11_h1afp"]
+[ext_resource type="Resource" uid="uid://d17q4w1ogggtv" path="res://data/items/coffee.tres" id="11_h1afp"]
 [ext_resource type="Resource" uid="uid://c7dn0pbnhrcbd" path="res://data/props/office/plant.tres" id="11_jca3y"]
 [ext_resource type="Resource" uid="uid://lgqhlw1aydbo" path="res://data/props/office/plant_big.tres" id="12_o1ofe"]
 [ext_resource type="Resource" uid="uid://c7c3cfi0a064o" path="res://data/props/office/reception_desk.tres" id="13_5q3k8"]
@@ -64,14 +64,6 @@ sprite_animation = &"coworker"
 position = Vector2(84, 446)
 definition = ExtResource("5_jlm77")
 
-[node name="UrgentCall2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1276495043 instance=ExtResource("4_0yb34")]
-position = Vector2(165, 522)
-definition = ExtResource("5_jlm77")
-
-[node name="UrgentCall3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=219334913 instance=ExtResource("4_0yb34")]
-position = Vector2(324, 553)
-definition = ExtResource("5_jlm77")
-
 [node name="UrgentCall4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=250170748 instance=ExtResource("4_0yb34")]
 position = Vector2(661, 211)
 definition = ExtResource("5_jlm77")
@@ -80,20 +72,12 @@ definition = ExtResource("5_jlm77")
 position = Vector2(365, 107)
 definition = ExtResource("6_0kcv3")
 
-[node name="PaperPile2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="7" unique_id=1587677771 instance=ExtResource("4_0yb34")]
-position = Vector2(534, 119)
-definition = ExtResource("6_0kcv3")
-
 [node name="PaperPile3" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="8" unique_id=1847544536 instance=ExtResource("4_0yb34")]
 position = Vector2(412, 254)
 definition = ExtResource("6_0kcv3")
 
 [node name="PaperPile4" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="9" unique_id=1349157962 instance=ExtResource("4_0yb34")]
 position = Vector2(460, 461)
-definition = ExtResource("6_0kcv3")
-
-[node name="PaperPile5" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="10" unique_id=152870944 instance=ExtResource("4_0yb34")]
-position = Vector2(603, 548)
 definition = ExtResource("6_0kcv3")
 
 [node name="Wall" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="11" unique_id=660842031 instance=ExtResource("10_goibj")]

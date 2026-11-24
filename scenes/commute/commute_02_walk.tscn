@@ -22,7 +22,7 @@
 [ext_resource type="Resource" uid="uid://u73j4inah6ue" path="res://data/props/street/trash_can.tres" id="14_ivcy6"]
 [ext_resource type="Resource" uid="uid://dupcwsmhi1ogi" path="res://data/hostiles/h_crowd_c.tres" id="14_x0u80"]
 [ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="15_5fau0"]
-[ext_resource type="Resource" uid="uid://byib54agitfcg" path="res://data/items/coin.tres" id="16_jyur6"]
+[ext_resource type="Resource" uid="uid://cpjkks2gh3t3a" path="res://data/items/clock.tres" id="16_jyur6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jtc0"]
 size = Vector2(351, 32)
@@ -56,10 +56,6 @@ texture = ExtResource("12_m0nkj")
 
 [node name="Moto1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1444754772 instance=ExtResource("9_muyte")]
 position = Vector2(99, 651)
-definition = ExtResource("10_x0u80")
-
-[node name="Moto2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=819231831 instance=ExtResource("9_muyte")]
-position = Vector2(133, 1370)
 definition = ExtResource("10_x0u80")
 
 [node name="Suspicious" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=1290155993 instance=ExtResource("9_muyte")]

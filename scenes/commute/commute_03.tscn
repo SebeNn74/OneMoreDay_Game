@@ -19,7 +19,7 @@
 [ext_resource type="Resource" uid="uid://jp3tvqhhoxr7" path="res://data/props/street/planter.tres" id="10_wmqnh"]
 [ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="11_2xv2w"]
 [ext_resource type="Resource" uid="uid://b7r31tmoxcv63" path="res://data/props/street/bollard.tres" id="11_qbf5l"]
-[ext_resource type="Resource" uid="uid://cpjkks2gh3t3a" path="res://data/items/clock.tres" id="12_2xv2w"]
+[ext_resource type="Resource" uid="uid://byib54agitfcg" path="res://data/items/coin.tres" id="12_2xv2w"]
 [ext_resource type="Resource" uid="uid://ongmadygrqtl" path="res://data/props/street/empanada_stand.tres" id="14_wmqnh"]
 
 [sub_resource type="Resource" id="Resource_t8aqy"]

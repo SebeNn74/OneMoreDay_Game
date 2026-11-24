@@ -11,4 +11,7 @@ display_name = "Pila de papeles azules"
 behavior = ExtResource("1_behavior")
 sprite_frames = ExtResource("3_frames")
 sprite_animation = &"papers_blue"
+hit_energy = -5.0
+hit_time = -2.0
+tick_seconds = 0.4
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"
