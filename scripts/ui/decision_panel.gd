@@ -247,7 +247,8 @@ func _choose(index: int) -> void:
 	var wait_message: String = _apply_queue_wait(option)
 	EventBus.decision_resolved.emit(_decision, option)
 	_close()
-	if not wait_message.is_empty() and GameManager.current_state == GameState.Type.PLAYING:
+	if (not wait_message.is_empty() and GameManager.current_state == GameState.Type.PLAYING
+			and not SceneManager.is_transitioning()):
 		EventBus.notification_requested.emit(wait_message)
 
 

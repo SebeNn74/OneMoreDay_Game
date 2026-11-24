@@ -148,6 +148,10 @@ func _change_scene(path: String) -> void:
 		# The swap happens at the end of the frame: wait for it before fading in.
 		await get_tree().process_frame
 		await get_tree().process_frame
+		# A dialog opened during the fade (e.g. the queue wait notice) was freed with the old
+		# level and can never close: without this the new level starts locked in DIALOG.
+		if GameManager.current_state == GameState.Type.DIALOG:
+			GameManager.change_state(GameState.Type.PLAYING)
 
 	await _transition.fade_in()
 	_is_changing_scene = false
