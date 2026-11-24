@@ -22,6 +22,10 @@ func _ready() -> void:
 	_animated_sprite.play()
 	if action_text.is_empty():
 		action_text = item.action_text
+	# Tell what it gives before it is taken: "Tomar un tinto (+10 energía, -$2.000)".
+	var effects: String = StatFormatter.describe_changes(item.money, item.energy, item.time)
+	if not effects.is_empty():
+		action_text = "%s (%s)" % [action_text, effects]
 
 
 func _on_interact(_interactor: Node) -> void:

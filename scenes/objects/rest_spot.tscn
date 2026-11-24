@@ -7,7 +7,7 @@ size = Vector2(30, 30)
 
 [node name="RestSpot" type="Area2D" unique_id=1703585282]
 script = ExtResource("1_oa2fl")
-action_text = "Descansar"
+action_text = "Descansar (recupera energía, gasta tiempo)"
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1335088720]
 

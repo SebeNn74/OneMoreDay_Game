@@ -23,6 +23,18 @@ static func format_change(type: StatDefinition.Type, change: float) -> String:
 	return "%s%d" % [sign_text, roundi(absf(change))]
 
 
+## Short list of non-zero changes for prompts: "+10 energía, -$2.000".
+static func describe_changes(money: float, energy: float, time: float) -> String:
+	var parts: PackedStringArray = []
+	if not is_zero_approx(energy):
+		parts.append("%s energía" % format_change(StatDefinition.Type.ENERGY, energy))
+	if not is_zero_approx(time):
+		parts.append("%s tiempo" % format_change(StatDefinition.Type.TIME, time))
+	if not is_zero_approx(money):
+		parts.append(format_change(StatDefinition.Type.MONEY, money))
+	return ", ".join(parts)
+
+
 static func _format_pesos(money_units: float) -> String:
 	var pesos: int = roundi(money_units * PESOS_PER_MONEY_UNIT)
 	var digits: String = str(absi(pesos))
