@@ -240,4 +240,5 @@ position = Vector2(592, 178)
 decision = ExtResource("95_abl")
 sprite_animation = &"abelardo"
 action_text = "Hablar con Abelardo"
+is_special = true
 

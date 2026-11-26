@@ -251,4 +251,5 @@ position = Vector2(76, 104)
 decision = ExtResource("96_bsl")
 sprite_animation = &"boss_letter"
 action_text = "Hablar con el jefe"
+is_special = true
 

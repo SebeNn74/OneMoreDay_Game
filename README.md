@@ -135,7 +135,8 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
   Se generan desde la tabla de tools/generate_decision_definitions.gd (espejo de la pestaña 4 del Excel).
   Para cambiar valores: editar la tabla y volver a ejecutar la herramienta (sobrescribe los .tres).
 - NPC: scenes/npcs/npc.tscn (Interactable con cuerpo sólido, va en World/Entities). Se le asigna Decision.
-  Ofrece una sola vez y queda gris.
+  Ofrece una sola vez y queda gris. Mientras se puede hablar con él tiene un círculo bajo los pies: amarillo, o morado
+  si is_special (Abelardo y el jefe de la carta a García).
 - EventBus: decision_requested(decision) abre el panel; decision_resolved(decision, chosen) es para logs y finales.
 - DecisionPanel (estado DIALOG): W/S o flechas para elegir, E para confirmar, o ratón. Aplica los efectos
   una sola vez con Simulation.apply_change. Una opción que costaría más dinero del que tienes se desactiva.
@@ -238,7 +239,9 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
 - V-05 (ahorro) pide $40.000 al llegar: más de los $30.000 con que se empieza.
 - Achievements (Autoload, core/achievements.gd): un logro por final y tres más (Intocable: ganar sin golpes;
   Apostador: salir bien de 3 riesgos en un día; Coleccionista: todos los finales). Se guardan en
-  user://achievements.cfg. EndingScreen llama Achievements.on_day_ended(); el aviso lo dibuja el Autoload.
+  user://achievements.cfg. Se desbloquean apenas se ganan: Apostador al tercer riesgo superado (EventBus.risk_drawn)
+  y los de final en EventBus.day_finished (el final se decide con EndingResolver, igual que la pantalla final).
+  El aviso es un banner arriba al centro que entra con rebote; si son varios salen uno tras otro.
   Pantalla LOGROS en el menú principal (scripts/ui/achievements_menu.gd).
 - Prueba: godot --headless --path . -s res://tools/achievements_self_test.gd (usa su propio archivo).
 

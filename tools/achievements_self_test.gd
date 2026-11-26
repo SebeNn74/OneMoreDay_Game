@@ -11,6 +11,16 @@ func _initialize() -> void:
 	achievements.save_path = "user://achievements_self_test.cfg"
 	achievements.reset()
 
+	var bus: Node = root.get_node("EventBus")
+	var option: DecisionOption = DecisionOption.new()
+	bus.risk_drawn.emit(option, false, 0.9)
+	bus.risk_drawn.emit(option, true, 0.1)
+	bus.risk_drawn.emit(option, false, 0.8)
+	_check("2 risks won so far: no Apostador yet", not achievements.is_unlocked("gambler"))
+	bus.risk_drawn.emit(option, false, 0.7)
+	_check("third risk won: Apostador at once", achievements.is_unlocked("gambler"))
+	achievements.reset()
+
 	var day: RunSummary = RunSummary.new()
 	day.is_victory = true
 	day.hostile_hits = 2

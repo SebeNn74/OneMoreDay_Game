@@ -48,8 +48,7 @@ func _ready() -> void:
 	_add_buttons()
 	if SceneManager.last_result != null:
 		var summary: RunSummary = RunLog.build_summary(SceneManager.last_result)
-		_add_summary(summary)
-		Achievements.on_day_ended(ending.id, summary)
+		_add_summary(summary)  # Its achievements were already unlocked when the day finished.
 	_start_reveal(ending.text.length())
 
 
