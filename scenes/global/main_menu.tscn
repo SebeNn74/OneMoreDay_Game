@@ -24,12 +24,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1637950104]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 6
 
 [node name="Phrase" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1972066376]
 layout_mode = 2
@@ -42,6 +43,27 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.96089906, 0.89367133, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "JUGAR"
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1488203611]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "OPCIONES"
+
+[node name="AchievementsButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1488203614]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "LOGROS"
+
+[node name="CreditsButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1488203613]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "CRÉDITOS"
 
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1037926816]
 unique_name_in_owner = true

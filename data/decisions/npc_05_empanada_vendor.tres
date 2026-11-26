@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dkrx6vx6tvj5q" path="res://scripts/decisions/decision_option.gd" id="1_uwn5g"]
 [ext_resource type="Script" uid="uid://d4gtrfhv2pg5o" path="res://scripts/decisions/decision_definition.gd" id="2_qwm1k"]
+[ext_resource type="PackedScene" path="res://scenes/minigames/empanada_catch.tscn" id="9_mini"]
 
 [sub_resource type="Resource" id="Resource_5uruo"]
 script = ExtResource("1_uwn5g")
 text = "Empanada y gaseosa"
+minigame = ExtResource("9_mini")
 money = -3.0
 energy = 15.0
 time = -5.0
@@ -13,6 +15,9 @@ time = -5.0
 [sub_resource type="Resource" id="Resource_qkcsk"]
 script = ExtResource("1_uwn5g")
 text = "Aguantar el hambre"
+risk_chance = 0.35
+risk_text = "te da un bajón de azúcar"
+risk_energy = -8.0
 energy = -5.0
 time = 5.0
 

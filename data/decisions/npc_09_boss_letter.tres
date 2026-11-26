@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="DecisionDefinition" format=3]
+
+[ext_resource type="Script" uid="uid://dkrx6vx6tvj5q" path="res://scripts/decisions/decision_option.gd" id="1_opt"]
+[ext_resource type="Script" uid="uid://d4gtrfhv2pg5o" path="res://scripts/decisions/decision_definition.gd" id="2_def"]
+[ext_resource type="PackedScene" path="res://scenes/minigames/letter_garcia.tscn" id="3_game"]
+
+[sub_resource type="Resource" id="Resource_carry"]
+script = ExtResource("1_opt")
+text = "Llevar la carta sin preguntar"
+minigame = ExtResource("3_game")
+
+[sub_resource type="Resource" id="Resource_ask"]
+script = ExtResource("1_opt")
+text = "Preguntarle dónde queda García"
+time = -4.0
+
+[sub_resource type="Resource" id="Resource_refuse"]
+script = ExtResource("1_opt")
+text = "Decirle que eso no está en tu contrato"
+risk_chance = 0.5
+risk_text = "lo anota en su cuaderno y te descuenta"
+risk_money = -2.0
+
+[resource]
+script = ExtResource("2_def")
+id = "NPC-09"
+speaker_name = "Jefe de área"
+prompt = "«Tengo una carta para García. No le voy a decir dónde está ni cómo llegar. ¿Usted es de los que preguntan o de los que la llevan?»"
+options = Array[ExtResource("1_opt")]([SubResource("Resource_carry"), SubResource("Resource_ask"), SubResource("Resource_refuse")])

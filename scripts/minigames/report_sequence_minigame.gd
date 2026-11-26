@@ -1,0 +1,191 @@
+class_name ReportSequenceMinigame
+extends Minigame
+## "Ordena el informe": repeat key sequences (W A S D or the arrows) as fast as you can.
+## Model: Markov chain. Each next key is drawn from the row of TRANSITIONS of the current key, so
+## the sequences have habits (W tends to A, A to S...). Only the next VISIBLE_AHEAD keys are shown;
+## the rest are "?", and the matrix on screen lets the player anticipate them.
+## Each finished sequence is a page; each wrong key restarts the sequence and tires you.
+
+const NPC_FRAMES: SpriteFrames = preload("res://assets/sprites/npcs/npc_sprite_frames.tres")
+const ITEM_FRAMES: SpriteFrames = preload("res://assets/sprites/items/items_sprite_frames.tres")
+const KEYS: Array[StringName] = [&"move_up", &"move_left", &"move_down", &"move_right"]
+const START_LENGTH: int = 4
+const MAX_LENGTH: int = 7
+const MONEY_PER_PAGE: float = 1.0
+const MAX_PAGES_PAID: int = 4
+const ENERGY_PER_MISTAKE: float = -1.0
+const MAX_MISTAKES_CHARGED: int = 5
+const LETTER_SIZE: int = 40
+const LETTER_GAP: float = 56.0
+const ROW_Y: float = 250.0
+const VISIBLE_AHEAD: int = 2
+## P(next | current), rows and columns in KEYS order (up, left, down, right). Each row sums 1.
+const TRANSITIONS: Array = [
+	[0.05, 0.60, 0.05, 0.30],
+	[0.10, 0.05, 0.75, 0.10],
+	[0.15, 0.05, 0.05, 0.75],
+	[0.70, 0.10, 0.10, 0.10],
+]
+
+var _sequence: Array[int] = []
+var _typed: int = 0
+var _pages: int = 0
+var _mistakes: int = 0
+var _flash: float = 0.0
+var _canvas: Control
+var _rng: Lcg
+var _counts: Array = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+var _last_key: int = -1
+
+
+func _init() -> void:
+	title = "Ordena el informe"
+	instructions = "Ayúdale a tu compañero a ordenar el informe: repite cada secuencia de teclas ({up} {left} {down} {right} o las flechas). Solo ves las próximas 2; el resto se adivina con la tabla de probabilidades (cadena de Markov). Cada hoja te paga más; cada error te cansa."
+	model_name = "Cadena de Markov"
+	duration_seconds = 12.0
+
+
+func _build(stage: Control) -> void:
+	_rng = Simulation.rng
+	_canvas = Control.new()
+	_canvas.size = SCREEN
+	_canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_canvas.draw.connect(_draw_scene)
+	stage.add_child(_canvas)
+	var people: Node2D = Node2D.new()
+	stage.add_child(people)
+	people.add_child(_sprite(NPC_FRAMES, &"coworker", Vector2(470.0, 196.0), 96.0))
+	for i: int in 3:
+		people.add_child(_sprite(ITEM_FRAMES, &"folder", Vector2(150.0 + i * 6.0, 196.0 - i * 6.0), 36.0))
+	_new_sequence()
+
+
+func _new_sequence() -> void:
+	_sequence.clear()
+	var key: int = _last_key if _last_key >= 0 else _rng.index(KEYS.size())
+	for i: int in mini(START_LENGTH + _pages, MAX_LENGTH):
+		if i > 0 or _last_key >= 0:
+			key = _next_key(key)
+		_sequence.append(key)
+	_last_key = key
+	_typed = 0
+
+
+## One step of the chain: inverse transform over the row of [param current].
+func _next_key(current: int) -> int:
+	var row: Array = TRANSITIONS[current]
+	var target: float = _rng.next()
+	var accumulated: float = 0.0
+	for k: int in row.size():
+		accumulated += row[k]
+		if target < accumulated:
+			_counts[current][k] += 1
+			return k
+	_counts[current][row.size() - 1] += 1
+	return row.size() - 1
+
+
+func _on_input(event: InputEvent) -> void:
+	if not is_playing():
+		return
+	for k: int in KEYS.size():
+		if event.is_action_pressed(KEYS[k]):
+			if k == _sequence[_typed]:
+				_typed += 1
+				AudioManager.play_sfx(&"ui_move", 1.0 + _typed * 0.08)
+				if _typed >= _sequence.size():
+					_pages += 1
+					_big_label.text = "¡Hoja lista!"
+					_phase_time = 0.0
+					AudioManager.play_sfx(&"coin")
+					_new_sequence()
+			else:
+				_mistakes += 1
+				_typed = 0
+				_flash = 0.35
+				AudioManager.play_sfx(&"hit")
+			_canvas.queue_redraw()
+			return
+
+
+func _play(delta: float) -> void:
+	_flash = maxf(_flash - delta, 0.0)
+	_canvas.queue_redraw()
+
+
+## Current key of the action KEYS[k] (the player may have rebound it in Options).
+func _key_label(k: int) -> String:
+	return Settings.key_name(KEYS[k])
+
+
+## The row the player needs: it predicts the first hidden key.
+func _predicting_key() -> int:
+	return _sequence[mini(_typed + VISIBLE_AHEAD - 1, _sequence.size() - 1)]
+
+
+func _model_text() -> String:
+	var row: Array = TRANSITIONS[_predicting_key()]
+	var parts: PackedStringArray = []
+	for k: int in row.size():
+		parts.append("%s %d%%" % [_key_label(k), roundi(row[k] * 100.0)])
+	return "Después de %s viene: %s" % [_key_label(_predicting_key()), "  ".join(parts)]
+
+
+func _result() -> Dictionary:
+	var total: int = 0
+	var w_to_a: int = 0
+	var from_w: int = 0
+	for i: int in 4:
+		for k: int in 4:
+			total += _counts[i][k]
+	for k: int in 4:
+		from_w += _counts[0][k]
+	w_to_a = _counts[0][1]
+	Simulation.report(Simulation.MODEL_MONTE_CARLO, "Informe (cadena de Markov): %d transiciones, P(A|W) observada %.2f vs 0.60" % [
+		total, float(w_to_a) / maxf(from_w, 1.0)])
+	var paid: int = mini(_pages, MAX_PAGES_PAID)
+	var charged: int = mini(_mistakes, MAX_MISTAKES_CHARGED)
+	var summary: String = "Ordenaste %d %s (%d %s)" % [
+		_pages, "hoja" if _pages == 1 else "hojas", _mistakes, "error" if _mistakes == 1 else "errores"]
+	return {"money": MONEY_PER_PAGE * paid, "energy": ENERGY_PER_MISTAKE * charged, "time": 0.0, "summary": summary}
+
+
+func _draw_scene() -> void:
+	var c: Control = _canvas
+	c.draw_rect(Rect2(Vector2.ZERO, SCREEN), Color("6f7f94"))  # Office wall.
+	c.draw_rect(Rect2(0.0, 196.0, SCREEN.x, SCREEN.y - 196.0), Color("3d4a5c"))  # Carpet.
+	c.draw_rect(Rect2(90.0, 196.0, 300.0, 18.0), Color("9a6b4f"))  # Desk.
+	c.draw_rect(Rect2(250.0, 140.0, 70.0, 50.0), Color("2c3e50"))  # Monitor.
+	c.draw_rect(Rect2(255.0, 145.0, 60.0, 38.0), Color("5dade2"))
+	c.draw_rect(Rect2(280.0, 190.0, 10.0, 8.0), Color("2c3e50"))
+	if not is_playing():
+		return
+	var font: Font = c.get_theme_default_font()
+	var start_x: float = (SCREEN.x - LETTER_GAP * (_sequence.size() - 1)) / 2.0
+	for i: int in _sequence.size():
+		var color: Color = Color("3fae5a") if i < _typed else Color.WHITE
+		if _flash > 0.0:
+			color = Color("e74c3c")
+		var hidden: bool = i >= _typed + VISIBLE_AHEAD
+		var x: float = start_x + i * LETTER_GAP
+		c.draw_rect(Rect2(x - 22.0, ROW_Y - 40.0, 44.0, 50.0), Color(0.0, 0.0, 0.0, 0.6))
+		c.draw_string(font, Vector2(x - 12.0, ROW_Y), "?" if hidden else _key_label(_sequence[i]), HORIZONTAL_ALIGNMENT_LEFT, -1, LETTER_SIZE, Color(0.6, 0.6, 0.6) if hidden else color)
+	_draw_matrix(c, font)
+	c.draw_string(font, Vector2(20.0, 340.0), "Hojas: %d   Errores: %d" % [_pages, _mistakes], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color.WHITE)
+
+
+## Transition matrix in the corner; the row that predicts the first hidden key is highlighted.
+func _draw_matrix(c: Control, font: Font) -> void:
+	var origin: Vector2 = Vector2(456.0, 272.0)
+	var cell: Vector2 = Vector2(40.0, 15.0)
+	c.draw_rect(Rect2(origin - Vector2(30.0, 18.0), Vector2(cell.x * 4.0 + 36.0, cell.y * 5.0 + 8.0)), Color(0.0, 0.0, 0.0, 0.65))
+	for k: int in 4:
+		c.draw_string(font, origin + Vector2(k * cell.x + 8.0, -5.0), _key_label(k), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0.6, 0.85, 1.0))
+	var current: int = _predicting_key()
+	for i: int in 4:
+		var y: float = origin.y + i * cell.y + 10.0
+		if i == current:
+			c.draw_rect(Rect2(origin.x - 26.0, y - 11.0, cell.x * 4.0 + 28.0, cell.y), Color(1.0, 0.85, 0.3, 0.3))
+		c.draw_string(font, Vector2(origin.x - 22.0, y), _key_label(i), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(0.6, 0.85, 1.0))
+		for k: int in 4:
+			c.draw_string(font, Vector2(origin.x + k * cell.x, y), "%.2f" % TRANSITIONS[i][k], HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color.WHITE)

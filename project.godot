@@ -23,6 +23,9 @@ GameManager="*uid://dg4fooh6rd2r7"
 Simulation="*res://core/simulation.gd"
 SceneManager="*uid://cfqfc7wwii2i5"
 RunLog="*uid://p0blqkeu7qwt"
+Settings="*res://core/settings.gd"
+AudioManager="*res://core/audio_manager.gd"
+Achievements="*res://core/achievements.gd"
 
 [display]
 
@@ -30,7 +33,7 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 
 [gui]

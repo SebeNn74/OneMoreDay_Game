@@ -64,15 +64,24 @@ func start_day(seed_value: int = DEFAULT_SEED) -> void:
 func queue_wait(config: QueueConfig) -> float:
 	var wait: float = QueueModel.sample_player_wait(config, rng)
 	StatsManager.modify(StatDefinition.Type.TIME, -wait)
-	report(MODEL_QUEUE, "%s: espera %.2f (Wq teórico %.2f, ρ = %.2f)" % [
+	report(MODEL_QUEUE, "%s: espera %.2f · Wq teórico %.2f · ρ %.2f" % [
 		config.display_name, wait, QueueModel.mean_wait(config), QueueModel.utilization(config)])
 	EventBus.queue_waited.emit(config, wait)
 	return wait
 
 
+## Model 1, live queue: the player already waited [param wait] units in a QueueCrowd. Same effect
+## and report as queue_wait(), but the wait was simulated in front of the player.
+func record_queue_wait(config: QueueConfig, wait: float) -> void:
+	StatsManager.modify(StatDefinition.Type.TIME, -wait)
+	report(MODEL_QUEUE, "%s: esperaste %.2f · Wq teórico %.2f · ρ %.2f" % [
+		config.display_name, wait, QueueModel.mean_wait(config), QueueModel.utilization(config)])
+	EventBus.queue_waited.emit(config, wait)
+
+
 ## Model 3. Draws an event of [param stage] that has not happened today (null if none is left).
-func draw_event(stage: GameEvent.Stage) -> GameEvent:
-	var event: GameEvent = _event_picker.draw(stage, rng)
+func draw_event(stage: GameEvent.Stage, place: String = "") -> GameEvent:
+	var event: GameEvent = _event_picker.draw(stage, rng, place)
 	if event != null:
 		var sampler: String = ("MCMC Metropolis, %d pasos" % EVENT_CATALOG.mcmc_steps
 			if EVENT_CATALOG.mcmc_steps > 0 else "sorteo directo")

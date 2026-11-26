@@ -4,6 +4,8 @@ extends EditorScript
 ## OneMoreDay_Diseño.xlsx, tab "4 Decisiones".
 ## Run: open this file in the Script editor, then File > Run (Ctrl+Shift+X).
 ## The table is the source of truth: running it OVERWRITES the .tres files.
+## WARNING: the .tres now carry fields this table does not have (minigame, queue, next_scene, risk_*,
+## bonus_*). Running it would erase them: edit those decisions in the Inspector instead.
 ## To rebalance (P4-13): edit the numbers here and run it again.
 ## It warns when an option is dominated (better than another in no resource) or when the
 ## options of one NPC are too far apart (design rule of the Excel).

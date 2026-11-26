@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HostileDefinition" format=3 uid="uid://dp5xsckv5yb3r"]
 
-[ext_resource type="Resource" path="res://data/simulation/hostile_wanderer.tres" id="1_behavior"]
+[ext_resource type="Resource" path="res://data/simulation/hostile_chaser.tres" id="1_behavior"]
 [ext_resource type="Script" uid="uid://dwcuquqhg86cp" path="res://scripts/hostiles/hostile_definition.gd" id="2_script"]
 [ext_resource type="SpriteFrames" uid="uid://mlvrfjmn4kkr" path="res://assets/sprites/enemies/enemy_sprite_frames.tres" id="3_frames"]
 
@@ -12,4 +12,9 @@ behavior = ExtResource("1_behavior")
 sprite_frames = ExtResource("3_frames")
 sprite_animation = &"boss_scoreboard"
 sprite_scale = 2.0
+hit_energy = -5.0
+hit_time = -4.0
+hit_cooldown_seconds = 3.5
+tick_seconds = 0.24
+knockback_strength = 1.5
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

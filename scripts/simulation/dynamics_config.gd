@@ -1,8 +1,9 @@
 class_name DynamicsConfig
 extends Resource
 ## Parameters of the resource system dynamics (model 5).
-## Calibration: walking across one scenario at normal energy costs exactly the design base
-## consumption (OneMoreDay_Diseño.xlsx, Guía): base_energy_cost and base_time_cost.
+## Calibration: walking across one scenario at normal energy costs exactly base_energy_cost and
+## base_time_cost. Energy is the design base (OneMoreDay_Diseño.xlsx, Guía: 5). Time was lowered
+## from the Guía's 6 to 4.5 after playtests: with 6 the day ran out of time in almost every run.
 
 ## Pixels walked to cross one scenario (one screen).
 @export var scenario_length: float = 640.0

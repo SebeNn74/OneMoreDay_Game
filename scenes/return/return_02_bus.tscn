@@ -26,6 +26,9 @@
 size = Vector2(32, 259)
 
 [node name="Return02Bus" unique_id=1642240116 instance=ExtResource("1_d0hpi")]
+place = "bus"
+objective = "Paga el pasaje al conductor y baja por la puerta de salida"
+required_npc = NodePath("World/Entities/BusDriver")
 level_size = Vector2i(1360, 360)
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
@@ -58,10 +61,6 @@ definition = ExtResource("7_664hs")
 
 [node name="Suspicious1" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="4" unique_id=1538226234 instance=ExtResource("4_uppmg")]
 position = Vector2(841, 206)
-definition = ExtResource("8_vug7e")
-
-[node name="Suspicious2" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="5" unique_id=453856315 instance=ExtResource("4_uppmg")]
-position = Vector2(595, 215)
 definition = ExtResource("8_vug7e")
 
 [node name="Vendor" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="6" unique_id=713762227 instance=ExtResource("4_uppmg")]

@@ -45,6 +45,10 @@ signal notification_requested(text: String)
 @warning_ignore("unused_signal")
 signal notification_closed
 
+## Short phone message that does not stop the game and hides on its own (random events).
+@warning_ignore("unused_signal")
+signal toast_requested(text: String)
+
 # --- Decisions ---
 
 ## Asks the UI to show a decision and wait until the player picks an option.
@@ -90,3 +94,7 @@ signal challenge_finished(is_success: bool, seconds_left: float)
 ## The challenge level is ready and its encounter begins (RunLog uses it for ending D-05).
 @warning_ignore("unused_signal")
 signal challenge_started
+
+## A risky option was picked and its risk drawn (model 3). [param happened]: the bad outcome came out.
+@warning_ignore("unused_signal")
+signal risk_drawn(option: DecisionOption, happened: bool, draw: float)

@@ -7,6 +7,23 @@ signal facing_changed(new_direction: Vector2)
 ## Group the player joins, so other nodes (hostiles) can find it.
 const GROUP: StringName = &"player"
 const REST_TINT: Color = Color(0.7, 0.85, 1.0)
+## A hit pushes the player away from the hostile at this speed (times its knockback_strength),
+## slowing down at KNOCKBACK_DECAY px/s². The HURT state keeps the player still meanwhile.
+const KNOCKBACK_SPEED: float = 240.0
+const KNOCKBACK_DECAY: float = 1100.0
+const HIT_FLASH_COLOR: Color = Color(1.0, 0.3, 0.3)
+const HIT_FLASH_SECONDS: float = 0.35
+const HIT_SHAKE_PIXELS: float = 3.0
+## After a hit no hostile can hit again for this long (the player blinks), so two hostiles
+## cannot chain hits.
+const HIT_GRACE_SECONDS: float = 1.5
+## Buff / nerf: a resource went up or down by at least MIN_FLASH_CHANGE (events, decisions, items).
+const BUFF_FLASH_COLOR: Color = Color(0.5, 1.0, 0.5)
+const NERF_FLASH_COLOR: Color = Color(0.75, 0.55, 1.0)
+const STAT_FLASH_SECONDS: float = 0.5
+const MIN_FLASH_CHANGE: float = 1.0
+## Money counts this many times against energy and time (Excel, "Guía").
+const MONEY_POINTS: float = 3.0
 
 @export var movement_config: MovementConfig
 
@@ -15,6 +32,12 @@ var facing_direction: Vector2 = Vector2.DOWN
 ## Scales the movement speed. Written by PlayerSimulationBridge.
 var speed_multiplier: float = 1.0
 var is_resting: bool = false
+var _knockback: Vector2 = Vector2.ZERO
+var _flash_tween: Tween
+## Changes of one frame add up into one flash.
+var _pending_change: float = 0.0
+var _flash_queued: bool = false
+var _hit_frame: int = -1
 
 @onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var animator: PlayerAnimator = $Animator
@@ -35,10 +58,11 @@ func _ready() -> void:
 	facing_changed.connect(interaction_detector.face)
 	interaction_detector.focus_changed.connect(interaction_prompt.on_focus_changed)
 	hurtbox.hit_received.connect(_on_hit_received)
+	EventBus.stat_changed.connect(_on_stat_changed)
 	interaction_detector.face(facing_direction)
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var input_direction: Vector2 = _read_input_direction()
 	if is_resting and not input_direction.is_zero_approx():
 		stop_resting()
@@ -47,7 +71,13 @@ func _physics_process(_delta: float) -> void:
 		not input_direction.is_zero_approx(),
 		_is_run_requested()
 	)
-	_move(input_direction)
+	_move(input_direction, delta)
+
+
+## Blinks while hits are ignored (level start), so the player knows it is safe for a moment.
+func _process(_delta: float) -> void:
+	var grace: float = hurtbox.grace_left()
+	animator.visible = grace <= 0.0 or int(grace * 10.0) % 2 == 0
 
 
 func is_controllable() -> bool:
@@ -81,9 +111,10 @@ func _is_run_requested() -> bool:
 	return is_controllable() and Input.is_action_pressed(InputActions.RUN)
 
 
-func _move(direction: Vector2) -> void:
-	velocity = direction * _get_current_speed()
+func _move(direction: Vector2, delta: float) -> void:
+	velocity = direction * _get_current_speed() + _knockback
 	move_and_slide()
+	_knockback = _knockback.move_toward(Vector2.ZERO, KNOCKBACK_DECAY * delta)
 
 
 ## The speed follows the state: IDLE and one-shot states have speed 0.
@@ -109,9 +140,50 @@ func _update_facing_direction(direction: Vector2) -> void:
 	facing_changed.emit(facing_direction)
 
 
-func _on_hit_received(_source: Node) -> void:
+func _on_hit_received(source: Node) -> void:
+	_hit_frame = Engine.get_process_frames()
+	hurtbox.grant_grace(HIT_GRACE_SECONDS)
 	stop_resting()
 	state_machine.request_one_shot(PlayerState.Type.HURT)
+	var strength: float = 1.0
+	var push: Vector2 = -facing_direction
+	var source_2d: Node2D = source as Node2D
+	if source_2d != null:
+		var away: Vector2 = global_position - source_2d.global_position
+		if not away.is_zero_approx():
+			push = away.normalized()
+		var hostile: Hostile = source as Hostile
+		if hostile != null:
+			strength = hostile.definition.knockback_strength
+	_knockback = push * KNOCKBACK_SPEED * strength
+	camera.shake(HIT_SHAKE_PIXELS * strength)
+	_flash(HIT_FLASH_COLOR, HIT_FLASH_SECONDS)
+
+
+func _flash(color: Color, seconds: float) -> void:
+	if _flash_tween != null:
+		_flash_tween.kill()
+	animator.modulate = color
+	_flash_tween = create_tween()
+	_flash_tween.tween_property(animator, "modulate", Color.WHITE, seconds)
+
+
+func _on_stat_changed(type: StatDefinition.Type, _new_value: float, change: float) -> void:
+	if absf(change) < MIN_FLASH_CHANGE:
+		return  # The per-frame flows of model 5.
+	_pending_change += change * (MONEY_POINTS if type == StatDefinition.Type.MONEY else 1.0)
+	if not _flash_queued:
+		_flash_queued = true
+		_flash_stat_change.call_deferred()
+
+
+func _flash_stat_change() -> void:
+	_flash_queued = false
+	var change: float = _pending_change
+	_pending_change = 0.0
+	if is_resting or _hit_frame == Engine.get_process_frames() or is_zero_approx(change):
+		return  # A hit already flashed red; resting keeps its tint.
+	_flash(BUFF_FLASH_COLOR if change > 0.0 else NERF_FLASH_COLOR, STAT_FLASH_SECONDS)
 
 
 func start_resting() -> void:

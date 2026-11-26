@@ -5,25 +5,28 @@
 
 [sub_resource type="Resource" id="Resource_w0oyj"]
 script = ExtResource("1_d0flo")
-text = "Pagar la buseta directa"
+text = "Pagar el pasaje"
 money = -3.0
-time = 10.0
+time = 5.0
 
 [sub_resource type="Resource" id="Resource_7csn5"]
 script = ExtResource("1_d0flo")
-text = "Caminar el resto"
-energy = -3.0
-time = -2.0
+text = "Pagar y pedirle que te avise la parada"
+money = -3.0
+energy = 6.0
 
 [sub_resource type="Resource" id="Resource_5dji6"]
 script = ExtResource("1_d0flo")
-text = "Aceptar el aventón en moto de un vecino"
-money = -2.0
-time = 5.0
+text = "Colarte sin pagar"
+risk_chance = 0.4
+risk_text = "el conductor te pilla y te cobra el doble"
+risk_money = -6.0
+risk_time = -2.0
+energy = -2.0
 
 [resource]
 script = ExtResource("2_fijbg")
 id = "NPC-02"
 speaker_name = "Conductor de buseta"
-prompt = "«Va directo, sube que ya salimos.»"
+prompt = "«Pasaje, por favor. Al fondo hay campo.»"
 options = Array[ExtResource("1_d0flo")]([SubResource("Resource_w0oyj"), SubResource("Resource_7csn5"), SubResource("Resource_5dji6")])

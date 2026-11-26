@@ -17,7 +17,7 @@ func _initialize() -> void:
 	if _catalog == null:
 		quit(1)
 		return
-	for id: String in ["V-01", "V-02", "V-03", "V-04", "V-05", "D-01", "D-02", "D-03", "D-04", "D-05"]:
+	for id: String in ["V-01", "V-02", "V-03", "V-04", "V-05", "V-06", "D-01", "D-02", "D-03", "D-04", "D-05"]:
 		var ending: EndingDefinition = _catalog.find(id)
 		_check("%s exists with text and image" % id,
 			ending != null and not ending.text.is_empty() and ending.image != null, "")
@@ -26,7 +26,10 @@ func _initialize() -> void:
 	var energy: int = StatDefinition.Type.ENERGY
 	var time: int = StatDefinition.Type.TIME
 	# Victories.
-	_case("default victory (money 30) is V-05", "V-05", { is_victory = true })
+	_case("default victory (money 30, not saved) is V-01", "V-01", { is_victory = true })
+	_case("saving up to 40 is V-05", "V-05", { is_victory = true, money = 40.0 })
+	_case("buying the game is V-06", "V-06", { is_victory = true, bought_game = true, money = 5.0 })
+	_case("V-06 wins over V-03", "V-06", { is_victory = true, bought_game = true, helped = true })
 	_case("comfortable day is V-01", "V-01", { is_victory = true, money = 12.0, energy = 25.0, time = 15.0 })
 	_case("low energy at home is V-02", "V-02", { is_victory = true, money = 12.0, energy = 15.0 })
 	_case("helping is V-03", "V-03", { is_victory = true, helped = true })
@@ -36,7 +39,7 @@ func _initialize() -> void:
 		challenge_seconds_left = 20.0 })
 	_case("exactly 15 s is V-04", "V-04", { is_victory = true, challenge_success = true,
 		challenge_seconds_left = 15.0 })
-	_case("14.9 s falls to V-05", "V-05", { is_victory = true, challenge_success = true,
+	_case("14.9 s falls to V-01", "V-01", { is_victory = true, challenge_success = true,
 		challenge_seconds_left = 14.9 })
 	# Defeats.
 	_case("money without theft is D-01", "D-01", { depleted_stat = money })

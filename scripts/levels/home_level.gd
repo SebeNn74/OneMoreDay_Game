@@ -15,6 +15,12 @@ func _ready() -> void:
 	_phone.interacted.connect(_on_phone_checked)
 
 
+func get_guide_target() -> Variant:
+	if _exit_zone.locked:
+		return _phone.global_position
+	return super()
+
+
 func _on_phone_checked(_interactor: Node) -> void:
 	_exit_zone.locked = false
 

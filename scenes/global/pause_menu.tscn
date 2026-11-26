@@ -51,6 +51,12 @@ custom_minimum_size = Vector2(140, 24)
 layout_mode = 2
 text = "REINICIAR DÍA"
 
+[node name="OptionsButton" type="Button" parent="Content/CenterContainer/VBoxContainer" unique_id=1488203612]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 24)
+layout_mode = 2
+text = "OPCIONES"
+
 [node name="MainMenuButton" type="Button" parent="Content/CenterContainer/VBoxContainer" unique_id=1408897725]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(140, 24)

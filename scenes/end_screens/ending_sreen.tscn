@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://wykp1a0ijf3h" path="res://scripts/ui/ending_screen.gd" id="1_ybsax"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_backdrop"]
+bg_color = Color(0, 0, 0, 0.7)
+
 [node name="EndingSreen" type="Control" unique_id=866673139]
 layout_mode = 3
 anchors_preset = 15
@@ -33,7 +36,7 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Backdrop" type="ColorRect" parent="." unique_id=1677177606]
+[node name="Backdrop" type="PanelContainer" parent="." unique_id=1677177606]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -41,19 +44,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
-pivot_offset = Vector2(0, 136)
-offset_transform_enabled = true
 mouse_filter = 2
-color = Color(0, 0, 0, 0.70000005)
+theme_override_styles/panel = SubResource("StyleBoxFlat_backdrop")
 
 [node name="Margin" type="MarginContainer" parent="Backdrop" unique_id=542277420]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -71.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12

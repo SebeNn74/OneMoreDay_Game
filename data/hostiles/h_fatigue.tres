@@ -11,4 +11,7 @@ display_name = "Fatiga"
 behavior = ExtResource("1_behavior")
 sprite_frames = ExtResource("3_frames")
 sprite_animation = &"fatigue"
+hit_energy = -6.0
+hit_cooldown_seconds = 5.0
+tick_seconds = 0.35
 metadata/_custom_type_script = "uid://dwcuquqhg86cp"

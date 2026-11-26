@@ -2,13 +2,14 @@ class_name EndingResolver
 extends RefCounted
 ## Picks the ending of a finished day.
 ## Defeats are checked in this order: D-04, D-05, D-01, D-02, D-03.
-## Victories: V-03, V-04, V-05, V-01, V-02 (the first one that fits).
+## Victories: V-06, V-03, V-04, V-05, V-01, V-02 (the first one that fits).
 
 const DEFEAT_THEFT: String = "D-04"
 const DEFEAT_CHALLENGE: String = "D-05"
 const DEFEAT_MONEY: String = "D-01"
 const DEFEAT_ENERGY: String = "D-02"
 const DEFEAT_TIME: String = "D-03"
+const VICTORY_GAME: String = "V-06"
 const VICTORY_HELP: String = "V-03"
 const VICTORY_CHALLENGE: String = "V-04"
 const VICTORY_RICH: String = "V-05"
@@ -37,6 +38,8 @@ static func _defeat_id(summary: RunSummary) -> String:
 
 
 static func _victory_id(summary: RunSummary, catalog: EndingCatalog) -> String:
+	if summary.bought_game:
+		return VICTORY_GAME
 	if summary.helped:
 		return VICTORY_HELP
 	if summary.challenge_success and summary.challenge_seconds_left >= catalog.challenge_spare_seconds:

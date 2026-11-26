@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dx2uhq4frofpu" path="res://assets/sprites/endings/ending_d04.png" id="10_suny0"]
 [ext_resource type="Texture2D" uid="uid://b5bi3r2nsntml" path="res://assets/sprites/endings/ending_d05.png" id="11_j5aqi"]
 [ext_resource type="Script" uid="uid://cjc07jj02emsg" path="res://scripts/endings/ending_catalog.gd" id="12_q1mpi"]
+[ext_resource type="Texture2D" path="res://assets/sprites/endings/ending_v06.png" id="13_v06"]
 
 [sub_resource type="Resource" id="Resource_r6gfc"]
 script = ExtResource("1_m55pj")
@@ -78,6 +79,14 @@ id = "D-05"
 text = "La alarma sonó y el reloj no perdonó. No alcanzaste a entregar a tiempo. Pero ya sabes cuánto cuesta cada minuto."
 image = ExtResource("11_j5aqi")
 
+[sub_resource type="Resource" id="Resource_v06"]
+script = ExtResource("1_m55pj")
+id = "V-06"
+is_victory = true
+text = "Llegas a casa con la caja del Gran Trancón VI bajo el brazo. Tu sobrino grita de la emoción y esa noche juegan hasta tarde: en la pantalla también hay trancón, pero allá sí se puede pitar. La plata se fue, la risa se quedó."
+image = ExtResource("13_v06")
+
 [resource]
 script = ExtResource("12_q1mpi")
-endings = Array[ExtResource("1_m55pj")]([SubResource("Resource_r6gfc"), SubResource("Resource_naov4"), SubResource("Resource_17m4s"), SubResource("Resource_e0wm5"), SubResource("Resource_x1saf"), SubResource("Resource_a03ep"), SubResource("Resource_smbxw"), SubResource("Resource_cjoe3"), SubResource("Resource_5aaoc"), SubResource("Resource_8sbak")])
+endings = Array[ExtResource("1_m55pj")]([SubResource("Resource_r6gfc"), SubResource("Resource_naov4"), SubResource("Resource_17m4s"), SubResource("Resource_e0wm5"), SubResource("Resource_x1saf"), SubResource("Resource_a03ep"), SubResource("Resource_smbxw"), SubResource("Resource_cjoe3"), SubResource("Resource_5aaoc"), SubResource("Resource_8sbak"), SubResource("Resource_v06")])
+rich_money = 40.0

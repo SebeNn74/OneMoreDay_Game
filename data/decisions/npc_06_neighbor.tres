@@ -6,12 +6,20 @@
 [sub_resource type="Resource" id="Resource_neje4"]
 script = ExtResource("1_g8dg1")
 text = "Aceptar el plato de comida"
+bonus_stat = 1
+bonus_below = 30.0
+bonus_text = "te ve agotado y te sirve doble"
+bonus_energy = 10.0
 energy = 10.0
 time = -10.0
 
 [sub_resource type="Resource" id="Resource_fijly"]
 script = ExtResource("1_g8dg1")
 text = "Saludar y seguir"
+bonus_stat = 0
+bonus_below = 5.0
+bonus_text = "nota que andas sin plata y te regala para el bus"
+bonus_money = 2.0
 time = 5.0
 
 [sub_resource type="Resource" id="Resource_aawfm"]

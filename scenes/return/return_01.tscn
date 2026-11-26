@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://c8p7et74s4q7k" path="res://assets/sprites/environment/street/bg_return_01_floor.png" id="2_mo05q"]
 [ext_resource type="Texture2D" uid="uid://diosohm6kv8sb" path="res://assets/sprites/environment/street/bg_return_01_walls.png" id="3_dtiab"]
 [ext_resource type="PackedScene" uid="uid://dvf40mrdmhydu" path="res://scenes/objects/item_pickup.tscn" id="4_2lbv4"]
-[ext_resource type="Resource" uid="uid://dny2dt4h8f0vm" path="res://data/decisions/queue_bus_stop.tres" id="4_somk5"]
+[ext_resource type="Resource" path="res://data/decisions/queue_bus_stop_return.tres" id="4_somk5"]
 [ext_resource type="Script" uid="uid://b1mnwbj34pvmo" path="res://scripts/levels/wall_rects.gd" id="4_ta8vv"]
 [ext_resource type="Script" uid="uid://b05o0sxre1j7y" path="res://scripts/simulation_bridges/queue_crowd.gd" id="5_pitcu"]
-[ext_resource type="Resource" uid="uid://cjv0l52gwv4g8" path="res://data/items/bill.tres" id="5_va7p2"]
+[ext_resource type="Resource" uid="uid://dg41ror5qktri" path="res://data/items/empanada.tres" id="5_va7p2"]
 [ext_resource type="Resource" path="res://data/simulation/queue_bus_stop.tres" id="6_mo05q"]
 [ext_resource type="PackedScene" uid="uid://c3uq4ssnelswq" path="res://scenes/props/prop.tscn" id="10_ni0y6"]
 [ext_resource type="PackedScene" uid="uid://b64t5vgrvwio4" path="res://scenes/hostiles/hostile.tscn" id="10_yqhkt"]
@@ -27,6 +27,9 @@
 size = Vector2(30, 258)
 
 [node name="Return01" unique_id=1642240116 instance=ExtResource("1_ymvnk")]
+place = "street"
+objective = "Llega al paradero y decide cómo volver"
+required_npc = NodePath("World/Entities/BusStopNpc")
 
 [node name="Floor" parent="World/Background" parent_id_path=PackedInt32Array(1688497417) index="0" unique_id=508486278]
 texture = ExtResource("2_mo05q")
@@ -54,7 +57,9 @@ action_text = "Ver la fila"
 position = Vector2(106, 132)
 script = ExtResource("5_pitcu")
 queue = ExtResource("6_mo05q")
+direction = Vector2(1, 0)
 spacing = 30.0
+facing_direction = Vector2(-1, 0)
 metadata/_custom_type_script = "uid://b05o0sxre1j7y"
 
 [node name="MotoRed" parent="World/Entities" parent_id_path=PackedInt32Array(729001874) index="3" unique_id=1444754772 instance=ExtResource("10_yqhkt")]

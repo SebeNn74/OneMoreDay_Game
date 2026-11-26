@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="DecisionDefinition" format=3]
+
+[ext_resource type="Script" uid="uid://dkrx6vx6tvj5q" path="res://scripts/decisions/decision_option.gd" id="1_opt"]
+[ext_resource type="Script" uid="uid://d4gtrfhv2pg5o" path="res://scripts/decisions/decision_definition.gd" id="2_def"]
+[ext_resource type="Resource" path="res://data/simulation/queue_printer.tres" id="3_queue"]
+
+[sub_resource type="Resource" id="Resource_line"]
+script = ExtResource("1_opt")
+text = "Hacer la fila e imprimir el informe"
+money = 2.0
+queue = ExtResource("3_queue")
+
+[sub_resource type="Resource" id="Resource_friend"]
+script = ExtResource("1_opt")
+text = "Pedirle a un compañero que lo imprima (le invitas un tinto)"
+money = -1.0
+risk_chance = 0.3
+risk_text = "se le olvida y te toca imprimirlo tarde"
+risk_time = -5.0
+
+[sub_resource type="Resource" id="Resource_shop"]
+script = ExtResource("1_opt")
+text = "Imprimirlo en la papelería de la esquina"
+money = -2.0
+energy = -4.0
+
+[resource]
+script = ExtResource("2_def")
+id = "QUEUE-PRINTER"
+speaker_name = "Impresora"
+prompt = "Hay que imprimir el informe y la impresora tiene fila. ¿Qué haces?"
+options = Array[ExtResource("1_opt")]([SubResource("Resource_line"), SubResource("Resource_friend"), SubResource("Resource_shop")])

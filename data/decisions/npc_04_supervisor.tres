@@ -6,6 +6,9 @@
 [sub_resource type="Resource" id="Resource_2awi1"]
 script = ExtResource("1_j18ue")
 text = "Aceptar el turno extra"
+risk_chance = 0.3
+risk_text = "el cansancio te hace equivocarte y repites el cierre"
+risk_time = -6.0
 money = 10.0
 energy = -15.0
 time = -10.0
@@ -13,6 +16,9 @@ time = -10.0
 [sub_resource type="Resource" id="Resource_k8f24"]
 script = ExtResource("1_j18ue")
 text = "Pedir salir temprano"
+risk_chance = 0.4
+risk_text = "la supervisora se molesta y te descuenta"
+risk_money = -3.0
 money = -5.0
 energy = 5.0
 time = 10.0

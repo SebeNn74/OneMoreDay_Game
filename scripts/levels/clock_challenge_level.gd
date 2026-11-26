@@ -34,6 +34,8 @@ func _ready() -> void:
 	_delivery_point.enabled = false  # Unlocks with all the folders.
 	Simulation.set_time_cost_over(config.time_cost, config.duration_seconds)
 	_spawn_folders()
+	for hostile: Node in find_children("*", "Hostile", true, false):
+		(hostile as Hostile).speed_scale = config.hostile_speed_scale
 
 	EventBus.item_used.connect(_on_item_used)
 	EventBus.hostile_hit.connect(_on_hostile_hit)
@@ -76,6 +78,23 @@ func _spawn_folder(world_position: Vector2) -> void:
 	pickup.item = config.folder_item  # Before add_child: the pickup reads it in _ready().
 	_interactables.add_child(pickup)
 	pickup.global_position = world_position
+
+
+## Nearest folder still lying around, then the delivery point, then the exit.
+func get_guide_target() -> Variant:
+	if not _exit_zone.locked:
+		return super()
+	if _delivery_point.enabled:
+		return _delivery_point.global_position
+	var player_position: Vector2 = _player.global_position
+	var nearest: Variant = null
+	for node: Node in _interactables.get_children():
+		var pickup: ItemPickup = node as ItemPickup
+		if pickup == null or not pickup.enabled or pickup.item != config.folder_item:
+			continue
+		if nearest == null or player_position.distance_to(pickup.global_position) < player_position.distance_to(nearest):
+			nearest = pickup.global_position
+	return nearest
 
 
 func _show_intro() -> void:

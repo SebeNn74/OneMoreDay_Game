@@ -10,3 +10,5 @@ const MOVE_RIGHT: StringName = &"move_right"
 const INTERACT: StringName = &"interact"
 const RUN: StringName = &"run"
 const PAUSE: StringName = &"pause"
+## Shows or hides the panel of the five models. Added at runtime by Settings (key M, gamepad Back).
+const TOGGLE_MODELS: StringName = &"toggle_models"

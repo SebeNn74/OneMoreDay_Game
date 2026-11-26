@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_hostile")
 chases = true
-vision_radius = 1
-chase_probability = 0.6
-lose_margin = 2
+vision_radius = 4
+chase_probability = 0.75
+lose_margin = 3
 patrol = ExtResource("2_walk")

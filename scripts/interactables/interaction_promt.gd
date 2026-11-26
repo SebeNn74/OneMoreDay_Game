@@ -2,7 +2,6 @@ class_name InteractionPrompt
 extends Node2D
 ## Floating "[E] action" hint above the interactable in focus.
 
-const KEY_LABEL: String = "E"
 const DRAW_ORDER: int = 100
 
 @onready var _label: Label = $Label
@@ -27,6 +26,7 @@ func on_focus_changed(target: Interactable) -> void:
 
 
 func _build_text(action_text: String) -> String:
+	var key: String = Settings.key_name(InputActions.INTERACT)
 	if action_text.is_empty():
-		return "[%s]" % KEY_LABEL
-	return "[%s] %s" % [KEY_LABEL, action_text]
+		return "[%s]" % key
+	return "[%s] %s" % [key, action_text]
