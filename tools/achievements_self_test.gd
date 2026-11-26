@@ -51,6 +51,19 @@ func _initialize() -> void:
 		and reloaded.has_section_key("unlocked", "ending_V-06"))
 	achievements.reset()
 
+	# A thief empties your pocket: the money at 0 ends the day before the hit says it was a theft.
+	root.get_node("RunLog").reset()
+	var thief: HostileDefinition = HostileDefinition.new()
+	thief.hit_money = -5000.0
+	var money: StatDefinition = root.get_node("StatsManager").get_definition(StatDefinition.Type.MONEY)
+	bus.stat_changed.emit(StatDefinition.Type.MONEY, 0.0, -5000.0)
+	bus.day_finished.emit(DayResult.new(false, money))
+	bus.hostile_hit.emit(thief)
+	await process_frame
+	_check("robbed to 0: Descuido, like the ending screen", achievements.is_unlocked("ending_D-04"))
+	_check("robbed to 0: not Bolsillo vacío", not achievements.is_unlocked("ending_D-01"))
+	achievements.reset()
+
 	print("RESULT: %s" % ("all checks passed" if _failed == 0 else "%d checks FAILED" % _failed))
 	quit(_failed)
 

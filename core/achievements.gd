@@ -85,8 +85,13 @@ func _on_risk_drawn(_option: DecisionOption, happened: bool, _draw: float) -> vo
 
 
 ## The ending is decided here with the same rules as the ending screen, so its achievement shows up
-## at once, over the "¡Llegaste a casa!" fade.
+## at once, over the "¡Llegaste a casa!" fade. Deferred to the end of the frame: a theft that empties
+## the money ends the day before the hit or event that tells RunLog it was a theft (D-04, not D-01).
 func _on_day_finished(result: DayResult) -> void:
+	_resolve_day.call_deferred(result)
+
+
+func _resolve_day(result: DayResult) -> void:
 	var summary: RunSummary = RunLog.build_summary(result)
 	on_day_ended(EndingResolver.resolve(summary, CATALOG).id, summary)
 

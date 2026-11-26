@@ -2,6 +2,49 @@
 
 Roguelike 2D top-down en pixel art. Motor: Godot 4.x (GDScript).
 
+## Cómo ejecutar
+Requisito: [Godot 4.7](https://godotengine.org/download) (versión estándar, no .NET). El proyecto usa el renderer
+GL Compatibility, así que corre en casi cualquier PC.
+
+**Desde el editor**
+1. Abrir Godot > Importar > seleccionar `project.godot` de esta carpeta > Importar y editar.
+   La primera vez tarda unos segundos importando los recursos.
+2. F5 (o el botón ▶ arriba a la derecha) arranca el juego desde el menú principal.
+   F6 corre solo la escena abierta (útil para probar un nivel o un final con Preview Ending Id).
+
+**Desde la terminal** (cambiar `godot` por la ruta del ejecutable si no está en el PATH)
+
+```
+godot --path .
+```
+
+**Exportar un .exe (Windows)**
+Editor > Proyecto > Exportar > Añadir > Windows Desktop > Exportar proyecto. La primera vez Godot pide descargar
+las plantillas de exportación (Editor > Administrar plantillas de exportación > Descargar e instalar).
+
+**Pruebas automáticas** (cada una imprime `RESULT: all checks passed`)
+
+```
+godot --headless --path . -s res://tools/simulation_self_test.gd
+godot --headless --path . -s res://tools/ending_self_test.gd
+godot --headless --path . -s res://tools/achievements_self_test.gd
+godot --headless --path . -s res://tools/settings_self_test.gd
+godot --headless --path . -s res://tools/bandit_walk_self_test.gd
+godot --headless --path . -s res://tools/letter_queue_self_test.gd
+```
+
+**Módulo standalone del modelo 3 (Python 3.10+)**
+
+```
+pip install numpy scipy matplotlib
+python simulation_standalone/jimenez_poveda_modelo3_montecarlo_mcmc.py
+```
+
+Guarda las tablas de validación y los gráficos en `simulation_standalone/salidas_modelo3/`.
+
+Los logros y las opciones se guardan en `%APPDATA%\Godot\app_userdata\One More Day\` (borrar `achievements.cfg`
+reinicia los logros).
+
 ## Resolución
 Interna 640x360, ventana 1280x720, filtro de textura Nearest. Stretch "canvas_items" (escala entera): el arte se
 ve igual (x2, Nearest), pero el texto se dibuja a la resolución de la ventana, así la letra pequeña es legible.
@@ -240,7 +283,8 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
 - Achievements (Autoload, core/achievements.gd): un logro por final y tres más (Intocable: ganar sin golpes;
   Apostador: salir bien de 3 riesgos en un día; Coleccionista: todos los finales). Se guardan en
   user://achievements.cfg. Se desbloquean apenas se ganan: Apostador al tercer riesgo superado (EventBus.risk_drawn)
-  y los de final en EventBus.day_finished (el final se decide con EndingResolver, igual que la pantalla final).
+  y los de final en EventBus.day_finished (el final se decide con EndingResolver, igual que la pantalla final,
+  al terminar ese frame: así un robo que deja el dinero en 0 ya quedó anotado y da D-04, no D-01).
   El aviso es un banner arriba al centro que entra con rebote; si son varios salen uno tras otro.
   Pantalla LOGROS en el menú principal (scripts/ui/achievements_menu.gd).
 - Prueba: godot --headless --path . -s res://tools/achievements_self_test.gd (usa su propio archivo).
