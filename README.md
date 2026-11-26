@@ -318,7 +318,7 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
 - RunLog (Autoload, último de la lista) anota ayudas (V-03), El Marcador (V-04, D-05) y robos (D-04) y arma el RunSummary.
 - EndingCatalog (data/endings/ending_catalog.tres) guarda los 11 finales y los umbrales. Se genera desde la tabla de
   tools/generate_ending_catalog.gd (sobrescribe el .tres): ahí se cambian textos, imágenes y umbrales.
-- EndingScreen (scenes/end_screens/ending_screen.tscn) sirve para victoria y derrota. Muestra el resumen del día
+- EndingScreen (scenes/end_screens/ending_sreen.tscn) sirve para victoria y derrota. Muestra el resumen del día
   (recursos finales, decisiones, eventos, golpes y riesgos, de RunSummary) y botones para el ratón. El final se decide al abrirla.
   Con F6 y Preview Ending Id se ve cualquier final sin jugar.
 - D-04: dinero a 0 justo después de EV-20 o del golpe de un hostil que quita dinero.
