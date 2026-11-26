@@ -124,6 +124,9 @@ Project Settings > Layer Names > 2D Physics.
 
 Mando: cruceta o stick izquierdo para moverse, A interactuar, RB correr, Start pausa.
 
+Menú principal: flechas para elegir; Enter o la tecla de interactuar (E) seleccionan. La pista de abajo lo dice
+(scripts/ui/main_menu.gd).
+
 ## Opciones
 - OptionsMenu (scripts/ui/options_menu.gd, se arma en código) se abre desde el menú principal y la pausa:
   volumen de música y efectos, pantalla completa y reasignación de teclas (clic en la tecla y pulsar otra;
