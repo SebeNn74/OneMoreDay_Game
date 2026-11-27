@@ -331,7 +331,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--seed", type=int, default=12345)
     parser.add_argument("--samples", type=int, default=20000)
-    parser.add_argument("--out", type=Path, default=Path(__file__).with_name("salidas_modelo3"))
+    parser.add_argument("--out", type=Path, default=Path(__file__).with_name("resultados"))
     args = parser.parse_args()
 
     print("=" * 78)
