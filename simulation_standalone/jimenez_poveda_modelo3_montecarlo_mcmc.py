@@ -28,10 +28,15 @@ Uso
 import argparse
 import getpass
 import math
+import sys
 from datetime import datetime
 from pathlib import Path
 
 import matplotlib
+
+# The output has Greek letters (π, λ, χ²): Windows writes redirected output (> file, pipes) in cp1252,
+# which has none of them and crashes. UTF-8 always.
+sys.stdout.reconfigure(encoding="utf-8")
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

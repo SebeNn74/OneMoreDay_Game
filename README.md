@@ -33,14 +33,32 @@ godot --headless --path . -s res://tools/bandit_walk_self_test.gd
 godot --headless --path . -s res://tools/letter_queue_self_test.gd
 ```
 
-**Módulo standalone del modelo 3 (Python 3.10+)**
+**Modelos standalone (Python 3.10+)**
+
+Los cinco modelos corren aparte del juego, con el generador congruencial lineal del Taller 1
+(`prng.py` sobre `punto3_generadores_pseudoaleatorios/`). Cada uno valida 3 configuraciones contra la teoría
+(teórico, simulado, IC 95 %, diferencia %), imprime fecha, hora y usuario, y guarda un CSV y un gráfico
+en `simulation_standalone/resultados/`.
+
+```
+pip install matplotlib
+cd simulation_standalone
+python jimenez_poveda_modelo1_colas.py
+python jimenez_poveda_modelo2_caminata.py
+python jimenez_poveda_modelo3_montecarlo.py
+python jimenez_poveda_modelo4_agentes.py
+python jimenez_poveda_modelo5_dinamica.py
+```
+
+Opciones: `--seed N` cambia la semilla y `--no-show` guarda el gráfico sin abrir la ventana (`-h` lista el resto).
+
+El sorteo de eventos del juego usa además Metropolis-Hastings (MCMC); su validación aparte necesita numpy y scipy y
+guarda sus gráficos en `simulation_standalone/salidas_modelo3/`:
 
 ```
 pip install numpy scipy matplotlib
-python simulation_standalone/jimenez_poveda_modelo3_montecarlo_mcmc.py
+python jimenez_poveda_modelo3_montecarlo_mcmc.py
 ```
-
-Guarda las tablas de validación y los gráficos en `simulation_standalone/salidas_modelo3/`.
 
 Los logros y las opciones se guardan en `%APPDATA%\Godot\app_userdata\One More Day\` (borrar `achievements.cfg`
 reinicia los logros).
@@ -159,8 +177,10 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
 - Prueba: godot --headless --path . -s res://tools/simulation_self_test.gd
 - Monte Carlo (modelo 3): los eventos se sortean con Metropolis-Hastings (MCMC, MetropolisSampler).
   EventCatalog.mcmc_steps = 10 pasos por sorteo; 0 vuelve al sorteo directo (Monte Carlo clásico).
-- Módulos standalone en simulation_standalone/ (Godot lo ignora por .gdignore). Modelo 3:
-  python simulation_standalone/jimenez_poveda_modelo3_montecarlo_mcmc.py (validación + gráficos en salidas_modelo3/).
+- Módulos standalone en simulation_standalone/ (Godot lo ignora por .gdignore): los cinco modelos
+  (jimenez_poveda_modelo1..5_*.py, ver "Cómo ejecutar") y la validación del MCMC del modelo 3
+  (jimenez_poveda_modelo3_montecarlo_mcmc.py). Imprimen en UTF-8 (common.py) para que redirigir la salida a un
+  archivo no falle en Windows.
 
 ## Dinámica de recursos (modelo 5)
 - PlayerSimulationBridge (hijo de Player) reporta la actividad a Simulation cada frame y aplica el factor de fatiga a Player.speed_multiplier.
