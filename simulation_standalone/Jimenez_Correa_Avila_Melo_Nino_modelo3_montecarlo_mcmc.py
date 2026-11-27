@@ -21,8 +21,8 @@ Generador: congruencial lineal del Taller 1 (a = 1664525, c = 1013904223, m = 2^
 que core/simulation.gd del juego, de modo que una semilla da los mismos eventos en Python y Godot.
 
 Uso
-    python jimenez_poveda_modelo3_montecarlo_mcmc.py              # validación completa + gráficos
-    python jimenez_poveda_modelo3_montecarlo_mcmc.py --seed 777 --out resultados
+    python Jimenez_Correa_Avila_Melo_Nino_modelo3_montecarlo_mcmc.py              # validación completa + gráficos
+    python Jimenez_Correa_Avila_Melo_Nino_modelo3_montecarlo_mcmc.py --seed 777 --out resultados
 """
 
 import argparse

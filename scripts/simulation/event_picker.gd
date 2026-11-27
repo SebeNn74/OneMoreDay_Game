@@ -1,7 +1,7 @@
 class_name EventPicker
 extends RefCounted
 ## Monte Carlo event selection. Port of draw_without_replacement() in
-## simulation_standalone/jimenez_poveda_modelo3_montecarlo_mcmc.py: weighted draw without
+## simulation_standalone/Jimenez_Correa_Avila_Melo_Nino_modelo3_montecarlo_mcmc.py: weighted draw without
 ## replacement, so an event never repeats in the same day (tab 5 Reglas).
 ## Each draw samples π_i = w_i / Σw over the events still available in the stage, either directly
 ## (EventCatalog.mcmc_steps = 0) or with a Metropolis-Hastings chain (MetropolisSampler).
