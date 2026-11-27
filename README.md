@@ -53,7 +53,7 @@ python jimenez_poveda_modelo5_dinamica.py
 Opciones: `--seed N` cambia la semilla y `--no-show` guarda el gráfico sin abrir la ventana (`-h` lista el resto).
 
 El sorteo de eventos del juego usa además Metropolis-Hastings (MCMC); su validación aparte necesita numpy y scipy y
-guarda sus gráficos en `simulation_standalone/salidas_modelo3/`:
+guarda sus gráficos en `simulation_standalone/resultados/`, junto a los otros modelos:
 
 ```
 pip install numpy scipy matplotlib
