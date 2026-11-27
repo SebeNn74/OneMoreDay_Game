@@ -1,6 +1,6 @@
 class_name RandomWalk
 extends RefCounted
-## Grid random walk. Port of step() in simulation_standalone/correa_barreto_modelo2_caminata.py.
+## Grid random walk. Port of step() in simulation_standalone/Jimenez_Correa_Avila_Melo_Nino_modelo2_caminata.py.
 ## Cells are tiles (Vector2i); the caller converts them to positions.
 
 

@@ -11,7 +11,7 @@ generaliza la de Taller 1 punto 2 (int(r * 4)) a probabilidades distintas por di
 Unidades: celdas (en el juego, 1 celda = 1 tile).
 
 Uso:
-    python correa_barreto_modelo2_caminata.py [--seed N] [--walkers N] [--steps N] [--no-show]
+    python Jimenez_Correa_Avila_Melo_Nino_modelo2_caminata.py [--seed N] [--walkers N] [--steps N] [--no-show]
 """
 import argparse
 import csv

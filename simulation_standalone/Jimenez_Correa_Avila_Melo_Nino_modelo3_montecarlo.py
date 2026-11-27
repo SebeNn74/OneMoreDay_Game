@@ -11,7 +11,7 @@ Tipología: simulación Monte Carlo estática por réplicas (cada réplica = una
 PRNG: congruencial lineal del Taller 1, punto 3 (ver prng.py).
 
 Uso:
-    python jimenez_poveda_modelo3_montecarlo.py [--seed N] [--days N] [--no-show]
+    python Jimenez_Correa_Avila_Melo_Nino_modelo3_montecarlo.py [--seed N] [--days N] [--no-show]
 """
 import argparse
 import csv

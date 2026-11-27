@@ -1,6 +1,6 @@
 class_name QueueModel
 extends RefCounted
-## M/M/1 queue. Port of simulation_standalone/avila_avila_modelo1_colas.py
+## M/M/1 queue. Port of simulation_standalone/Jimenez_Correa_Avila_Melo_Nino_modelo1_colas.py
 ## (theoretical metrics and sample_player_wait).
 
 
