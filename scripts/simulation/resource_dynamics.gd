@@ -1,7 +1,7 @@
 class_name ResourceDynamics
 extends RefCounted
 ## Continuous flows of energy and time (model 5). Port of derivatives() and euler_step() in
-## simulation_standalone/jimenez_poveda_modelo5_dinamica.py.
+## simulation_standalone/nino_nino_modelo5_dinamica.py.
 ##   dT/dt = -c (the clock always runs)
 ##   dE/dt = -k (walk), -k * run_drain_factor (run), 0 (idle), r (E_max - E) (rest)
 ## The caller integrates with Euler: change = rate * delta, applied through StatsManager.

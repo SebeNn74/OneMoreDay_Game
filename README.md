@@ -43,11 +43,11 @@ en `simulation_standalone/resultados/`.
 ```
 pip install matplotlib
 cd simulation_standalone
-python jimenez_poveda_modelo1_colas.py
-python jimenez_poveda_modelo2_caminata.py
+python avila_avila_modelo1_colas.py
+python correa_barreto_modelo2_caminata.py
 python jimenez_poveda_modelo3_montecarlo.py
-python jimenez_poveda_modelo4_agentes.py
-python jimenez_poveda_modelo5_dinamica.py
+python melo_avellaneda_modelo4_agentes.py
+python nino_nino_modelo5_dinamica.py
 ```
 
 Opciones: `--seed N` cambia la semilla y `--no-show` guarda el gráfico sin abrir la ventana (`-h` lista el resto).
@@ -178,7 +178,7 @@ dinámica muestra en vivo los flujos de energía y tiempo por segundo y el facto
 - Monte Carlo (modelo 3): los eventos se sortean con Metropolis-Hastings (MCMC, MetropolisSampler).
   EventCatalog.mcmc_steps = 10 pasos por sorteo; 0 vuelve al sorteo directo (Monte Carlo clásico).
 - Módulos standalone en simulation_standalone/ (Godot lo ignora por .gdignore): los cinco modelos
-  (jimenez_poveda_modelo1..5_*.py, ver "Cómo ejecutar") y la validación del MCMC del modelo 3
+  (apellido1_apellido2_modeloN_*.py, uno por integrante; ver "Cómo ejecutar") y la validación del MCMC del modelo 3
   (jimenez_poveda_modelo3_montecarlo_mcmc.py). Imprimen en UTF-8 (common.py) para que redirigir la salida a un
   archivo no falle en Windows.
 
