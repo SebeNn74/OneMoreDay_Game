@@ -21,7 +21,7 @@ Tipología: simulación continua (EDO) integrada con Euler explícito.
 PRNG: congruencial lineal del Taller 1, punto 3, solo para los eventos de la jornada.
 
 Uso:
-    python jimenez_poveda_modelo5_dinamica.py [--seed N] [--dt S] [--no-show]
+    python nino_nino_modelo5_dinamica.py [--seed N] [--dt S] [--no-show]
 """
 import argparse
 import csv

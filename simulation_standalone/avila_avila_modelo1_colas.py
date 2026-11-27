@@ -8,7 +8,7 @@ PRNG: congruencial lineal del Taller 1, punto 3 (ver prng.py).
 Unidades: minutos de juego.
 
 Uso:
-    python jimenez_poveda_modelo1_colas.py [--seed N] [--customers N] [--reps N] [--no-show]
+    python avila_avila_modelo1_colas.py [--seed N] [--customers N] [--reps N] [--no-show]
 """
 import argparse
 import csv

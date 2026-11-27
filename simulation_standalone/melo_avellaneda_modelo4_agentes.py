@@ -13,7 +13,7 @@ Tipología: simulación basada en agentes, de tiempo discreto (ticks).
 PRNG: congruencial lineal del Taller 1, punto 3 (ver prng.py).
 
 Uso:
-    python jimenez_poveda_modelo4_agentes.py [--seed N] [--crossings N] [--no-show]
+    python melo_avellaneda_modelo4_agentes.py [--seed N] [--crossings N] [--no-show]
 """
 import argparse
 import csv
@@ -22,7 +22,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 
 from common import confidence_interval, print_header, stamp
-from jimenez_poveda_modelo2_caminata import SYMMETRIC, is_free, step
+from correa_barreto_modelo2_caminata import SYMMETRIC, is_free, step
 from prng import LCG
 
 PATROL, CHASE, COOLDOWN = "patrullar", "perseguir", "enfriamiento"

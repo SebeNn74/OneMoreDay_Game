@@ -1,7 +1,7 @@
 class_name HostileBrain
 extends RefCounted
 ## Agent rules of a hostile. Port of update_hostile() and chase_step() in
-## simulation_standalone/jimenez_poveda_modelo4_agentes.py.
+## simulation_standalone/melo_avellaneda_modelo4_agentes.py.
 ## State machine: PATROL -> CHASE (player within vision) -> COOLDOWN (after hitting).
 ## Here COOLDOWN only ends with reset(). In the game, Hostile calls reset() after
 ## HostileDefinition.hit_cooldown_seconds, so a hostile can hit again (the standalone
